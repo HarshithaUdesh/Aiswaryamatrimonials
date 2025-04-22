@@ -134,7 +134,7 @@ export class RegisterPage implements OnInit {
           });
           await toast.present();
           this.styleToast(toast);
-          this.router.navigate(['login']);
+          this.router.navigate(['verifyotp']);
         }
         else {
           const toast = await this.toastCtrl.create({

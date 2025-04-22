@@ -51,7 +51,8 @@ async onSubmit() {
       console.log(data.success,data)
       if (data.success === true) {
         // const user = data.data.userData[0]; 
-        this.router.navigate(['login']);
+        localStorage.setItem("email",this.emailorphn)
+        this.router.navigate(['verifyotp']);
         this.emailorphn = '';
       }
       else {

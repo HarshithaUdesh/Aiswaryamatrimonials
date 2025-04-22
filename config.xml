@@ -21,9 +21,11 @@
     <platform name="android">
         <preference name="Scheme" value="http" />
         <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/splash.png" />
-        <preference name="AndroidWindowSplashScreenBackground" value="#ffff" />
+        <preference name="AndroidWindowSplashScreenBackground" value="#ff5f6d" />
         <preference name="ShowSplashScreenSpinner" value="true" />
         <preference name="AutoHideSplashScreen" value="true" />
+        <preference name="SplashScreenBackgroundColor" value="#ff5f6d" />
+        <preference name="SplashMaintainAspectRatio" value="true" />
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
             <application android:networkSecurityConfig="@xml/network_security_config" />
         </edit-config>

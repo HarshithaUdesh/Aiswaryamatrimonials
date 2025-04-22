@@ -63,11 +63,13 @@ async onLogin() {
         await loading.dismiss();
         console.log(data.success,data)
         if (data.success === true) {
-          const user = data.data; 
+          const user = data.data.userData[0]; 
            localStorage.setItem("username", user.UserName);
           localStorage.setItem("userid", user.UserID.toString());
           localStorage.setItem("registerno", user.RegisterNo);
           localStorage.setItem("mobile", user.MobileNo);
+          localStorage.setItem("email", user.EmailID);
+
           this.router.navigate(['home']);
           this.emailorphn = '';
           this.password = '';
