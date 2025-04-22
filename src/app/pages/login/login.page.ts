@@ -18,6 +18,7 @@ export class LoginPage implements OnInit {
   constructor(public router: Router, public service: ServicesService, public toastCtrl: ToastController,public loadingCtrl: LoadingController) { }
  
   ngOnInit() {
+    console.log("check")
   }
 
 async onLogin() {
