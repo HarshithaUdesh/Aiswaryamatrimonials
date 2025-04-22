@@ -1,0 +1,13 @@
+<ion-content class="login-background">
+  <div class="login-card">
+    <h2 class="login-title">Forgot password</h2>
+    <ion-item lines="none">
+      <ion-label position="floating">Email / Phone</ion-label>
+      <ion-input type="text"   [(ngModel)]="emailorphn"    aria-label="Custom input" placeholder="Email or Phone Number" class="custom" ></ion-input>
+    </ion-item>
+     <ion-button expand="block" class="login-button" (click)="onSubmit()">Submit</ion-button>
+   <div class="signup-text">
+      Don't have an account? <span  class="secondarycolor" (click)="handlenav()">Sign Up</span> 
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,28 @@
+<ion-content class="login-background">
+  <div class="login-card">
+    <h2 class="login-title">Login</h2>
+    <p class="login-subtitle">Welcome back! Please enter your credentials to access your account.</p>
+
+    <ion-item lines="none">
+      <ion-label position="floating">Email / Phone<span style="color: red;font-size: 20px;">*</span></ion-label>
+      <ion-input type="text"   [(ngModel)]="emailorphn"    aria-label="Custom input" placeholder="Email or Phone Number" class="custom" ></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label position="floating">Password<span style="color: red;font-size: 20px;">*</span></ion-label>
+      <ion-input aria-label="Custom input"  [(ngModel)]="password" [type]="showPassword ? 'text' : 'password'" placeholder="Password"  class="custom" >
+        <ion-icon slot="end" name="eye" (click)="togglePasswordVisibility()" class="eye-icon"></ion-icon>
+      </ion-input>
+       </ion-item>
+
+    <ion-button expand="block" class="login-button" (click)="onLogin()">Login</ion-button>
+
+    <div class="login-links" (click)="gotoforgot()">
+      <div href="#">Forgot Password?</div>
+    </div>
+
+    <div class="signup-text">
+      Don't have an account? <span  class="secondarycolor" (click)="togosignup()">Sign Up</span> 
+    </div>
+  </div>
+</ion-content>
