@@ -1,0 +1,7 @@
+{
+  "name": "Aiswaryamatrimonials",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
