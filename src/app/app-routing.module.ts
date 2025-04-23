@@ -47,7 +47,11 @@ const routes: Routes = [
   {
     path: 'subscription',
     loadChildren: () => import('./pages/subscription/subscription.module').then( m => m.SubscriptionPageModule)
+  },  {
+    path: 'privacy',
+    loadChildren: () => import('./pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
   },
+
 
 
 ];
