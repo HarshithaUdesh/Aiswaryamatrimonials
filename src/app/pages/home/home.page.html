@@ -16,3 +16,169 @@
     </ion-toolbar>
   </ion-header>
 
+  <ion-content class="ion-padding">
+    <div class="header-banner">
+      <ion-row>
+      <ion-col size="12">
+        <swiper-container [loop]="true" autoplay-delay="1000">
+          <swiper-slide >
+            <img src="assets/imgs/banner1.jpg" alt="Wedding Banner" />
+           </swiper-slide>
+          <swiper-slide >
+             <img src="assets/imgs/banner2.jpg" alt="Wedding Banner" />
+            
+          </swiper-slide>
+          <swiper-slide >
+            <img src="assets/imgs/banner3.jpg" alt="Wedding Banner" />
+            
+          </swiper-slide>
+        </swiper-container>
+      </ion-col>
+    </ion-row>
+    </div>
+  
+    <div class="filter-container">
+      <ion-button fill="outline" size="small" color="primary" (click)="handleModel()">
+        <ion-icon name="funnel-outline"></ion-icon>
+        Filter
+      </ion-button>
+    </div>
+
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let profile of profiles">
+          <ion-card class="profile-card">
+           
+            <ion-card-content>
+              <h2 class="name">{{ profile.name }}</h2>
+              <p class="gender">{{ profile.gender }}</p>
+              <p class="age">{{ profile.age }}</p>
+              <p class="profession">
+                <ion-icon name="briefcase-outline"></ion-icon>
+                {{ profile.profession }}
+              </p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+
+
+
+  <ion-modal [isOpen]="openModal"   class='bottom-sheet'  [backdropDismiss]="false">
+    <ng-template >
+      <ion-content class="login-background">
+       
+        <div class="login-card">
+          <div style="align-items:end" (click)="closemodal()">
+            <ion-icon name="close-outline" style="    color: white;
+            text-align: right;
+            width: 100%;
+            font-size: 28px;
+            padding-top: 5px;
+            margin-left: 36%;
+        "></ion-icon>
+          </div>
+          
+        <h2><strong>Filter</strong></h2>
+       
+      
+        <ion-item lines="none">
+          <ion-label position="stacked"> Partner </ion-label>
+          <ion-select
+            [(ngModel)]="filter.partner"
+            aria-label="Partner"
+            placeholder="Select"
+            class="custom"
+            style="color: black"
+          >
+            <ion-select-option *ngFor="let p of partnerOptions" [value]="p.partnerName" style="--background: #ca2323;" class="custom" >
+              {{ p.partnerName }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        
+
+<!-- <ion-item lines="none">
+  <ion-label position="stacked"> Gender </ion-label>
+  <ion-select
+    [(ngModel)]="filter.Gender"
+    aria-label="Gender"
+    placeholder="Select"
+    class="custom"
+    style="color: black"
+  >
+    <ion-select-option *ngFor="let g of genderOptions" [value]="g.GenderType" style="--background: #ca2323;" class="custom" >
+      {{ g.GenderType }}
+    </ion-select-option>
+  </ion-select>
+</ion-item> -->
+
+<!-- Location -->
+<ion-item lines="none" style="">
+  <ion-label position="stacked">
+    Select Location <span style="color: red; font-size: 20px;">*</span>
+  </ion-label>
+  <ion-select
+    [(ngModel)]="filter.Location"
+    aria-label="Location"
+    placeholder="Select"
+    class="custom"
+    style="color: black"
+  >
+    <ion-select-option *ngFor="let l of locationOptions" [value]="l.Id" style="--background: #ca2323;">
+      {{ l.Name }}
+    </ion-select-option>
+  </ion-select>
+</ion-item>
+
+<!-- Caste -->
+<ion-item lines="none">
+  <ion-label position="stacked">
+    Select Caste <span style="color: red; font-size: 20px;">*</span>
+  </ion-label>
+  <ion-select
+    [(ngModel)]="filter.CasteOrCommunity"
+    aria-label="Caste"
+    placeholder="Select"
+    class="custom"
+    style="color: black"
+  >
+    <ion-select-option *ngFor="let c of casteOptions" [value]="c.casteOrCommunity" style="--background: #ca2323;">
+      {{ c.casteOrCommunity }}
+    </ion-select-option>
+  </ion-select>
+</ion-item>
+
+<!-- Age -->
+<ion-item lines="none">
+  <ion-label position="stacked">Age Between</ion-label>
+  <ion-row style="width: 100%;">
+    <ion-col size="6" style="width:50%">
+      <ion-select placeholder="Min Age"   style="color: black" class="custom" [(ngModel)]="filter.MinAge">
+        <ion-select-option *ngFor="let age of minAgeList" [value]="age">
+          {{ age }}
+        </ion-select-option>
+      </ion-select>
+    </ion-col>
+    <ion-col size="6" style="width:50%">
+      <ion-select placeholder="Max Age"  style="color: black" class="custom" [(ngModel)]="filter.MaxAge">
+        <ion-select-option *ngFor="let age of maxAgeList" [value]="age">
+          {{ age }}
+        </ion-select-option>
+      </ion-select>
+    </ion-col>
+  </ion-row>
+</ion-item>
+
+<ion-button expand="block" class="login-button" (click)="applyFilters()">Apply Filters</ion-button>
+        <ion-button expand="block" class="reset-button"   (click)="resetFilters()">Reset Filters</ion-button>
+      </div>
+      </ion-content>
+ 
+    </ng-template>
+  </ion-modal>
+  
+
