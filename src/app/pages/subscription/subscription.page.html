@@ -1,13 +1,173 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>subscription</ion-title>
+    <ion-title>Subscription</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">subscription</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+
+  <ion-segment [(ngModel)]="selectedOption" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="subscription">
+      <ion-label>Subscription</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="myplan">
+      <ion-label>My Plan</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="selectedOption === 'subscription'">
+    <ion-card *ngFor="let item of subslist" class="cardstyle">
+      <ion-card-content>
+        <div class="cardheader">{{item.SchemaName}}</div>
+      </ion-card-content>
+      <ion-row>
+        <ion-col size="6">
+          <div class="contectheader">No.of Profiles</div>
+          <div class="contentvalue">{{item.NumProfiles}}</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="contectheader">No.of Day</div>
+          <div class="contentvalue">{{item.NumberofDays}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <div class="contectheader">Description</div>
+          <div class="contentvalue">{{item.Description}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <div class="contectheader" *ngIf="item.Cost == '0'">Cost : Free</div>
+          <div class="contectheader" *ngIf="item.Cost != '0'">Cost :    &#8377; {{item.Cost}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-card class="cardstyle">
+      <ion-card-header>
+        <div class="cardheader">Note</div>
+        <p class="contectheader" style="text-align: center;font-size: 18px;">To purchase a subscription</p>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="12" style="padding: 0px !important;">
+            <img src="assets/imgs/payment.png" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <div class="contectheader">1. Make a Payment.</div>
+          </ion-col>
+          <ion-col size="12">
+            <div class="contectheader">2. Send the screen short to the admin.</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="12">
+            <div class="contectheader">Contact Admin : </div>
+            <div class="contentvalue"><ion-icon name="mail-outline" style="font-size: 30px;"></ion-icon> admin &#64;gmail.com</div>
+            <div class="contentvalue"><ion-icon name="call-outline" style="font-size: 30px;"></ion-icon> +91 9006543210</div>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="selectedOption === 'myplan'">
+    <ion-card *ngFor="let item of myplanlist" class="cardstyle">
+      <ion-card-header>
+        <div class="cardheader">My Plan</div>
+      </ion-card-header>
+    
+      <ion-card class="myplancard">
+        <ion-row>
+          <ion-col size="12">
+            <div class="mypancontectheader">Plan:</div>
+            <div class="mypancontentvalue">{{item.SchemaName}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card class="myplancard">
+        <ion-row>
+          <ion-col size="12">
+            <div class="mypancontectheader">Allocated Profiles:</div>
+            <div class="mypancontentvalue">{{item.NumProfiles}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card class="myplancard">
+        <ion-row>
+          <ion-col size="12">
+            <div class="mypancontectheader">Profile Viewed:</div>
+            <div class="mypancontentvalue">{{item.TotalProfilesViewed}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+      <ion-card class="myplancard">
+        <ion-row>
+          <ion-col size="12">
+            <div class="mypancontectheader">Balance:</div>
+            <div class="mypancontentvalue">{{item.PlanBalance}}</div>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-card>
+
+    <ion-card class="cardstyle">
+      <ion-card-header>
+        <div class="cardheader">Subscription History</div>
+      </ion-card-header>
+      
+      <div class="container">
+        <div class="item" *ngFor="let item of subshistorylist">
+          <ion-card style="border-radius: 10px;">
+            <ion-row>
+              <ion-col size="12">
+                <div class="mypancontentvalue" style="text-align: center;">{{item.SchemaName}}</div>
+              </ion-col>
+            </ion-row>
+            <ion-card-content>
+              <ion-row>
+                <ion-col size="5">
+                  <div class="mypancontectheader">Purchase Date</div>
+                </ion-col>
+                <ion-col size="1">
+                  <div class="mypancontectheader">:</div>
+                </ion-col>
+                <ion-col size="6">
+                  <div class="mypancontectheader">{{item.StartDate | date:'dd-MM-yyyy'}}</div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="5">
+                  <div class="mypancontectheader">Days</div>
+                </ion-col>
+                <ion-col size="1">
+                  <div class="mypancontectheader">:</div>
+                </ion-col>
+                <ion-col size="6">
+                  <div class="mypancontectheader">{{item.NumberofDays}}</div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="5">
+                  <div class="mypancontectheader">Status:</div>
+                </ion-col>
+                <ion-col size="1">
+                  <div class="mypancontectheader">:</div>
+                </ion-col>
+                <ion-col size="6">
+                  <div *ngIf="item.IsActive == true" class="activedata">Active</div>
+                  <div *ngIf="item.IsActive == false" class="inactivedata">Inactive</div>
+                </ion-col>
+              </ion-row>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
+    </ion-card>
+
+  </div>
+
 </ion-content>
