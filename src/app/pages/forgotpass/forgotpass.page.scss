@@ -1,5 +1,5 @@
 .login-background {
-    --background: url('/assets/loginimage.png') no-repeat center center / cover;
+  --background: url('/assets/imgs/loginimage.png') no-repeat center center / cover;
   
     .login-card {
       background: rgba(0, 0, 0, 0.8);
@@ -19,8 +19,9 @@
         ion-label {
           color: #fff;
           margin-left: 5px;
-          margin-bottom: 1px;
+          margin-top: 15px;
           font-weight: 600;
+          font-size: 20px;
         }
   
         ion-input {
@@ -37,13 +38,13 @@
   
       .login-title {
         font-size: 28px;
-        margin-bottom: 34px;
+        margin-bottom: 13px;
         font-weight: bold;
         color: var(--ion-color-secondary);
       }
   
       .login-subtitle {
-        font-size: 16px;
+        font-size: 17px;
         margin-bottom: 17px;
         color: #fff;
       }
@@ -94,7 +95,7 @@
         --padding-end: 10px;
         --padding-start: 10px;
         --padding-top: 10px;
-        margin-top: 22px;
+        margin-top: 10px;
         border-radius: 5px;
 
       }

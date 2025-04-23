@@ -70,7 +70,7 @@ async onLogin() {
           localStorage.setItem("mobile", user.MobileNo);
           localStorage.setItem("email", user.EmailID);
 
-          this.router.navigate(['home']);
+          this.router.navigate(['tabs/home']);
           this.emailorphn = '';
           this.password = '';
         }

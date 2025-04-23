@@ -2,13 +2,14 @@ import { Component, OnInit ,OnDestroy } from '@angular/core';
 import { ServicesService } from '../../services/services.service';
 import { NavController, Platform, AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { ConnectableObservable } from 'rxjs';
 @Component({
   selector: 'app-verifyotp',
   templateUrl: './verifyotp.page.html',
   styleUrls: ['./verifyotp.page.scss'],
   standalone:false
 })
-export class VerifyotpPage implements OnInit ,OnDestroy {
+export class VerifyotpPage implements OnInit  {
   emailorphn:any;
   otpone: any;
   otptwo: any;
@@ -22,23 +23,31 @@ export class VerifyotpPage implements OnInit ,OnDestroy {
   mobile:any;
   email:any;
   isResendDisabled: boolean = true;
+  userid:any;
   constructor(public router: Router, public service: ServicesService, public toastCtrl: ToastController,public loadingCtrl: LoadingController) {
 
-    
+    this.mobile = localStorage.getItem("mobile");
     this.email = localStorage.getItem("email");
-    this.emailorphn = localStorage.getItem('forgotemailorphn')
+    this.userid = localStorage.getItem('userid');
+    console.log(this.email,this.mobile)
    }
 
 
   ngOnInit() {
+    // this.startTimer();
+  }
+
+  ionViewDidEnter(){
     this.startTimer();
   }
 
-  ngOnDestroy() {
-     if (this.resendTimer) {
+  ionViewWillLeave(){
+    if (this.resendTimer) {
       clearInterval(this.resendTimer);
     }
   }
+
+
   startTimer() {
      this.resendTimer = setInterval(() => {
       if (this.timer > 0) {
@@ -192,6 +201,12 @@ export class VerifyotpPage implements OnInit ,OnDestroy {
  
       if (data.success === true) {
         this.router.navigate(['changepassword']);
+        // if(this.mobile != null  && this.email != null){
+        //   this.router.navigate(['changepassword']);
+        // }else{
+        //   this.router.navigate(['resetpassword']);
+        // }
+        
       }
       else {
         this.otpone ='';

@@ -126,8 +126,9 @@ export class RegisterPage implements OnInit {
     this.service.getPosts(apiurl, req).subscribe(
       async (data) => {
         await loading.dismiss();
-        console.log(data.success,data)
         if (data.success === true) {
+          localStorage.setItem('email', data.data.emailID)
+          localStorage.setItem('mobile',data.data.mobileNo)
           const toast = await this.toastCtrl.create({
             message: data.message,
             duration: 3000

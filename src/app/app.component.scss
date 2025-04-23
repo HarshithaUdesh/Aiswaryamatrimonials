@@ -1,0 +1,21 @@
+ion-header{
+    height: auto;
+    text-align: center;
+    background-color: #531b81;
+    color: #fff;
+}
+
+
+ion-menu ion-content {
+    --background: var(--ion-color-primary);
+  }
+  .list-md{
+    background: var(--ion-color-primary);
+  }
+  .menurowstyle{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #edececbf;
+    height: auto;
+    color: #fff;
+  }

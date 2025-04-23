@@ -1,13 +1,15 @@
 <ion-content class="login-background">
   <div class="login-card">
     <h2 class="login-title">Forgot password</h2>
+    <p class="login-subtitle">Enter your email or phone to reset your password.</p>
+    
     <ion-item lines="none">
-      <ion-label position="floating">Email / Phone</ion-label>
+      <ion-label position="stacked" >Email / Phone</ion-label>
       <ion-input type="text"   [(ngModel)]="emailorphn"    aria-label="Custom input" placeholder="Email or Phone Number" class="custom" ></ion-input>
     </ion-item>
-     <ion-button expand="block" class="login-button" (click)="onSubmit()">Submit</ion-button>
+     <ion-button expand="block" class="login-button" (click)="onSubmit()">Get otp</ion-button>
    <div class="signup-text">
-      Don't have an account? <span  class="secondarycolor" (click)="handlenav()">Sign Up</span> 
+    Remember Password? <span  class="secondarycolor" (click)="handlenav()">login</span> 
     </div>
   </div>
 </ion-content>

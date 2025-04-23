@@ -49,8 +49,7 @@ async onSubmit() {
     async (data) => {
       await loading.dismiss();
       console.log(data.success,data)
-      if (data.success === true) {
-        // const user = data.data.userData[0]; 
+      if (data.success === true) { 
         localStorage.setItem("email",this.emailorphn)
         this.router.navigate(['verifyotp']);
         this.emailorphn = '';
@@ -86,6 +85,6 @@ togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
   handlenav(){
-    this.router.navigate(['register']);
+    this.router.navigate(['login']);
   }
 }
