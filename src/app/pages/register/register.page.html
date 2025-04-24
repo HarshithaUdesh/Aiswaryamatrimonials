@@ -46,10 +46,20 @@
   
 
              <div class="login-links" style="margin-top:10px">
-              <ion-item lines="none" >
-                <ion-checkbox slot="start"  style="margin-top: 10px;"  [(ngModel)]="agreeToTerms"></ion-checkbox>
-                <ion-label>I agree to the <span  class="terms-link">Terms and Conditions</span></ion-label>
-              </ion-item>
+              <ion-row>
+                <ion-col size="2">
+                  <ion-item lines="none" >
+                  <ion-checkbox slot="start"  style="margin-top: 10px;"  [(ngModel)]="agreeToTerms"></ion-checkbox></ion-item>
+                </ion-col>
+                <ion-col size="10" (click)="togoprivacy()">
+                 
+                  <ion-item lines="none"  >
+                    <div>I agree to the <span  class="terms-link">Terms and Conditions</span></div>
+                  </ion-item>
+                </ion-col>
+               
+              </ion-row>
+             
             </div>
              <ion-button expand="block" class="login-button" (click)="signup()">Sign Up</ion-button>
           <div class="signup-text"> Already have an account? <span  class="secondarycolor" (click)="gotologin()">Login</span>   </div>
