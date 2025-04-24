@@ -62,6 +62,10 @@ const routes: Routes = [
   {
     path: 'about',
     loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'subscriptionhistory',
+    loadChildren: () => import('./pages/subscriptionhistory/subscriptionhistory.module').then( m => m.SubscriptionhistoryPageModule)
   }
 
 ];
