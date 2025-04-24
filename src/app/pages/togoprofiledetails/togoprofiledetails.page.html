@@ -1,0 +1,25 @@
+<ion-header class="profile-header" *ngIf="userDetails">
+  <div class="top-icons" >
+    <ion-icon name="arrow-back-outline" class="icon-btn back-btn" (click)="gotoback()"></ion-icon>
+    <div class="right-icons">
+      <div class="image-count">
+        <ion-icon name="image-outline"></ion-icon>
+        <span>9</span>
+      </div>
+      <!-- <ion-icon name="ellipsis-vertical-outline" class="icon-btn"></ion-icon> -->
+    </div>
+  </div>
+
+  <img [src]="userDetails.Profile_Image" class="banner-img" />
+
+  <div class="profile-info-container">
+    <img [src]="userDetails.Profile_Image" class="profile-img" />
+    <div class="profile-text">
+      <!-- <p class="last-seen">Last Seen at 05:49 PM</p> -->
+      <h2>{{userDetails.FullName}}, {{userDetails.Age}} years</h2>
+      <!-- <p>ID - WRYT2709</p> -->
+      <p class="managed-by">{{userDetails.Occupation}}</p>
+    </div>
+  </div>
+</ion-header>
+

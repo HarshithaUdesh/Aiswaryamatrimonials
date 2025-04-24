@@ -28,48 +28,16 @@ ion-menu ion-content {
   margin-bottom: 10px;
 }
 
-.profile-card {
-  border-radius: 20px;
-  overflow: hidden;
-  img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-  }
 
-  .name {
-    color: #e91e63;
-    font-weight: bold;
-    margin: 5px 0;
-  }
-
-  .gender,
-  .age,
-  .profession {
-    font-size: 14px;
-    color: #555;
-  }
-
-  .profession ion-icon {
-    margin-right: 5px;
-    color: gray;
-  }
-
-
-  swiper-container {
-    width: 100%;
-    height: 100%;
-  }
-  
-  swiper-slide {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  
+h2{
+  margin-top: 18px;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #fff;
 }
+
+
+
 .login-card {
   background: rgba(0, 0, 0, 0.8);
   padding: 5px;
@@ -133,33 +101,8 @@ ion-menu ion-content {
     margin-left: 12px;
     padding-right: 12px;
   }
-.signup-text {
-    font-size: 14px;
-    margin-top: 12px;
-    text-align: center;
-    padding-right: 16px;
-    color: var(--ion-color-white);
-    margin-left: 16px;
-    line-height: 16px;
-    padding-bottom: 10px;
-  }
 
-  .login-links{
-    font-size: 15px;
-    margin-top: 12px;
-    text-align: right;
-    padding-right: 16px;
-    color: var(--ion-color-secondary);
-}
-.terms-link {
-    color: var(--ion-color-secondary);
-    text-decoration: underline;
-  }
-  .secondarycolor {
-    color: var(--ion-color-secondary);
-    text-decoration: none;
-    font-size: 17px;
-  }
+
 }
 ion-select.custom {
     --background: #ffff;
@@ -173,5 +116,167 @@ ion-select.custom {
     --padding-top: 10px;
     margin-top: 10px;
     border-radius: 5px;
+
+  }
+  
+ 
+  .transparent-btn {
+    --background: transparent;
+    --color: #000;
+    --border: 1px solid #000;
+    --box-shadow: none;
+    border-radius: 20px;
+    width: 100%;
+  }
+
+  .profile-cardssssss {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    width: 97%;
+   }
+ .horizontal-scroll-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .scroll-container {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .interested-card {
+    position: relative;
+    min-width: 102%;
+    height: 380px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #eee;
+    flex-shrink: 0;
+  
+    .background-image {
+      width: 100%;
+      height: 100%;
+   
+      position: absolute;
+      top: 0;
+      left: 0;
+     
+     }
+  
+    .overlay-content {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 12px;
+      color: white;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2), transparent);
+  
+      .nameoftheuser {
+        font-size: 19px;
+        margin: 0 0 4px;
+        color: white;
+        font-weight: 600;
+        .verified-icon {
+          color: #0ea5e9;
+          font-size: 16px;
+          margin-left: 6px;
+        }
+      }
+  
+    }
+  }
+
+  .horizontal-actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 12px 12px;
+    border-radius: 0 0 16px 16px;
+  }
+  
+  .sentInterest{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 0 0 16px 16px;
+    border-width: 2px solid;
+    padding-top:10px;
+    padding-bottom: 10px;
+  }
+  .action-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .circle-button {
+    width: 50px;
+    height: 50px;
+   
+    font-size: 24px;
+    --padding-start: 0;
+    --padding-end: 0;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .accepted {
+    width: 50px;
+    height: 50px;
+    --background: rgba(34, 197, 94, 0.2); 
+    color: #22c55e; 
+    border-radius: 50%
+
+  }
+  
+  .rejected {
+    --background: rgba(239, 68, 68, 0.2);
+    color: #ef4444; 
+    border-radius: 50%;
+  }
+  
+  .action-labelaccepted {
+    font-size: 15px;
+    color: #22c55e;
+    margin-top: 6px;
+  }
+
+  .action-labelrejected {
+    font-size: 15px;
+    color: #ef4444;
+    margin-top: 6px;
+  }
+  .statusview{
+    font-size: 19px;
+    font-weight: 600;
+  }
+  .overlay-Viewbtn{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 12px;
+    color: white;
+    text-align: end;
+  }
+
+  .transparent-btn {
+    text-transform: capitalize;
+    --color: #555; 
+    --border-color: #999; 
+    --background: transparent;
+    --border-width: 1px; 
+  }
+
+
+  .transparent-btn.active-btn {
+    --border-color: var(--ion-color-primary);
+    --color: var(--ion-color-primary);
 
   }
