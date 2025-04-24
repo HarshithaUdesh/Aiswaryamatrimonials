@@ -70,7 +70,9 @@ export class RegisterPage implements OnInit {
       }
     );
   }
-
+  togoprivacy(){
+    this.router.navigate(['privacy'])
+  }
 
   async showToast(message: string) {
     const toast = await this.toastCtrl.create({

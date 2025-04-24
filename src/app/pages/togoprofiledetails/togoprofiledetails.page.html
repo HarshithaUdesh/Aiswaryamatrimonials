@@ -4,22 +4,714 @@
     <div class="right-icons">
       <div class="image-count">
         <ion-icon name="image-outline"></ion-icon>
-        <span>9</span>
+        <span>{{imageCount}}</span>
       </div>
-      <!-- <ion-icon name="ellipsis-vertical-outline" class="icon-btn"></ion-icon> -->
     </div>
   </div>
 
-  <img [src]="userDetails.Profile_Image" class="banner-img" />
-
+    <img [src]="userDetails.Profile_Image" class="banner-img" />
+    <!-- <swiper-container *ngIf="hasMultipleImages()" [loop]="true" autoplay-delay="1000">
+      <swiper-slide *ngFor="let img of parsedBase64Images" >
+        <img [src]="img" alt="Wedding Banner" />
+       </swiper-slide>
+      
+    </swiper-container> -->
   <div class="profile-info-container">
     <img [src]="userDetails.Profile_Image" class="profile-img" />
     <div class="profile-text">
-      <!-- <p class="last-seen">Last Seen at 05:49 PM</p> -->
       <h2>{{userDetails.FullName}}, {{userDetails.Age}} years</h2>
-      <!-- <p>ID - WRYT2709</p> -->
+      
       <p class="managed-by">{{userDetails.Occupation}}</p>
     </div>
   </div>
 </ion-header>
+
+<ion-content *ngIf="userDetails">
+  <ion-segment [(ngModel)]="selectedOption" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="about">
+      <ion-label>About</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="family">
+      <ion-label>Family</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="preferences">
+      <ion-label>Preferences</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="selectedOption === 'about' && userDetails" style="margin-top: 15px;">
+    <ion-row>
+      <ion-col size="10">
+        <div class="headerstyle">Personal Details</div>
+      </ion-col>
+     
+    </ion-row>
+    <ion-card class="personaldetailscard" >
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Full Name</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.FullName}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Date of Birth</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.DOB}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Age</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Age}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Height</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Height}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Weight</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Weight}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Blood Group</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.BloodGroup}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Gender</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Gender}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Marital Status</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.MaritalStatus}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Mother Tongue</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.MotherTongue}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Religion</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Religion}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Caste/Community</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.CasteOrCommunity}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Sub-Caste</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.SubCaste}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Gotra</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Gotra}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Manglik</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue" *ngIf="userDetails.ManglikStatus == 0">No</div>
+          <div class="personaldetailsvalue" *ngIf="userDetails.ManglikStatus == 1">Yes</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Place of Birth</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.PlaceOfBirth}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Time of Birth</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.TimeOfBirth}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Birth Star (Nakshatra)</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.BirthStar}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Rashi</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Rashi}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-row>
+      <ion-col size="10">
+        <div class="headerstyle">Contact Information</div>
+      </ion-col>
+   
+    </ion-row>
+    <ion-card class="personaldetailscard" >
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Phone Number</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.MobileNo}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Email Address</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.EmailID}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Address</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Address}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">State</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.StateName}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">City</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.CityName}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Pin Code</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Pincode}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-row>
+      <ion-col size="10">
+        <div class="headerstyle">Educational Background</div>
+      </ion-col>
+     
+    </ion-row>
+    <ion-card class="personaldetailscard">
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Highest Education Qualification</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.HighestQualification}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Institution</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.InstituteOrUniversity}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Languages</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.LanguagesKnown}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Year of Graduation</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.YearOfGraduation}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Additional Qualifications(if any)</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.AdditionalQualifications}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-row>
+      <ion-col size="10">
+        <div class="headerstyle">Professional Details</div>
+      </ion-col>
+    
+    </ion-row>
+    <ion-card class="personaldetailscard" >
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Occupation</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Occupation}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Company</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Company}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Work Exprience</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.WorkExperience}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Annual Income</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.AnnualIncome}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Job Location</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.JobLocation}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+
+    <ion-row>
+      <ion-col size="10">
+        <div class="headerstyle">Life Style Deatils</div>
+      </ion-col>
+     
+    </ion-row>
+    <ion-card class="personaldetailscard">
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Diet Preference</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.DietPreference}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Do you smoke?</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Smoking}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Do you drink?</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Drinking}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Sports Activities</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.SportsActivities}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Hobbies & interests</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.HobbiesAndInterests}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Preferred location</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.PreferredMarriageLocation}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+
+  <div *ngIf="selectedOption === 'family' &&userDetails " style="margin-top: 15px;">
+    <ion-row>
+      <ion-col size="10">
+        <div class="headerstyle">Family Details</div>
+      </ion-col>
+      
+    </ion-row>
+    <ion-card class="personaldetailscard" >
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Father's Occupation</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.FathersOccupation}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Mother's Occupation</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.MothersOccupation}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Siblings</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Siblings}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Family Type</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.FamilyType}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Family Values</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.FamilyValues}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+
+  <div *ngIf="selectedOption === 'preferences' &&userDetails " style="margin-top: 15px;">
+    <ion-row>
+      <ion-col size="10">
+        <div class="headerstyle">Partner Preferences</div>
+      </ion-col>
+      
+    </ion-row>
+    <ion-card class="personaldetailscard" >
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Age Range</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.AgeRange}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Height Range</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.HeightRange}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Preferred Caste/Community</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.PreferredCasteCommunity}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Preferred Sub-Caste</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.PreferredSubCaste}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Educational Qualifications</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.EducationalQualifications}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Occupation</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.OccupationIncomePreferences}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Manglik</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.Manglik}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Preferred State</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.PartnerStateName}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Preferred City</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.PartnerCityName}}</div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="5">
+          <div class="personaldetailsheader">Other Preferences</div>
+        </ion-col>
+        <ion-col size="1">
+          <div class="personaldetailsvalue">:</div>
+        </ion-col>
+        <ion-col size="6">
+          <div class="personaldetailsvalue">{{userDetails.OtherPreferences}}</div>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+  </div>
+</ion-content>
 

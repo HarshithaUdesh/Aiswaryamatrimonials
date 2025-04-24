@@ -286,12 +286,16 @@ async  getUserInterestProfies(){
           this.recentdata = false;
           this.Searcheddata = true
           this.openModal=false;
-          this.nodatafound = data.data.profileData.length >0 ? false:true
+          this.nodatafound = data.data.profileData.length >0 ? false:true;
+          this.resetFilters();
            }
         else {
           this.nodatafound = true
           this.openModal = false;
-          this.Searcheddata = true
+          this.Searcheddata = true;
+          this.requesteddata = false;
+          this.recentdata = false;
+          this.resetFilters();
           const toast = await this.toastCtrl.create({
             message: data.message,
             duration: 3000
@@ -314,7 +318,8 @@ async  getUserInterestProfies(){
     );
   }
 
- async acceptAndReject(userdata:any,status:any){
+ async acceptAndReject(event: Event,userdata:any,status:any){
+  event.stopPropagation(); 
     const loading = await this.loadingCtrl.create({
       message: 'Please wait...',
     });
