@@ -1,13 +1,43 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>contactus</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-row>
+      <ion-col size="2" style="text-align: left;" (click)="backoption()">
+        <ion-icon name="arrow-back" style="font-size: 30px;padding-left: 10px;"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <ion-title style="padding-top: 6px;">Contact Us</ion-title>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">contactus</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-list>
+    <ion-row style="margin-top: 100px; text-align: center; display: flex; flex-direction: column; align-items: center;">
+      <img src="assets/imgs/map.png" style="height: 25px; width: 25px; margin-bottom: 5px;" />
+      <p style="font-size: 14px; font-weight: 600; text-align: center;">
+        No 391, 2nd Floor
+        6th Main Road, 2nd Phase
+        West Of Chord Road, Mahalakshmipuram
+        Bangalore - 560086
+      </p>
+    </ion-row>
+    <ion-row style="margin-top: 20px;text-align: center;">
+      <p style="margin: auto;width: 100%;"><img src ="assets/imgs/call.png" style="height: 25px;width: 25px;margin: auto;" /></p>
+      <p style="width: 100%;font-size: 14px;font-weight: 600;"> +91 98765 43210<ion-icon name="copy-outline" (click)="copyToClipboard('+91 9353372501')" class="copy-icon" style="color: rgb(104, 104, 185);margin-left: 10px;font-size: 15px;" >  </ion-icon></p>
+    </ion-row>
+
+    <ion-row style="margin-top: 20px;text-align: center;">
+      <p style="margin: auto;width: 100%;"><img src ="assets/imgs/mail.png" style="height: 25px;width: 25px;margin: auto;" /></p>
+      <p style="width: 100%;font-size: 14px;font-weight: 600;margin-bottom: 7%;">info&#64;agstechsolutions.com 
+        <ion-icon name="copy-outline" class="copy-icon" style="color: rgb(104, 104, 185);margin-left: 10px;font-size: 15px;" (click)="copyToClipboard('exammitra@arthainfosystems.com')" ></ion-icon>
+      </p>
+    </ion-row>
+
+    <ion-row style="margin-top: 20px;text-align: center;">
+      <p style="margin: auto;width: 100%;"><img src ="assets/imgs/search.png" style="height: 25px;width: 25px;margin: auto;" /></p>
+      <p style="width: 100%;font-size: 14px;font-weight: 600;margin-bottom: 30%;">https://agstechsolutions.com</p>
+    </ion-row>
+       
+  </ion-list>
 </ion-content>

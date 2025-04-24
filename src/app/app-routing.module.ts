@@ -50,6 +50,18 @@ const routes: Routes = [
   },  {
     path: 'contactus',
     loadChildren: () => import('./pages/contactus/contactus.module').then( m => m.ContactusPageModule)
+  },
+  {
+    path: 'privacy',
+    loadChildren: () => import('./pages/privacy/privacy.module').then( m => m.PrivacyPageModule)
+  },
+  {
+    path: 'terms',
+    loadChildren: () => import('./pages/terms/terms.module').then( m => m.TermsPageModule)
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule)
   }
 
 ];
