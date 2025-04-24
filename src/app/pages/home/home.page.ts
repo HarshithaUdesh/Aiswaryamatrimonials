@@ -16,6 +16,13 @@ export class HomePage implements OnInit {
   casteOptions: any[] = [];
   ageOptions: any[] = [];
   partnerOptions: any[] = [];
+  interestedProfile: any[] = [];
+  viwersProfile: any[] = [];
+  Searcheddata:boolean = false;
+  requesteddata:boolean = true;
+  recentdata:boolean = false;
+  activeButton: string = '2';
+  nodatafound :boolean = true;
   filter = {
     partner:'',
     Gender: '',
@@ -25,32 +32,27 @@ export class HomePage implements OnInit {
     MinAge:''
   };
   minAgeList: number[] = [];
-maxAgeList: number[] = [];
+  maxAgeList: number[] = [];
+  userid: any;
+  minAge: number | undefined;
+  maxAge: number | undefined;
+  profiles: any[] = []
 
-minAge: number | undefined;
-maxAge: number | undefined;
-  profiles = [
-    {
-      name: 'Aishwaryashet',
-      gender: 'Female',
-      age: 24,
-      profession: 'Engineering',
-      image: 'assets/images/aishwarya.jpg'
-    },
-    {
-      name: 'SnehaBhat',
-      gender: 'Female',
-      age: 23,
-      profession: 'Software Engineer',
-      image: 'assets/images/sneha.jpg'
-    }
-  ];
-  constructor(public router: Router, public service: ServicesService, public toastCtrl: ToastController,public loadingCtrl: LoadingController) { }
+  constructor(public router: Router, public service: ServicesService, public toastCtrl: ToastController,public loadingCtrl: LoadingController) {
+    this.userid = localStorage.getItem('userid')
+   }
 
   ngOnInit() {
+   
+   
+  }
+  ionViewDidEnter(){
     this.loadFilterOptions();
     this.getAllLocation()
     this.getAllcast()
+    this.getUserRecentProfies()
+    this.getUserInterestProfies()
+
   }
 
   handleModel(){
@@ -69,54 +71,87 @@ maxAge: number | undefined;
     }
   }
 
-// async  getSeachedProfies(){
-  
-//       const loading = await this.loadingCtrl.create({
-//         message: 'Please wait...',
-//       });
-//       await loading.present();
+async  getUserInterestProfies(){
+  const loading = await this.loadingCtrl.create({
+        message: 'Please wait...',
+      });
+      await loading.present();
     
-//       const apiUrl = this.service.Baseurl + "/Profile/GetSearchProfileDetailsSummary'";
-//       const req = {
-//         UserID:36,
-//         "Gender": "male",
-//         "Location": "164",
-//         "CasteOrCommunity": "Other Backward Classes (OBCs)",
-//         "MinAge": 29,
-//         "MaxAge": 31,
-//       };
+      const apiUrl = this.service.Baseurl + "/User/GetUserInterestSummary";
+      const req = {
+        UserID:this.userid,
+      };
     
-//       this.service.getPosts(apiUrl, req).subscribe(
-//         async (data) => {
-//           await loading.dismiss();
-//           console.log(data.success,data)
-//           if (data.success === true) {
-           
-  
-           
-//           }
-//           else {
-//             const toast = await this.toastCtrl.create({
-//               message: data.message,
-//               duration: 3000
-//             });
-//             await toast.present();
-//             this.styleToast(toast);
-//           }
-//         },
-//         async (err) => {
-//           await loading.dismiss();
-//           const toast = await this.toastCtrl.create({
-//             message: "Poor Internet connection/ Network Not Available, pls try again..",
-//             duration: 3000
-//           });
-//           await toast.present();
-//           this.styleToast(toast);
-//         }
-//       );
+      this.service.getPosts(apiUrl, req).subscribe(
+        async (data) => {
+          await loading.dismiss();
+          console.log(data.success,data)
+          if (data.success === true) {
+           this.interestedProfile = data.data.data
+           }
+          else {
+            const toast = await this.toastCtrl.create({
+              message: data.message,
+              duration: 3000
+            });
+            await toast.present();
+            this.styleToast(toast);
+          }
+        },
+        async (err) => {
+          await loading.dismiss();
+          const toast = await this.toastCtrl.create({
+            message: "Poor Internet connection/ Network Not Available, pls try again..",
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      );
     
-//   }
+  }
 
+
+
+  async  getUserRecentProfies(){
+    const loading = await this.loadingCtrl.create({
+          message: 'Please wait...',
+        });
+        await loading.present();
+      
+        const apiUrl = this.service.Baseurl + "/Profile/GetProfileViewers";
+        const req = {
+          UserID:this.userid,
+        };
+      
+        this.service.getPosts(apiUrl, req).subscribe(
+          async (data) => {
+            await loading.dismiss();
+            console.log(data.success,data)
+            if (data.success === true) {
+             this.viwersProfile = data.data.data
+             }
+            else {
+              const toast = await this.toastCtrl.create({
+                message: data.message,
+                duration: 3000
+              });
+              await toast.present();
+              this.styleToast(toast);
+            }
+          },
+          async (err) => {
+            await loading.dismiss();
+            const toast = await this.toastCtrl.create({
+              message: "Poor Internet connection/ Network Not Available, pls try again..",
+              duration: 3000
+            });
+            await toast.present();
+            this.styleToast(toast);
+          }
+        );
+      
+    }
 
   async getAllLocation(){
     const loading = await this.loadingCtrl.create({
@@ -232,14 +267,13 @@ maxAge: number | undefined;
     });
     await loading.present();
   
-    const apiUrl = this.service.Baseurl + "/Profile/GetSearchProfileDetailsSummary'";
+    const apiUrl = this.service.Baseurl + "/Profile/UserSearchProfile";
     const req = {
-      "UserID":localStorage.getItem('userid'),
       "Gender": this.filter.partner == "Bride" ?"Female": "Male",
-      "Location": this.filter.Location,
-      "CasteOrCommunity": this.filter.CasteOrCommunity,
-      "MinAge": this.filter.MinAge,
-      "MaxAge": this.filter.MaxAge,
+      "Location": JSON.stringify(this.filter.Location),
+      "CasteOrCommunity": (this.filter.CasteOrCommunity),
+      "MinAge": JSON.stringify(this.filter.MinAge),
+      "MaxAge": JSON.stringify(this.filter.MaxAge),
     };
   
     this.service.getPosts(apiUrl, req).subscribe(
@@ -247,10 +281,17 @@ maxAge: number | undefined;
         await loading.dismiss();
         console.log(data.success,data)
         if (data.success === true) {
+          this.profiles = data.data.profileData
+          this.requesteddata = false;
+          this.recentdata = false;
+          this.Searcheddata = true
           this.openModal=false;
+          this.nodatafound = data.data.profileData.length >0 ? false:true
            }
         else {
-          this.openModal=false;
+          this.nodatafound = true
+          this.openModal = false;
+          this.Searcheddata = true
           const toast = await this.toastCtrl.create({
             message: data.message,
             duration: 3000
@@ -260,6 +301,7 @@ maxAge: number | undefined;
         }
       },
       async (err) => {
+        this.nodatafound = true
         this.openModal=false;
         await loading.dismiss();
         const toast = await this.toastCtrl.create({
@@ -272,6 +314,47 @@ maxAge: number | undefined;
     );
   }
 
+ async acceptAndReject(userdata:any,status:any){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+  
+    const apiUrl = this.service.Baseurl + "/User/UpdateAcceptOrRejectUserInterest";
+    const req = {
+      "UserID": userdata.UserID,
+      "InterestedUserID": this.userid,
+      "IsAccepted": status,
+    };
+  
+    this.service.getPosts(apiUrl, req).subscribe(
+      async (data) => {
+        await loading.dismiss();
+         if (data.success === true) {
+            this.getUserInterestProfies()
+           }
+        else {
+           const toast = await this.toastCtrl.create({
+            message: data.message,
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      },
+      async (err) => {
+        await loading.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: "Poor Internet connection/ Network Not Available, pls try again..",
+          duration: 3000
+        });
+        await toast.present();
+        this.styleToast(toast);
+      }
+    );
+  }
+
+
   resetFilters() {
     this.filter = {
       partner:'',
@@ -282,4 +365,88 @@ maxAge: number | undefined;
      MinAge:''
     };
   }
+
+
+togglebutton(type:any){
+  this.activeButton = type;
+  
+  
+if(type == "1"){
+  if(this.profiles.length > 0 ){
+    this.Searcheddata = true
+    this.requesteddata = false;
+    this.recentdata = false;
+  }else{
+    this.openModal = true
+    this.requesteddata = false;
+    this.recentdata = false;
+  }
+  
+}else if(type == '2'){
+  this.Searcheddata = false
+  this.requesteddata = true;
+  this.recentdata = false;
 }
+else if(type == '3'){
+  console.log("hghg")
+  this.Searcheddata = false
+  this.requesteddata = false;
+  this.recentdata = true;
+}
+console.log(this.requesteddata,this.recentdata,"this.recentdatathis.recentdatathis.recentdata");
+
+  }
+//   {
+//     "UserID": "36",
+//     "InterestedUserID": "69",
+//     "IsActive": 1
+// }
+  async SendInterestedRequest(userdata:any,status:any){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+  
+    const apiUrl = this.service.Baseurl + "/User/SendUserInterest";
+    const req = {
+      "UserID": this.userid,
+      "InterestedUserID":userdata.UserID,
+      "IsActive": 1,
+    };
+  
+    this.service.getPosts(apiUrl, req).subscribe(
+      async (data) => {
+        await loading.dismiss();
+         if (data.success === true) {
+            this.getUserRecentProfies()
+           }
+        else {
+           const toast = await this.toastCtrl.create({
+            message: data.message,
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      },
+      async (err) => {
+        await loading.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: "Poor Internet connection/ Network Not Available, pls try again..",
+          duration: 3000
+        });
+        await toast.present();
+        this.styleToast(toast);
+      }
+    );
+  }
+  togodetailspage(UserData:any){
+    var navigationExtras: NavigationExtras = {
+      queryParams: {
+        UserID: JSON.stringify(UserData.UserID)
+      }
+    };
+    this.router.navigate(['togoprofiledetails'],navigationExtras)
+  }
+}
+

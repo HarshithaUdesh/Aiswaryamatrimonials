@@ -44,25 +44,188 @@
       </ion-button>
     </div>
 
+    <ion-row>
+      <ion-col size="4">
+        <ion-button fill="outline" shape="round"   [ngClass]="{ 'active-btn': activeButton === '1' }"  (click)="togglebutton('1')" class="transparent-btn">Search</ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <ion-button  fill="outline" shape="round"   [ngClass]="{ 'active-btn': activeButton === '2' }" (click)="togglebutton('2')" class="transparent-btn">Requests</ion-button>
+      </ion-col>
+      <ion-col size="4">
+        <ion-button  fill="outline" shape="round"   [ngClass]="{ 'active-btn': activeButton === '3' }" (click)="togglebutton('3')" class="transparent-btn">Visitors</ion-button>
+      </ion-col>
+    </ion-row>
+  
 
-    <ion-grid>
-      <ion-row>
-        <ion-col size="6" *ngFor="let profile of profiles">
-          <ion-card class="profile-card">
-           
-            <ion-card-content>
-              <h2 class="name">{{ profile.name }}</h2>
-              <p class="gender">{{ profile.gender }}</p>
-              <p class="age">{{ profile.age }}</p>
-              <p class="profession">
-                <ion-icon name="briefcase-outline"></ion-icon>
-                {{ profile.profession }}
+
+    <ion-card class="profile-cardssssss" *ngIf="Searcheddata == true">
+      <div class="horizontal-scroll-wrapper">
+        <div class="scroll-container">
+          <div class="interested-card" *ngFor="let profile of profiles">
+            <img [src]="profile.Profile_Image" alt="Profile Image" class="background-image" />
+    
+            <div class="overlay-content ">
+              <p class="nameoftheuser">
+                {{ profile.FirstName }} {{ profile.LastName }}, {{ profile.Age }} Years
               </p>
-            </ion-card-content>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+              <div class="meta">{{ profile.Gender }} • {{ profile.City }}</div>
+              <div class="profession">Register No: {{ profile.RegisterNo }}</div>
+              <div class="profession">Caste/Community: {{ profile.CasteOrCommunity }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+    </ion-card>
+    <div  *ngIf="this.nodatafound == true && Searcheddata == true">
+      <div style="text-align: center;
+    margin-top: 50px;">No profiles found matching the search criteria</div>
+    </div>
+
+    <!-- <ion-card class="profile-cardssssss" *ngIf="requesteddata == true">
+      
+      <div class="horizontal-scroll-wrapper" >
+        <div class="scroll-container">
+          <div class="interested-card" *ngFor="let interested of interestedProfile">
+           
+          <div  (click)="togodetailspage(interested)"> <img [src]="interested.Profile_Image" alt="Profile" class="background-image" />
+            
+            <div class="overlay-Viewbtn">
+              <ion-icon  *ngIf="interested.ViewedProfileStatus == 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-outline"></ion-icon>
+              <ion-icon  *ngIf="interested.ViewedProfileStatus != 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-off-outline"></ion-icon>
+            </div>
+            <div class="overlay-content">
+              <p class="nameoftheuser">
+                {{ interested.FirstName }}, {{ interested.LastName }} ,{{ interested.Age }} Years
+                <ion-icon name="checkmark-circle" class="verified-icon"></ion-icon>
+              </p>
+              <div class="meta">{{ interested.Religion }} • {{ interested.CasteOrCommunity }}</div>
+              <div class="profession">{{ interested.Occupation }}</div>
+              <div class="profession">Interest Received : {{ interested.CreatedDate | date : "dd.MM.y" }}</div>
+             
+                <div class="horizontal-actions"   *ngIf="interested.UserInterestStatus != ''">
+                  <ion-label class="statusview"  [style.color]="interested.InterestStatusbtncolor">{{interested.UserInterestStatus}}</ion-label>
+                </div>
+              </div>
+          
+
+
+
+
+         <div class="horizontal-actions" *ngIf="interested.UserInterestStatus == ''">
+            <div class="action-item">
+              <ion-button fill="clear" class="circle-button accepted" (click)="acceptAndReject(interested,'Accept')">
+                <ion-icon name="checkmark-outline"></ion-icon>
+              </ion-button>
+              <ion-label class="action-labelaccepted">Accept</ion-label>
+            </div>
+          
+            <div class="action-item">
+              <ion-button fill="clear" class="circle-button rejected" (click)="acceptAndReject(interested,'Reject')">
+                <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+              <ion-label class="action-labelrejected">Reject</ion-label>
+            </div>
+          </div>
+               
+           
+              
+   
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </ion-card> -->
+
+
+    <ion-card class="profile-cardssssss" *ngIf="requesteddata == true">
+    
+      <div class="horizontal-scroll-wrapper">
+        <div class="scroll-container">
+          <div class="interested-card" *ngFor="let interested of interestedProfile">
+            <img [src]="interested.Profile_Image" alt="Profile" class="background-image" />
+            
+            <div class="overlay-Viewbtn">
+              <ion-icon  *ngIf="interested.ViewedProfileStatus == 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-outline"></ion-icon>
+              <ion-icon  *ngIf="interested.ViewedProfileStatus != 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-off-outline"></ion-icon>
+            </div>
+            <div class="overlay-content">
+              <p class="nameoftheuser">
+                {{ interested.FirstName }}, {{ interested.LastName }} ,{{ interested.Age }} Years
+                <ion-icon name="checkmark-circle" class="verified-icon"></ion-icon>
+              </p>
+              <div class="meta">{{ interested.Religion }} • {{ interested.CasteOrCommunity }}</div>
+              <div class="profession">{{ interested.Occupation }}</div>
+              <div class="profession">Interest Received : {{ interested.CreatedDate | date : "dd.MM.y" }}</div>
+             
+                <div class="horizontal-actions"   *ngIf="interested.UserInterestStatus != ''">
+                  <ion-label class="statusview"  [style.color]="interested.InterestStatusbtncolor">{{interested.UserInterestStatus}}</ion-label>
+                </div>
+  
+              <!-- //action button -->
+  
+              <div class="horizontal-actions" *ngIf="interested.UserInterestStatus == ''">
+                <div class="action-item">
+                  <ion-button fill="clear" class="circle-button accepted" (click)="acceptAndReject(interested,'1')">
+                    <ion-icon name="checkmark-outline"></ion-icon>
+                  </ion-button>
+                  <ion-label class="action-labelaccepted">Accept</ion-label>
+                </div>
+              
+                <div class="action-item">
+                  <ion-button fill="clear" class="circle-button rejected" (click)="acceptAndReject(interested,'0')">
+                    <ion-icon name="close-outline"></ion-icon>
+                  </ion-button>
+                  <ion-label class="action-labelrejected">Reject</ion-label>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </ion-card>
+  
+
+    <ion-card class="profile-cardssssss" *ngIf="recentdata == true">
+      
+      <div class="horizontal-scroll-wrapper">
+        <div class="scroll-container">
+          <div class="interested-card" *ngFor="let viwers of viwersProfile">
+            <img [src]="viwers.Profile_Image" alt="Profile" class="background-image" />
+            
+            <div class="overlay-Viewbtn">
+              <ion-icon  *ngIf="viwers.ViewedProfileStatus == 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-outline"></ion-icon>
+              <ion-icon  *ngIf="viwers.ViewedProfileStatus != 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-off-outline"></ion-icon>
+            </div>
+            <div class="overlay-content">
+              <p class="nameoftheuser">
+                {{ viwers.FirstName }}, {{ viwers.LastName }} ,{{ viwers.Age }} Years
+                <ion-icon name="checkmark-circle" class="verified-icon"></ion-icon>
+              </p>
+              <div class="meta">{{ viwers.Religion }} • {{ viwers.CasteOrCommunity }}</div>
+              <div class="profession">{{ viwers.Occupation }}</div>
+              <div class="profession">Interest Received : {{ viwers.CreatedDate | date : "dd.MM.y" }}</div>
+              <div class="horizontal-actions"  style=" border: 1px solid var(--ion-color-secondary);border-radius: 5px" *ngIf="viwers.IsInterestSent == 1" >
+                <ion-label class="action-labelrejected" style="font-size: 18px;margin-bottom: 2px;color:var(--ion-color-primary);">Interest Sent</ion-label>
+              </div>
+               <div class="horizontal-actions"   *ngIf="viwers.UserInterestStatus != 'Connencted Now'">
+                  <ion-label class="statusview" style="font-size: 18px;"  [style.color]="viwers.InterestStatusBtnColor">{{viwers.UserInterestStatus}}</ion-label>
+                </div>
+                <div class="horizontal-actions"  style=" border: 1px solid #ff00a8;border-radius: 5px" *ngIf="viwers.UserInterestStatus == 'Connencted Now'" (click)="SendInterestedRequest(viwers,'Accept')">
+               
+                  <ion-label class="action-labelaccepted" style="font-size: 18px;color:var(--ion-color-secondary) ;">  {{viwers.UserInterestStatus}}</ion-label>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </ion-card>
   </ion-content>
 
 
@@ -82,7 +245,7 @@
         "></ion-icon>
           </div>
           
-        <h2><strong>Filter</strong></h2>
+        <h2><strong>I'm Looking For a</strong></h2>
        
       
         <ion-item lines="none">
@@ -99,27 +262,10 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        
 
-<!-- <ion-item lines="none">
-  <ion-label position="stacked"> Gender </ion-label>
-  <ion-select
-    [(ngModel)]="filter.Gender"
-    aria-label="Gender"
-    placeholder="Select"
-    class="custom"
-    style="color: black"
-  >
-    <ion-select-option *ngFor="let g of genderOptions" [value]="g.GenderType" style="--background: #ca2323;" class="custom" >
-      {{ g.GenderType }}
-    </ion-select-option>
-  </ion-select>
-</ion-item> -->
-
-<!-- Location -->
 <ion-item lines="none" style="">
   <ion-label position="stacked">
-    Select Location <span style="color: red; font-size: 20px;">*</span>
+    Select Location 
   </ion-label>
   <ion-select
     [(ngModel)]="filter.Location"
@@ -127,6 +273,7 @@
     placeholder="Select"
     class="custom"
     style="color: black"
+   
   >
     <ion-select-option *ngFor="let l of locationOptions" [value]="l.Id" style="--background: #ca2323;">
       {{ l.Name }}
@@ -137,7 +284,7 @@
 <!-- Caste -->
 <ion-item lines="none">
   <ion-label position="stacked">
-    Select Caste <span style="color: red; font-size: 20px;">*</span>
+    Select Caste 
   </ion-label>
   <ion-select
     [(ngModel)]="filter.CasteOrCommunity"

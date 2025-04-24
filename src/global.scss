@@ -44,3 +44,37 @@ body {
 ion-title{
     font-size: 22px !important;
 }
+
+:root {
+  --ion-color-scheme: light;
+  color-scheme: light;
+}
+
+body {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+@media (prefers-color-scheme: dark) {
+  /* REMOVE or override dark theme styles if you don't want them */
+}
+
+ion-radio {
+  --color: #000;
+}
+::ng-deep ion-select-option {
+  color: black !important;
+
+}
+
+::ng-deep .alert-radio-label.sc-ion-alert-md {
+  color: black !important;
+
+}
+
+::ng-deep .alert-radio-inner.sc-ion-alert-md {
+  border-color: black !important;
+}
+
+::ng-deep .alert-radio-icon.sc-ion-alert-md {
+  color: black !important;
+}
