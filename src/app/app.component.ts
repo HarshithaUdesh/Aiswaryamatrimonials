@@ -34,6 +34,10 @@ export class AppComponent {
     this.menuUpdated.next(true);
   }
 
+  openProfilePage(){
+    this.router.navigate(['tabs/profile']);
+  }
+
   openAboutPage(){
     this.router.navigate(['about']);
   }
