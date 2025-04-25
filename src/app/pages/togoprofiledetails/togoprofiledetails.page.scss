@@ -90,6 +90,7 @@
 
   ion-segment {
     --background: #f4f5f8;
+    margin-top: 5px;
 }
 ion-segment-button {
     font-size: 16px;
@@ -98,6 +99,12 @@ ion-segment-button {
 }
 ion-segment-button::part(native) {
     text-transform: none;
+}
+ion-segment-button {
+  color: #000; // Unselected text color
+}
+ion-segment-button.segment-button-checked {
+  color: var(--ion-color-primary); // Selected text color (Ionic primary blue)
 }
 .headerstyle{
     color: #42B7B1;

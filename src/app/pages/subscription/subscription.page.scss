@@ -20,8 +20,7 @@ ion-header{
     font-weight: 500;
 }
 .cardstyle{
-    margin-left: 11px;
-    margin-top: 15px;
+    margin: 15px;
     border-radius: 10px;
     padding: 0px 10px 10px 10px;
     background: #f4f5f8;
@@ -66,4 +65,13 @@ ion-header{
     width: 65px;
     padding: 5px;
     border-radius: 15px;
+}
+ion-segment-button {
+    color: #000; // Unselected text color
+}
+ion-segment-button.segment-button-checked {
+    color: var(--ion-color-primary); // Selected text color (Ionic primary blue)
+}
+ion-segment-button::part(native) {
+    text-transform: none;
 }
