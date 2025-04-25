@@ -9,14 +9,15 @@
     </div>
   </div>
 
-    <img [src]="userDetails.Profile_Image" class="banner-img" />
-    <!-- <swiper-container *ngIf="hasMultipleImages()" [loop]="true" autoplay-delay="1000">
+  <div class="profile-banner-wrapper">
+    <img *ngIf="!hasMultipleImages()" [src]="userDetails.Profile_Image" class="banner-img" style="height: 330px;" />
+    <swiper-container *ngIf="hasMultipleImages()" [loop]="true" autoplay-delay="1000">
       <swiper-slide *ngFor="let img of parsedBase64Images" >
-        <img [src]="img" alt="Wedding Banner" />
+        <img [src]="img" alt="Wedding Banner"  class="thumb-img"/>
        </swiper-slide>
-      
-    </swiper-container> -->
-  <div class="profile-info-container">
+    </swiper-container>
+
+  <div *ngIf="!hasMultipleImages()" class="profile-info-containersingle">
     <img [src]="userDetails.Profile_Image" class="profile-img" />
     <div class="profile-text">
       <h2>{{userDetails.FullName}}, {{userDetails.Age}} years</h2>
@@ -24,6 +25,16 @@
       <p class="managed-by">{{userDetails.Occupation}}</p>
     </div>
   </div>
+  <div *ngIf="hasMultipleImages()" class="profile-info-container">
+    <img [src]="userDetails.Profile_Image" class="profile-img" />
+    <div class="profile-text">
+      <h2>{{userDetails.FullName}}, {{userDetails.Age}} years</h2>
+      
+      <p class="managed-by">{{userDetails.Occupation}}</p>
+    </div>
+  </div>
+
+</div>
 </ion-header>
 
 <ion-content *ngIf="userDetails">
