@@ -138,3 +138,60 @@ ion-segment-button.segment-button-checked {
         top: 100px;
     }
 } 
+
+.bottom-sheet {
+    --height: 90%;
+    --border-radius: 20px 20px 0 0;
+    --background: #ffffff;
+  }
+  
+  .modal-header {
+    --background: #f50a68;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .modal-content {
+    padding: 16px;
+  }
+  
+  .dob-fields {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .modal-footer {
+    padding: 10px;
+    background: #ffffff;
+  }
+  .dob-fields {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .dob-fields ion-input, .dob-fields ion-select {
+    flex: 1;
+  }
+  .custom-item {
+    border: 1px solid #d1d1d1;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    padding: 8px;
+    background: #fff;
+  }
+  
+  .custom-list {
+    padding: 16px;
+  }
+  
+  .dob-fields {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .dob-fields ion-input, 
+  .dob-fields ion-select {
+    flex: 1;
+  }
+  

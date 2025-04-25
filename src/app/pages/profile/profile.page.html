@@ -6,10 +6,10 @@
 
 <ion-content *ngIf="profiledata">
   <div class="profile-header">
-    <ion-avatar class="profile-picture" *ngIf="profiledata[0].Profile_Image" >
-      <img src="{{profiledata[0].Profile_Image}}" alt="Profile Picture">
+    <ion-avatar class="profile-picture" *ngIf="profiledataedit.Profile_Image" >
+      <img src="{{profiledataedit.Profile_Image}}" alt="Profile Picture">
     </ion-avatar>
-    <ion-avatar class="profile-picture" *ngIf="!profiledata[0].Profile_Image">
+    <ion-avatar class="profile-picture" *ngIf="!profiledataedit.Profile_Image">
       <img src="assets/imgs/profile.png" alt="Profile Picture">
     </ion-avatar>
     <div class="file-input-wrapper">
@@ -74,7 +74,7 @@
       <ion-col size="10">
         <div class="headerstyle">Personal Details</div>
       </ion-col>
-      <ion-col size="2" style="text-align: center;margin: auto;">
+      <ion-col size="2" style="text-align: center;margin: auto;" (click)="handlepersonalmodal(true)">
         <img src="assets/imgs/edit.png" style="height: 30px;border-radius: 50%;">
       </ion-col>
     </ion-row>
@@ -284,7 +284,7 @@
       <ion-col size="10">
         <div class="headerstyle">Contact Information</div>
       </ion-col>
-      <ion-col size="2" style="text-align: center;margin: auto;">
+      <ion-col size="2" style="text-align: center;margin: auto;" (click)="handleContactModal(true)">
         <img src="assets/imgs/edit.png" style="height: 30px;border-radius: 50%;">
       </ion-col>
     </ion-row>
@@ -361,7 +361,7 @@
       <ion-col size="10">
         <div class="headerstyle">Educational Background</div>
       </ion-col>
-      <ion-col size="2" style="text-align: center;margin: auto;">
+      <ion-col size="2" style="text-align: center;margin: auto;" (click)="handleopenEducationModal(true)">
         <img src="assets/imgs/edit.png" style="height: 30px;border-radius: 50%;">
       </ion-col>
     </ion-row>
@@ -428,7 +428,7 @@
         <div class="headerstyle">Professional Details</div>
       </ion-col>
       <ion-col size="2" style="text-align: center;margin: auto;">
-        <img src="assets/imgs/edit.png" style="height: 30px;border-radius: 50%;">
+        <img src="assets/imgs/edit.png" style="height: 30px;border-radius: 50%;" (click)="handleopenProfessionalModal(true)">
       </ion-col>
     </ion-row>
     <ion-card class="personaldetailscard" *ngFor="let item of profiledata">
@@ -493,7 +493,7 @@
       <ion-col size="10">
         <div class="headerstyle">Life Style Deatils</div>
       </ion-col>
-      <ion-col size="2" style="text-align: center;margin: auto;">
+      <ion-col size="2" style="text-align: center;margin: auto;" (click)="handleopenLifeModal(true)">
         <img src="assets/imgs/edit.png" style="height: 30px;border-radius: 50%;">
       </ion-col>
     </ion-row>
@@ -572,7 +572,7 @@
       <ion-col size="10">
         <div class="headerstyle">Family Details</div>
       </ion-col>
-      <ion-col size="2" style="text-align: center;margin: auto;">
+      <ion-col size="2" style="text-align: center;margin: auto;" (click)="handleopenFamilyModal(true)">
         <img src="assets/imgs/edit.png" style="height: 30px;border-radius: 50%;">
       </ion-col>
     </ion-row>
@@ -640,7 +640,7 @@
       <ion-col size="10">
         <div class="headerstyle">Partner Preferences</div>
       </ion-col>
-      <ion-col size="2" style="text-align: center;margin: auto;">
+      <ion-col size="2" style="text-align: center;margin: auto;" (click)="handleopenPreferenceModal(true)">
         <img src="assets/imgs/edit.png" style="height: 30px;border-radius: 50%;">
       </ion-col>
     </ion-row>
@@ -757,5 +757,457 @@
       </ion-row>
     </ion-card>
   </div>
+  <ion-modal [isOpen]="openModalpersonal" class="bottom-sheet" [backdropDismiss]="false">
+    <ng-template>
+      <ion-header class="modal-header">
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button fill="clear" (click)="handlepersonalmodal(false)">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Edit Personal Details</ion-title>
+        </ion-toolbar>
+      </ion-header>
   
+      <ion-content class="modal-content">
+        <ion-list class="custom-list" lines="none">
+          
+          <ion-item class="custom-item">
+            <ion-label position="stacked">First Name</ion-label>
+            <ion-input placeholder="Enter First Name" [(ngModel)]="profiledataedit.FirstName"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Last Name</ion-label>
+            <ion-input placeholder="Enter Last Name" [(ngModel)]="profiledataedit.LastName"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Date of Birth</ion-label>
+            <div class="dob-fields">
+              <ion-input placeholder="Day" [(ngModel)]="day" type="number"></ion-input>
+              <ion-select [(ngModel)]="month" placeholder="Month">
+                <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option>
+              </ion-select>
+              <ion-input [(ngModel)]="year" placeholder="Year" type="number"></ion-input>
+            </div>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Time of Birth</ion-label>
+            <div class="dob-fields">
+              <ion-input [(ngModel)]="hour"  placeholder="HH" type="number"></ion-input>
+              <ion-input [(ngModel)]="minute" placeholder="MM" type="number"></ion-input>
+              <ion-select placeholder="AM/PM" [(ngModel)]="amPm">
+                <ion-select-option value="AM">AM</ion-select-option>
+                <ion-select-option value="PM">PM</ion-select-option>
+              </ion-select>
+            </div>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Age</ion-label>
+            <ion-input placeholder="Enter Age" [(ngModel)]="profiledataedit.Age" type="number"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Height</ion-label>
+            <ion-input placeholder="Enter Height (in ft)" [(ngModel)]="profiledataedit.Height" type="number"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Weight</ion-label>
+            <ion-input placeholder="Enter Weight (kg)" [(ngModel)]="profiledataedit.Weight" type="number"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Blood Group</ion-label>
+            <ion-input placeholder="Enter Blood Group" [(ngModel)]="profiledataedit.BloodGroup"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Gotra</ion-label>
+            <ion-input placeholder="Enter Gotra" [(ngModel)]="profiledataedit.Gotra"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Rashi</ion-label>
+            <ion-input placeholder="Enter Rashi" [(ngModel)]="profiledataedit.Rashi"></ion-input>
+          </ion-item>
+  
+        </ion-list>
+      </ion-content>
+  
+      <ion-footer class="modal-footer">
+        <ion-button expand="block" color="primary" (click)="updateProfiledata()">Save</ion-button>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+  <ion-modal [isOpen]="openContactModal" class="bottom-sheet" [backdropDismiss]="false">
+    <ng-template>
+      <ion-header class="modal-header">
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button fill="clear" (click)="handleContactModal(false)">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Edit Contact Info</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  
+      <ion-content class="modal-content">
+        <ion-list class="custom-list" lines="none">
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Mobile Number</ion-label>
+            <ion-input type="tel" placeholder="Enter Mobile Number" [(ngModel)]="profiledataedit.MobileNo"></ion-input>
+          </ion-item>
+  
+          <!-- <ion-item class="custom-item">
+            <ion-label position="stacked">Alternate Mobile</ion-label>
+            <ion-input type="tel" placeholder="Enter Alternate Number" [(ngModel)]="profiledataedit.MobileNo"></ion-input>
+          </ion-item>
+   -->
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Email</ion-label>
+            <ion-input type="email" placeholder="Enter Email" [(ngModel)]="profiledataedit.EmailID"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Address</ion-label>
+            <ion-textarea placeholder="Enter Address" [(ngModel)]="profiledataedit.Address"></ion-textarea>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">City</ion-label>
+            <ion-input placeholder="Enter City" [(ngModel)]="profiledataedit.CityName"></ion-input>
+            <!-- <ion-select [(ngModel)]="profiledataedit.StateID" placeholder="City">
+              <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option>
+            </ion-select> -->
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">State</ion-label>
+            <ion-input placeholder="Enter State" [(ngModel)]="profiledataedit.StateName"></ion-input>
+          <!-- <ion-select [(ngModel)]="profiledataedit.StateID" placeholder="City">
+              <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option>
+            </ion-select> -->
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Pin Code</ion-label>
+            <ion-input type="number" placeholder="Enter Pin Code" [(ngModel)]="profiledataedit.Pincode"></ion-input>
+          </ion-item>
+  
+        </ion-list>
+      </ion-content>
+  
+      <ion-footer class="modal-footer">
+        <ion-button expand="block" color="primary" (click)="updateProfiledata()">Save</ion-button>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+  
+  <ion-modal [isOpen]="openEducationModal" class="bottom-sheet" [backdropDismiss]="false">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button (click)="handleopenEducationModal(false)">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Educational Details</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  
+      <ion-content>
+        <ion-list class="custom-list" lines="none">
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Highest Education Qualification</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.HighestQualification"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Institution</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.InstituteOrUniversity"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Languages</ion-label>
+            <ion-input type="number" [(ngModel)]="profiledataedit.LanguagesKnown"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Year of Graduation</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.YearOfGraduation"></ion-input>
+          </ion-item>
+  
+          
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Additional Qualifications</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.AdditionalQualifications"></ion-input>
+          </ion-item>
+  
+        </ion-list>
+      </ion-content>
+  
+      <ion-footer class="modal-footer">
+        <ion-button expand="block" (click)="updateProfiledata()">Save</ion-button>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal [isOpen]="openProfessionalModal" class="bottom-sheet" [backdropDismiss]="false">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button (click)="handleopenProfessionalModal(false)">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Professional Details</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  
+      <ion-content>
+        <ion-list class="custom-list" lines="none">
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Occupation</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.Occupation"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Company</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.Company"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Annual Income</ion-label>
+            <ion-input type="number" [(ngModel)]="profiledataedit.AnnualIncome"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Job Location</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.JobLocation"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Work Experience (years)</ion-label>
+            <ion-input type="number" [(ngModel)]="profiledataedit.WorkExperience"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Highest Qualification</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.HighestQualification"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Institute/University</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.InstituteOrUniversity"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Year of Graduation</ion-label>
+            <ion-input type="number" [(ngModel)]="profiledataedit.YearOfGraduation"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Additional Qualifications</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.AdditionalQualifications"></ion-input>
+          </ion-item>
+  
+        </ion-list>
+      </ion-content>
+  
+      <ion-footer class="modal-footer">
+        <ion-button expand="block" (click)="updateProfiledata()">Save</ion-button>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+  
+  <ion-modal [isOpen]="openLifeModal" class="bottom-sheet" [backdropDismiss]="false">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button (click)="handleopenLifeModal(false)">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Life Style Details</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  
+      <ion-content>
+        <ion-list class="custom-list" lines="none">
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Diet Preference</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.DietPreference"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Do You Smoke"</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.Smoking"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Do You Drink?</ion-label>
+            <ion-input type="number" [(ngModel)]="profiledataedit.Drinking"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Sports Activities</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.SportsActivities"></ion-input>
+          </ion-item>
+  
+          
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Hobbies & interests</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.HobbiesAndInterests"></ion-input>
+          </ion-item>
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Preferred Location</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.PreferredMarriageLocation"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+  
+      <ion-footer class="modal-footer">
+        <ion-button expand="block" (click)="updateProfiledata()">Save</ion-button>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+
+
+  <ion-modal [isOpen]="openFamilyModal" class="bottom-sheet" [backdropDismiss]="false">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button (click)="handleopenFamilyModal(false)">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Family Details</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  
+      <ion-content>
+        <ion-list class="custom-list" lines="none">
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Fathers Occupation</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.FathersOccupation"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Mothers Occupation</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.MothersOccupation"></ion-input>
+          </ion-item>
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Siblings</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.Siblings"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Family Type</ion-label>
+            <ion-input type="number" [(ngModel)]="profiledataedit.FamilyType"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Famaly Values</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.FamilyValues"></ion-input>
+          </ion-item>
+  
+        </ion-list>
+      </ion-content>
+  
+      <ion-footer class="modal-footer">
+        <ion-button expand="block" (click)="updateProfiledata()">Save</ion-button>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal [isOpen]="openPreferenceModal" class="bottom-sheet" [backdropDismiss]="false">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-buttons slot="start">
+            <ion-button (click)="handleopenPreferenceModal(false)">
+              <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Partner Preferences</ion-title>
+        </ion-toolbar>
+      </ion-header>
+  
+      <ion-content>
+        <ion-list class="custom-list" lines="none">
+  
+          <ion-item class="custom-item">
+            <!-- <ion-label position="stacked">Age range</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.AgeRange"></ion-input> -->
+              <ion-select [(ngModel)]="profiledataedit.AgeRange" placeholder="Age Range">
+              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
+            </ion-select>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-select [(ngModel)]="profiledataedit.HeightRange" placeholder="Height Range">
+              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
+            </ion-select>
+          </ion-item>
+          <ion-item class="custom-item">
+            <ion-select [(ngModel)]="profiledataedit.PreferredCasteCommunity" placeholder="Preferred CasteCommunity">
+              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
+            </ion-select>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-select [(ngModel)]="profiledataedit.PreferredSubCaste" placeholder="Preferred SubCaste">
+              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
+            </ion-select>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Education Qualifications Occupation</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.OccupationIncomePreferences"></ion-input>
+          </ion-item>
+  
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Manglik</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.Manglik"></ion-input>
+          </ion-item>
+
+          <ion-item class="custom-item">
+            <ion-select [(ngModel)]="profiledataedit.PreferredStateID" placeholder="Prefered State">
+              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
+            </ion-select>
+          </ion-item>
+          <ion-item class="custom-item">
+            <ion-select [(ngModel)]="profiledataedit.PreferredCityID" placeholder="Prefered State">
+              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
+            </ion-select>
+          </ion-item>
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Other Preferences</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.OtherPreferences"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+  
+      <ion-footer class="modal-footer">
+        <ion-button expand="block" (click)="updateProfiledata()">Save</ion-button>
+      </ion-footer>
+    </ng-template>
+  </ion-modal>
 </ion-content>
