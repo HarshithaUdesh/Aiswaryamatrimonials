@@ -18,7 +18,7 @@ export class AppComponent {
   private menuUpdated = new Subject<any>();
   currentUsername:any;
 
-  constructor(public alertCtrl: AlertController,public router:Router,private remoteService : ServicesService) {
+  constructor(private toastCtrl: ToastController,public loadingCtrl:LoadingController,public alertCtrl: AlertController,public router:Router,private remoteService : ServicesService) {
     this.currentUsername = localStorage.getItem("username");
   }
 
@@ -65,7 +65,7 @@ export class AppComponent {
           handler: async () => {
             localStorage.clear();
             localStorage.setItem("userlogout",'true')
-            this.router.navigate(['tabs']); 
+            this.router.navigate(['login']); 
             this.menuUpdated.next(true);
           },
         },
@@ -73,4 +73,77 @@ export class AppComponent {
     });
     await alerts.present();
   }
+
+  async deleteAccount(){
+    const alerts = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Confirm!',
+      message: 'Do you want to delete your account ?',
+      buttons: [
+        {
+          text: 'NO',
+          role: 'No',
+          cssClass: 'secondary',
+          handler: (blah:any) => {
+            console.log('Confirm Cancel: blah');
+          },
+        },
+        {
+          text: 'YES',
+          handler: async () => {
+         this.permantdeleteAccount() 
+          },
+        },
+      ],
+    });
+    await alerts.present();
+  }
+
+  async permantdeleteAccount() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+  
+    var userid = localStorage.getItem("userid");
+    const shapi = this.remoteService.Baseurl + "/Profile/DeleteAccount";
+    const sharray = {
+      "UserID": userid,
+      "DeletedBy": userid
+    };
+  
+    this.remoteService.getPosts(shapi, sharray).subscribe(
+      async (data) => {
+        await loading.dismiss();
+        if (data.success === true) {
+          localStorage.clear();
+          this.router.navigate(['login']);
+        } else {
+          const toast = await this.toastCtrl.create({
+            message: data.message,
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      },
+      async (err) => {
+        await loading.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: "Poor Internet connection/ Network Not Available, pls try again..",
+          duration: 3000
+        });
+        await toast.present();
+        this.styleToast(toast);
+      }
+    );
+  }
+
+  styleToast(toast: HTMLIonToastElement) {
+    const toastElement = toast.shadowRoot?.querySelector('.toast-container');
+    if (toastElement) {
+      toastElement.setAttribute('style', 'background-color:#000; color: white; border-radius: 8px;');
+    }
+  }
+
 }
