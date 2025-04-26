@@ -831,11 +831,110 @@
             <ion-input placeholder="Enter Gotra" [(ngModel)]="profiledataedit.Gotra"></ion-input>
           </ion-item>
   
+
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">
+              Martial Status 
+            </ion-label>
+            <ion-select
+              [(ngModel)]="profiledataedit.MaritalStatus"
+              aria-label="Caste"
+              placeholder="Select"
+              class="custom"
+              style="color: black"
+            >
+              <ion-select-option *ngFor="let c of martialOptions" [value]="c.value" style="--background: #ca2323;">
+                {{ c.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+
+
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">
+              Cast/Community
+            </ion-label>
+            <ion-select
+              [(ngModel)]="this.castvalue"
+              aria-label="Caste"
+              placeholder="Select"
+              class="custom"
+              style="color: black"
+              (ionChange)="castchange($event,'castuser')"
+            >
+              <ion-select-option *ngFor="let c of casteOptions"  [value]="c.casteId" style="--background: #ca2323;">
+                {{ c.casteName }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+        <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">
+              Select SubCast
+            </ion-label>
+            <ion-select
+              [(ngModel)]="this.subcast"
+              aria-label="Caste"
+              placeholder="Select"
+              class="custom"
+              style="color: black"
+              
+            >
+              <ion-select-option *ngFor="let c of subcasteOptions" [value]="c.subCasteId" style="--background: #ca2323;">
+                {{ c.subCasteName }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+          
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">
+             Gender
+            </ion-label>
+            <ion-select
+              [(ngModel)]="profiledataedit.Gender"
+              aria-label="Caste"
+              placeholder="Select"
+              class="custom"
+              style="color: black"
+            >
+              <ion-select-option *ngFor="let c of genderOptions" [value]="c.GenderType" style="--background: #ca2323;">
+                {{ c.GenderType}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
           <ion-item class="custom-item">
             <ion-label position="stacked">Rashi</ion-label>
             <ion-input placeholder="Enter Rashi" [(ngModel)]="profiledataedit.Rashi"></ion-input>
           </ion-item>
-  
+
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Place of Birth</ion-label>
+            <ion-input placeholder="Enter Rashi" [(ngModel)]="profiledataedit.PlaceOfBirth"></ion-input>
+          </ion-item>
+
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Birth Star(Nakshatra)</ion-label>
+            <ion-input placeholder="Enter Rashi" [(ngModel)]="profiledataedit.BirthStar"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">
+              Manglik(Kuja Dosha) Status (Yes/No)
+            </ion-label>
+            <ion-select
+              [(ngModel)]="profiledataedit.ManglikStatus"
+              aria-label="Caste"
+              placeholder="Select"
+              class="custom"
+              style="color: black"
+            >
+              <ion-select-option *ngFor="let c of mangalikaoptions" [value]="c.StatusID" style="--background: #ca2323;">
+                {{ c.StatusType}}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
         </ion-list>
       </ion-content>
   
@@ -865,11 +964,7 @@
             <ion-input type="tel" placeholder="Enter Mobile Number" [(ngModel)]="profiledataedit.MobileNo"></ion-input>
           </ion-item>
   
-          <!-- <ion-item class="custom-item">
-            <ion-label position="stacked">Alternate Mobile</ion-label>
-            <ion-input type="tel" placeholder="Enter Alternate Number" [(ngModel)]="profiledataedit.MobileNo"></ion-input>
-          </ion-item>
-   -->
+
           <ion-item class="custom-item">
             <ion-label position="stacked">Email</ion-label>
             <ion-input type="email" placeholder="Enter Email" [(ngModel)]="profiledataedit.EmailID"></ion-input>
@@ -880,21 +975,45 @@
             <ion-textarea placeholder="Enter Address" [(ngModel)]="profiledataedit.Address"></ion-textarea>
           </ion-item>
   
-          <ion-item class="custom-item">
-            <ion-label position="stacked">City</ion-label>
-            <ion-input placeholder="Enter City" [(ngModel)]="profiledataedit.CityName"></ion-input>
-            <!-- <ion-select [(ngModel)]="profiledataedit.StateID" placeholder="City">
-              <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option>
-            </ion-select> -->
+
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">
+              Select State
+            </ion-label>
+            <ion-select
+              [(ngModel)]="profiledataedit.StateID"
+              aria-label="Caste"
+              placeholder="Select"
+              class="custom"
+              style="color: black"
+              
+            >
+              <ion-select-option *ngFor="let c of stateOptions" [value]="c.Id" style="--background: #ca2323;">
+                {{ c.Name }}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
-  
-          <ion-item class="custom-item">
-            <ion-label position="stacked">State</ion-label>
-            <ion-input placeholder="Enter State" [(ngModel)]="profiledataedit.StateName"></ion-input>
-          <!-- <ion-select [(ngModel)]="profiledataedit.StateID" placeholder="City">
-              <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option>
-            </ion-select> -->
+
+          <!--  -->
+         
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">
+              Select City
+            </ion-label>
+            <ion-select
+              [(ngModel)]="profiledataedit.CityID"
+              aria-label="Caste"
+              placeholder="Select"
+              class="custom"
+              style="color: black"
+              
+            >
+              <ion-select-option *ngFor="let c of districtOptions" [value]="c.Id" style="--background: #ca2323;">
+                {{ c.Name }}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
+      
   
           <ion-item class="custom-item">
             <ion-label position="stacked">Pin Code</ion-label>
@@ -1053,14 +1172,38 @@
             <ion-input [(ngModel)]="profiledataedit.DietPreference"></ion-input>
           </ion-item>
   
-          <ion-item class="custom-item">
-            <ion-label position="stacked">Do You Smoke"</ion-label>
-            <ion-input [(ngModel)]="profiledataedit.Smoking"></ion-input>
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">
+            Do you Smoking ?
+            </ion-label>
+            <ion-select
+              [(ngModel)]="profiledataedit.Smoking"
+              aria-label="Caste"
+              placeholder="Select"
+              class="custom"
+              style="color: black"
+            >
+              <ion-select-option *ngFor="let c of smoking" [value]="c.StatusID" style="--background: #ca2323;">
+                {{ c.StatusType}}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
   
-          <ion-item class="custom-item">
-            <ion-label position="stacked">Do You Drink?</ion-label>
-            <ion-input type="number" [(ngModel)]="profiledataedit.Drinking"></ion-input>
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">
+            Do you Drinking ?
+            </ion-label>
+            <ion-select
+              [(ngModel)]="profiledataedit.Drinking"
+              aria-label="Caste"
+              placeholder="Select"
+              class="custom"
+              style="color: black"
+            >
+              <ion-select-option *ngFor="let c of drinking" [value]="c.StatusID" style="--background: #ca2323;">
+                {{ c.StatusType}}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
   
           <ion-item class="custom-item">
@@ -1118,16 +1261,49 @@
             <ion-input [(ngModel)]="profiledataedit.Siblings"></ion-input>
           </ion-item>
   
-          <ion-item class="custom-item">
+          <!-- <ion-item class="custom-item">
             <ion-label position="stacked">Family Type</ion-label>
             <ion-input type="number" [(ngModel)]="profiledataedit.FamilyType"></ion-input>
+          </ion-item> -->
+
+
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">
+              Family Type
+            </ion-label>
+            <ion-select
+              [(ngModel)]="profiledataedit.FamilyType"
+              aria-label="Caste"
+              placeholder="Select"
+              class="custom"
+              style="color: black"
+            >
+              <ion-select-option *ngFor="let c of familyTypeOption" [value]="c.familyType" style="--background: #ca2323;">
+                {{ c.familyType}}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
   
-          <ion-item class="custom-item">
+          <!-- <ion-item class="custom-item">
             <ion-label position="stacked">Famaly Values</ion-label>
             <ion-input [(ngModel)]="profiledataedit.FamilyValues"></ion-input>
+          </ion-item> -->
+          <ion-item lines="none" class="custom-item">
+            <ion-label position="stacked">
+              Family Values
+            </ion-label>
+            <ion-select
+              [(ngModel)]="profiledataedit.FamilyValues"
+              aria-label="Caste"
+              placeholder="Select"
+              class="custom"
+              style="color: black"
+            >
+              <ion-select-option *ngFor="let c of familyValuesOption" [value]="c.familyType" style="--background: #ca2323;">
+                {{ c.familyType}}
+              </ion-select-option>
+            </ion-select>
           </ion-item>
-  
         </ion-list>
       </ion-content>
   
@@ -1154,27 +1330,25 @@
         <ion-list class="custom-list" lines="none">
   
           <ion-item class="custom-item">
-            <!-- <ion-label position="stacked">Age range</ion-label>
-            <ion-input [(ngModel)]="profiledataedit.AgeRange"></ion-input> -->
-              <ion-select [(ngModel)]="profiledataedit.AgeRange" placeholder="Age Range">
-              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
+            <ion-label position="stacked">Age range</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.AgeRange"></ion-input>
+           </ion-item>
+  
+
+           <ion-item class="custom-item">
+            <ion-label position="stacked">Preferred Height Range</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.HeightRange"></ion-input>
+           </ion-item>
+         
+          <ion-item class="custom-item">
+            <ion-select [(ngModel)]="profiledataedit.PreferredCasteCommunityId" placeholder="Preferred CasteCommunity" (ionChange)="castchange($event,'castpref')">
+              <ion-select-option *ngFor="let c of casteOptions"[value]="c.casteId">{{c.casteName}}</ion-select-option>
             </ion-select>
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-select [(ngModel)]="profiledataedit.HeightRange" placeholder="Height Range">
-              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
-            </ion-select>
-          </ion-item>
-          <ion-item class="custom-item">
-            <ion-select [(ngModel)]="profiledataedit.PreferredCasteCommunity" placeholder="Preferred CasteCommunity">
-              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
-            </ion-select>
-          </ion-item>
-  
-          <ion-item class="custom-item">
-            <ion-select [(ngModel)]="profiledataedit.PreferredSubCaste" placeholder="Preferred SubCaste">
-              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
+            <ion-select [(ngModel)]="profiledataedit.PreferredSubCasteId" placeholder="Preferred SubCaste">
+              <ion-select-option *ngFor="let c of subcasteprefOptions" [value]="c.subCasteId">  {{ c.subCasteName }}</ion-select-option>
             </ion-select>
           </ion-item>
   
@@ -1184,18 +1358,20 @@
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Manglik</ion-label>
+            <ion-label position="stacked">Preferred Manglik</ion-label>
             <ion-input [(ngModel)]="profiledataedit.Manglik"></ion-input>
           </ion-item>
 
           <ion-item class="custom-item">
             <ion-select [(ngModel)]="profiledataedit.PreferredStateID" placeholder="Prefered State">
-              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
+              <ion-select-option *ngFor="let c of stateOptions"[value]="c.Id">{{ c.Name }}</ion-select-option>
             </ion-select>
           </ion-item>
+
+
           <ion-item class="custom-item">
-            <ion-select [(ngModel)]="profiledataedit.PreferredCityID" placeholder="Prefered State">
-              <!-- <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option> -->
+            <ion-select [(ngModel)]="profiledataedit.PreferredCity" placeholder="Prefered City">
+              <ion-select-option *ngFor="let c of prefcityOptions" [value]="c.Id" >{{ c.Name }}</ion-select-option>
             </ion-select>
           </ion-item>
           <ion-item class="custom-item">

@@ -20,37 +20,367 @@ export class ProfilePage implements OnInit {
   openModalpersonal:boolean=false;
   openLifeModal:boolean=false;
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
+ 
 day: any;
 month: any;
 year: any;
 hour: any;
 minute: any;
 amPm: any;
+castvalue:any;
+subcast:any;
+stateValue:any;
+cityValue:any;
+martialOptions:any[] = [];
 openContactModal:boolean=false;
 openEducationModal:boolean=false
 openProfessionalModal:any=false;
 openFamilyModal:any=false;
 openPreferenceModal:any=false;
+martialstatusvalue:any;
+drinking: any[] = [];
+smoking: any[] = [];
+casteOptions: any[] = [];
+subcasteOptions:any[] =[];
+districtOptions:any[]=[];
+stateOptions:any[]=[];
+genderOptions:any[]=[];
+mangalikaoptions:any[] =[];
+familyTypeOption:any[] =[];
+familyValuesOption:any[] =[];
+subcasteprefOptions:any[] =[];
+prefcityOptions:any[] =[];
   constructor(private sanitizer: DomSanitizer,public router: Router, public service: ServicesService, public toastCtrl: ToastController, public loadingCtrl: LoadingController) { }
 
   ngOnInit() {
+    this.martialOptions = [
+  { label: 'Single', value: 'Single' },
+  { label: 'Married', value: 'Married' },
+  { label: 'Divorced', value: 'Divorced' },
+  { label: 'Widowed', value: 'Widowed' }
+    ];
+
+
+    this.genderOptions = [
+      { GenderID: 1, GenderType: 'Male' },
+      { GenderID: 2, GenderType: 'Female' }
+    ];
+
+    this.mangalikaoptions = [
+      { StatusID: 1, StatusType: 'Yes' },
+     { StatusID: 0, StatusType: 'No' }
+    ];
+
+
+    this.drinking = [
+      { StatusID: 'Yes', StatusType: 'Yes' },
+     { StatusID:'No', StatusType: 'No' }
+    ];
+  
+  
+  this.smoking = [
+    { StatusID: 'Yes', StatusType: 'Yes' },
+   { StatusID: 'No', StatusType: 'No' }
+  ];
+
+  this.familyTypeOption =[
+    { familyTypeId: '1', familyType: 'Nuclear' },
+    { familyTypeId: '2', familyType: 'Joint' }
+  ]
+  
+  this.familyValuesOption =[
+    { familyTypeId: '1', familyType: 'Traditional' },
+    { familyTypeId: '2', familyType: 'Moderate' },
+    { familyTypeId: '3', familyType: 'Modern' }
+
+  ]
   }
+
+  
 
 
   closeModel(){
-    this.openModalpersonal=false;
-  this.openLifeModal=false;
-  this.openContactModal=false;
+this.openModalpersonal=false;
+this.openLifeModal=false;
+this.openContactModal=false;
 this.openEducationModal=false
 this.openProfessionalModal=false;
 this.openFamilyModal=false;
 this.openPreferenceModal=false;
   }
+  
   ionViewDidEnter() {
     this.getMyPlanData();
     this.getProfileDetailsData();
+    this.getAllcast()
+    this.getAllState()
+
+  
   }
+
+  async getAllcast(){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+    const apiUrl = this.service.Baseurl + "/Master/GetCaste";
+    const req = {
+     
+    };
+  
+    this.service.getPosts(apiUrl, req).subscribe(
+      async (data) => {
+        await loading.dismiss();
+        console.log(data.success,data.data.data)
+        if (data.success === true) {
+         this.casteOptions = data.data.data
+         
+       
+         
+        }
+        else {
+          const toast = await this.toastCtrl.create({
+            message: data.message,
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      },
+      async (err) => {
+        await loading.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: "Poor Internet connection/ Network Not Available, pls try again..",
+          duration: 3000
+        });
+        await toast.present();
+        this.styleToast(toast);
+      }
+    );
+  }
+
+
+  convertToparse(data:any){
+    return parseInt(data)
+  }
+  castchange(event:any,type:any){
+   var id = event.target.value
+   if(type == 'castuser'){
+    this.getAllsubcast(id)
+   }else if(type =='castpref'){
+    this.getAllsubcastPref(id)
+   }
+ }
+
+
+
+  async getAllsubcast(id:any){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+    const apiUrl = this.service.Baseurl + "/Master/GetSubCastes";
+    const req = {
+      "casteId" : id
+    };
+  
+    this.service.getPosts(apiUrl, req).subscribe(
+      async (data) => {
+        await loading.dismiss();
+        console.log(data.success,data.data.data)
+        if (data.success === true) {
+         this.subcasteOptions = data.data.data
+
+         
+        }
+        else {
+          const toast = await this.toastCtrl.create({
+            message: data.message,
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      },
+      async (err) => {
+        await loading.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: "Poor Internet connection/ Network Not Available, pls try again..",
+          duration: 3000
+        });
+        await toast.present();
+        this.styleToast(toast);
+      }
+    );
+  }
+  async getAllsubcastPref(id:any){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+    const apiUrl = this.service.Baseurl + "/Master/GetSubCastes";
+    const req = {
+      "casteId" : id
+    };
+  
+    this.service.getPosts(apiUrl, req).subscribe(
+      async (data) => {
+        await loading.dismiss();
+        console.log(data.success,data.data.data)
+        if (data.success === true) {
+         this.subcasteprefOptions = data.data.data
+
+         
+        }
+        else {
+          const toast = await this.toastCtrl.create({
+            message: data.message,
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      },
+      async (err) => {
+        await loading.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: "Poor Internet connection/ Network Not Available, pls try again..",
+          duration: 3000
+        });
+        await toast.present();
+        this.styleToast(toast);
+      }
+    );
+  }
+
+
+
+  async getAllDistrict(id:any){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+    const apiUrl = this.service.Baseurl + "/Master/GetDistrict";
+    const req = {
+      StateID: id
+    };
+    this.service.getPosts(apiUrl, req).subscribe(
+      async (data) => {
+        await loading.dismiss();
+        console.log(data.success,data.data.data)
+        if (data.success === true) {
+         this.districtOptions = data.data.data
+          
+         
+        }
+        else {
+          const toast = await this.toastCtrl.create({
+            message: data.message,
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      },
+      async (err) => {
+        await loading.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: "Poor Internet connection/ Network Not Available, pls try again..",
+          duration: 3000
+        });
+        await toast.present();
+        this.styleToast(toast);
+      }
+    );
+  }
+
+
+
+  async getAllpreDistrict(id:any){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+    const apiUrl = this.service.Baseurl + "/Master/GetDistrict";
+    const req = {
+      StateID: id
+    };
+    this.service.getPosts(apiUrl, req).subscribe(
+      async (data) => {
+        await loading.dismiss();
+        console.log(data.success,data.data.data)
+        if (data.success === true) {
+         this.prefcityOptions = data.data.data
+          
+         
+        }
+        else {
+          const toast = await this.toastCtrl.create({
+            message: data.message,
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      },
+      async (err) => {
+        await loading.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: "Poor Internet connection/ Network Not Available, pls try again..",
+          duration: 3000
+        });
+        await toast.present();
+        this.styleToast(toast);
+      }
+    );
+  }
+  // 
+
+  //State
+
+
+  async getAllState(){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+    const apiUrl = this.service.Baseurl + "/Master/GetStates";
+    const req = {
+     
+    };
+  
+    this.service.getPosts(apiUrl, req).subscribe(
+      async (data) => {
+        await loading.dismiss();
+        console.log(data.success,data.data.data)
+        if (data.success === true) {
+         this.stateOptions = data.data.data
+          
+         
+        }
+        else {
+          const toast = await this.toastCtrl.create({
+            message: data.message,
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      },
+      async (err) => {
+        await loading.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: "Poor Internet connection/ Network Not Available, pls try again..",
+          duration: 3000
+        });
+        await toast.present();
+        this.styleToast(toast);
+      }
+    );
+  }
+
+
+
 
   onImageSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
@@ -134,6 +464,29 @@ this.openPreferenceModal=false;
         if (data.success === true) {
           this.profiledata = data.data.profileData;
           this.profiledataedit=data.data.profileData[0];
+          console.log( typeof this.profiledataedit.Base64ProfileImages)
+
+          if(this.profiledataedit.CasteOrCommunityId){
+            this.castvalue =parseInt(this.profiledataedit.CasteOrCommunityId)
+            this.subcast=  parseInt(this.profiledataedit.SubCasteId)
+            this.getAllsubcast(this.castvalue)
+          }
+           if(this.profiledataedit.PreferredCasteCommunityId){
+            var castvalue =(this.profiledataedit.PreferredCasteCommunityId)
+            this.getAllsubcastPref(castvalue)
+          }
+           if(this.profiledataedit.StateID){
+            var StateID  = this.profiledataedit.StateID
+            console.log(StateID)
+            this.getAllDistrict(StateID)
+          }
+
+          if(this.profiledataedit.PreferredStateID){
+            var StateID  = this.profiledataedit.PreferredStateID
+            console.log(StateID)
+            this.getAllpreDistrict(StateID)
+          }
+        
           if (this.profiledataedit.DOB) {
             const dob = new Date(this.profiledataedit.DOB);
             this.day = dob.getDate();
@@ -195,7 +548,7 @@ this.openPreferenceModal=false;
 
   this.profiledataedit.TimeOfBirth = `${this.hour}:${this.minute} ${this.amPm}`;
 
-  console.log(this.profiledataedit)
+  
 
   // Profile/SaveProfileDetails.
 
@@ -204,10 +557,10 @@ this.openPreferenceModal=false;
   });
   await loading.present();
 
-  var userid = localStorage.getItem("userid");
+  var userid = (localStorage.getItem("userid"));
   const planapi = this.service.Baseurl + "/Profile/SaveProfileDetails";
   const requestbody = {
-    UserID: userid || 0,
+    UserID:  userid ? parseInt(userid) || 0 : 0,
     FirstName: this.profiledataedit.FirstName || "",
     LastName: this.profiledataedit.LastName || "",
     DOB: this.profiledataedit.DOB || "",
@@ -218,8 +571,8 @@ this.openPreferenceModal=false;
     Gender: this.profiledataedit.Gender || "",
     MotherTongue: this.profiledataedit.MotherTongue || "",
     Religion: this.profiledataedit.Religion || "",
-    CasteOrCommunity: this.profiledataedit.CasteOrCommunity || "",
-    SubCaste: this.profiledataedit.SubCaste || "",
+    CasteOrCommunity: JSON.stringify(this.castvalue) || "",
+    SubCaste:JSON.stringify( this.subcast) || "",
     Gotra: this.profiledataedit.Gotra || "",
     ManglikStatus: this.profiledataedit.ManglikStatus != null ? this.profiledataedit.ManglikStatus.toString() : "0",
     PlaceOfBirth: this.profiledataedit.PlaceOfBirth || "",
@@ -266,11 +619,11 @@ this.openPreferenceModal=false;
     PreferredCity: parseInt(this.profiledataedit.PreferredCity) || 0,
     PreferredOthers: this.profiledataedit.OtherPreferences || "",
     PreferredManglik: this.profiledataedit.Manglik || "",
-    Base64ProfileImages: this.profiledataedit.Base64ProfileImages,
-    CreatedBy: userid || 0,
+    Base64ProfileImages: [this.profiledataedit.Base64ProfileImages],
+    CreatedBy:userid ? parseInt(userid) || 0 : 0,
   };
   
-
+  console.log(requestbody,"request param")
   this.service.getPosts(planapi, requestbody).subscribe(
     async (data) => {
       await loading.dismiss();
@@ -304,4 +657,6 @@ this.openPreferenceModal=false;
     }
   );
   }
+
+ 
 }
