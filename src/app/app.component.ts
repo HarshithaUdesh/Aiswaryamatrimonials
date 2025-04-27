@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ServicesService } from 'src/app/services/services.service';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { NavController, Platform, AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { UpdateService } from 'src/app/services/update.service';
+import { AppVersion } from '@awesome-cordova-plugins/app-version/ngx';
 import { Subject } from 'rxjs';
 import { register } from 'swiper/element/bundle';
 register();
@@ -17,9 +19,25 @@ export class AppComponent {
 
   private menuUpdated = new Subject<any>();
   currentUsername:any;
+  version: any;
 
-  constructor(private toastCtrl: ToastController,public loadingCtrl:LoadingController,public alertCtrl: AlertController,public router:Router,private remoteService : ServicesService) {
-    this.currentUsername = localStorage.getItem("username");
+  constructor(public appversion: AppVersion,private updateService: UpdateService,private platform: Platform,private toastCtrl: ToastController,public loadingCtrl:LoadingController,public alertCtrl: AlertController,public router:Router,private remoteService : ServicesService) {
+   
+   // this.initializeApp();
+  }
+
+  initializeApp(){
+    this.platform.ready().then(() => {
+      this.currentUsername = localStorage.getItem("username");
+      this.updateService.checkForUpdate();
+      this.appversion.getVersionNumber().then(res => {
+        this.version = res;
+      }).catch(error => {
+        console.error(error);
+      });
+   
+      // this.setupBackButtonBehavior();
+    });
   }
 
   ngOnInit() {

@@ -38,9 +38,23 @@ export class HomePage implements OnInit {
   maxAge: number | undefined;
   profiles: any[] = []
 
-  constructor(public router: Router, public service: ServicesService, public toastCtrl: ToastController,public loadingCtrl: LoadingController) {
-    this.userid = localStorage.getItem('userid')
-   }
+  constructor(public platform: Platform,public router: Router, public service: ServicesService, public toastCtrl: ToastController,public loadingCtrl: LoadingController) {
+    this.userid = localStorage.getItem('userid');
+
+    this.platform.backButton.subscribeWithPriority(0, async () => {
+      const currentRoute = this.router.url;
+
+      if (currentRoute === '/tabs/home') {
+        const confirmation = window.confirm("Do you want to exit the app?");
+        if (confirmation) {
+          (navigator as any).app.exitApp();
+        } else {
+        }
+      } else {
+        window.history.back();
+      }
+    });
+  }
 
   ngOnInit() {
    
