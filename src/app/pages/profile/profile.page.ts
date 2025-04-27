@@ -15,7 +15,8 @@ export class ProfilePage implements OnInit {
   userimages:any;
   myplanlist:any;
   profiledata:any;
-  profiledataedit:any
+  profiledataedit:any;
+  completionpercentage:any;
   selectedOption = 'about';
   openModalpersonal:boolean=false;
   openLifeModal:boolean=false;
@@ -114,8 +115,45 @@ this.openPreferenceModal=false;
     this.getProfileDetailsData();
     this.getAllcast()
     this.getAllState()
+    this.getProfilePercentageData();
+  }
 
+  async getProfilePercentageData() {
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
   
+    var userid = localStorage.getItem("userid");
+    const planapi = this.service.Baseurl + "/Profile/GetUserProfileCompletionPercentage";
+    const planarray = {
+      "UserID": userid 
+    };
+  
+    this.service.getPosts(planapi, planarray).subscribe(
+      async (data) => {
+        await loading.dismiss();
+        if (data.success === true) {
+          this.completionpercentage = data.data.completionPercentage;
+        } else {
+          const toast = await this.toastCtrl.create({
+            message: data.message,
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      },
+      async (err) => {
+        await loading.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: "Poor Internet connection/ Network Not Available, pls try again..",
+          duration: 3000
+        });
+        await toast.present();
+        this.styleToast(toast);
+      }
+    );
   }
 
   async getAllcast(){
