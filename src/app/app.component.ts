@@ -23,7 +23,7 @@ export class AppComponent {
 
   constructor(public appversion: AppVersion,private updateService: UpdateService,private platform: Platform,private toastCtrl: ToastController,public loadingCtrl:LoadingController,public alertCtrl: AlertController,public router:Router,private remoteService : ServicesService) {
    
-   // this.initializeApp();
+   this.initializeApp();
   }
 
   initializeApp(){
@@ -32,6 +32,8 @@ export class AppComponent {
       this.updateService.checkForUpdate();
       this.appversion.getVersionNumber().then(res => {
         this.version = res;
+        console.log(this.version,"this.version");
+        
       }).catch(error => {
         console.error(error);
       });
