@@ -579,121 +579,291 @@ this.openPreferenceModal=false;
   handleopenPreferenceModal(value:any){
     this.openPreferenceModal=value
   }
+
+
+  validateEmail(email: string): boolean {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+  profileError: string = '';
+
+  validateProfileData(): boolean {
+    const data = this.profiledataedit;
+  
+    if (!data.FirstName) {
+      this.profileError = 'Please enter first name';
+      return false;
+    }
+    if (!data.LastName) {
+      this.profileError = 'Please enter last name';
+      return false;
+    }
+    if (!data.DOB) {
+      this.profileError = 'Please enter date of birth';
+      return false;
+    }
+    if (isNaN(parseInt(data.Age)) || parseInt(data.Age) <= 0) {
+      this.profileError = 'Please enter valid age';
+      return false;
+    }
+    if (isNaN(parseInt(data.Height)) || parseInt(data.Height) <= 0) {
+      this.profileError = 'Please enter valid height';
+      return false;
+    }
+    if (isNaN(parseInt(data.Weight)) || parseInt(data.Weight) <= 0) {
+      this.profileError = 'Please enter valid weight';
+      return false;
+    }
+    if (!data.BloodGroup) {
+      this.profileError = 'Please select blood group';
+      return false;
+    }
+    if (!data.Gender) {
+      this.profileError = 'Please select gender';
+      return false;
+    }
+    if (!data.MotherTongue) {
+      this.profileError = 'Please select mother tongue';
+      return false;
+    }
+    if (!data.Religion) {
+      this.profileError = 'Please select religion';
+      return false;
+    }
+    if (!this.castvalue || this.castvalue.length === 0) {
+      this.profileError = 'Please select caste/community';
+      return false;
+    }
+    if (!this.subcast || this.subcast.length === 0) {
+      this.profileError = 'Please select sub-caste';
+      return false;
+    }
+    if (!data.Gotra) {
+      this.profileError = 'Please enter gotra';
+      return false;
+    }
+    if (!data.BirthStar) {
+      this.profileError = 'Please select birth star';
+      return false;
+    }
+    if (!data.Rashi) {
+      this.profileError = 'Please select rashi';
+      return false;
+    }
+    if (!data.AboutMe) {
+      this.profileError = 'Please write something about yourself';
+      return false;
+    }
+    if (!data.MobileNo || data.MobileNo.length < 10) {
+      this.profileError = 'Please enter valid mobile number';
+      return false;
+    }
+    if (!data.EmailID || !this.validateEmail(data.EmailID)) {
+      this.profileError = 'Please enter valid email ID';
+      return false;
+    }
+    if (!data.Address) {
+      this.profileError = 'Please enter address';
+      return false;
+    }
+    if (isNaN(parseInt(data.CityID)) || parseInt(data.CityID) <= 0) {
+      this.profileError = 'Please select city';
+      return false;
+    }
+    if (isNaN(parseInt(data.StateID)) || parseInt(data.StateID) <= 0) {
+      this.profileError = 'Please select state';
+      return false;
+    }
+  
+    const qualification = data.HighestQualification || data.EducationalQualifications || '';
+    if (!qualification) {
+      this.profileError = 'Please select highest qualification';
+      return false;
+    }
+  
+    if (!data.YearOfGraduation) {
+      this.profileError = 'Please enter year of graduation';
+      return false;
+    }
+    if (!data.Occupation) {
+      this.profileError = 'Please enter occupation';
+      return false;
+    }
+  
+    // Partner preferences
+    if (!data.AgeRange) {
+      this.profileError = 'Please select preferred age range';
+      return false;
+    }
+    if (!data.HeightRange) {
+      this.profileError = 'Please select preferred height range';
+      return false;
+    }
+    if (isNaN(parseInt(data.PreferredCasteCommunityId)) || parseInt(data.PreferredCasteCommunityId) <= 0) {
+      this.profileError = 'Please select preferred caste/community';
+      return false;
+    }
+    if (isNaN(parseInt(data.PreferredSubCasteId)) || parseInt(data.PreferredSubCasteId) <= 0) {
+      this.profileError = 'Please select preferred sub-caste';
+      return false;
+    }
+    if (!data.EducationalQualifications) {
+      this.profileError = 'Please select preferred education';
+      return false;
+    }
+    if (!data.OccupationIncomePreferences) {
+      this.profileError = 'Please select preferred occupation/income';
+      return false;
+    }
+    if (isNaN(parseInt(data.PreferredStateID)) || parseInt(data.PreferredStateID) <= 0) {
+      this.profileError = 'Please select preferred state';
+      return false;
+    }
+    if (isNaN(parseInt(data.PreferredCity)) || parseInt(data.PreferredCity) <= 0) {
+      this.profileError = 'Please select preferred city';
+      return false;
+    }
+  
+    // ✅ All good
+    this.profileError = '';
+    return true;
+
+  }
+  
   async updateProfiledata(){
-    const monthIndex = this.months.indexOf(this.month);
-  const dobDate = new Date(this.year, monthIndex, this.day);
-  this.profiledataedit.DOB = dobDate.toISOString().split('T')[0]; // Format YYYY-MM-DD
-
-  this.profiledataedit.TimeOfBirth = `${this.hour}:${this.minute} ${this.amPm}`;
-
-  
-
-  // Profile/SaveProfileDetails.
-
-  const loading = await this.loadingCtrl.create({
-    message: 'Please wait...',
-  });
-  await loading.present();
-
-  var userid = (localStorage.getItem("userid"));
-  const planapi = this.service.Baseurl + "/Profile/SaveProfileDetails";
-  const requestbody = {
-    UserID:  userid ? parseInt(userid) || 0 : 0,
-    FirstName: this.profiledataedit.FirstName || "",
-    LastName: this.profiledataedit.LastName || "",
-    DOB: this.profiledataedit.DOB || "",
-    Age: parseInt(this.profiledataedit.Age) || 0,
-    Height: parseInt(this.profiledataedit.Height) || 0,
-    Weight: parseInt(this.profiledataedit.Weight) || 0,
-    BloodGroup: this.profiledataedit.BloodGroup || "",
-    Gender: this.profiledataedit.Gender || "",
-    MotherTongue: this.profiledataedit.MotherTongue || "",
-    Religion: this.profiledataedit.Religion || "",
-    CasteOrCommunity: JSON.stringify(this.castvalue) || "",
-    SubCaste:JSON.stringify( this.subcast) || "",
-    Gotra: this.profiledataedit.Gotra || "",
-    ManglikStatus: this.profiledataedit.ManglikStatus != null ? this.profiledataedit.ManglikStatus.toString() : "0",
-    PlaceOfBirth: this.profiledataedit.PlaceOfBirth || "",
-    TimeOfBirth: this.profiledataedit.TimeOfBirth || "",
-    BirthStar: this.profiledataedit.BirthStar || "",
-    Rashi: this.profiledataedit.Rashi || "",
-    AboutMe: this.profiledataedit.AboutMe || "",
-    Profile_Image: this.profiledataedit.Profile_Image || "",
-    MaritalStatus: this.profiledataedit.MaritalStatus || "",
-    Occupation: this.profiledataedit.Occupation || "",
-    Company: this.profiledataedit.Company || "",
-    AnnualIncome: parseInt(this.profiledataedit.AnnualIncome) || 0,
-    JobLocation: this.profiledataedit.JobLocation || "",
-    WorkExperience: this.profiledataedit.WorkExperience || "",
-    FathersOccupation: this.profiledataedit.FathersOccupation || "",
-    MothersOccupation: this.profiledataedit.MothersOccupation || "",
-    Siblings: this.profiledataedit.Siblings || "",
-    FamilyType: this.profiledataedit.FamilyType || "",
-    FamilyValues: this.profiledataedit.FamilyValues || "",
-    DietPreference: this.profiledataedit.DietPreference || "",
-    Drinking: this.profiledataedit.Drinking || "",
-    Smoking: this.profiledataedit.Smoking || "",
-    HobbiesAndInterests: this.profiledataedit.HobbiesAndInterests || "",
-    SportsActivities: this.profiledataedit.SportsActivities || "",
-    PreferredMarriageLocation: this.profiledataedit.PreferredMarriageLocation || "",
-    HighestQualification: this.profiledataedit.HighestQualification || this.profiledataedit.EducationalQualifications || "",
-    InstituteOrUniversity: this.profiledataedit.InstituteOrUniversity || "",
-    YearOfGraduation: this.profiledataedit.YearOfGraduation || "",
-    AdditionalQualifications: this.profiledataedit.AdditionalQualifications || "",
-    LanguagesKnown: this.profiledataedit.LanguagesKnown || "",
-    MobileNo: this.profiledataedit.MobileNo || "",
-    EmailID: this.profiledataedit.EmailID || "",
-    Address: this.profiledataedit.Address || "",
-    City: parseInt(this.profiledataedit.CityID) || 0,
-    State: parseInt(this.profiledataedit.StateID) || 0,
-    Pincode: this.profiledataedit.Pincode || "",
-    PreferredAgeRange: this.profiledataedit.AgeRange || "",
-    PreferredHeight: this.profiledataedit.HeightRange || "",
-    PreferredCasteCommunity: parseInt(this.profiledataedit.PreferredCasteCommunityId) || 0,
-    PreferredSubCaste: parseInt(this.profiledataedit.PreferredSubCasteId) || 0,
-    PreferredEducation: this.profiledataedit.EducationalQualifications || "",
-    PreferredOccupationIncome: this.profiledataedit.OccupationIncomePreferences || "",
-    PreferredStateID: parseInt(this.profiledataedit.PreferredStateID) || 0,
-    PreferredCity: parseInt(this.profiledataedit.PreferredCity) || 0,
-    PreferredOthers: this.profiledataedit.OtherPreferences || "",
-    PreferredManglik: this.profiledataedit.Manglik || "",
-    Base64ProfileImages: [this.profiledataedit.Base64ProfileImages],
-    CreatedBy:userid ? parseInt(userid) || 0 : 0,
-  };
-  
-  console.log(requestbody,"request param")
-  this.service.getPosts(planapi, requestbody).subscribe(
-    async (data) => {
-      await loading.dismiss();
-      if (data.success === true) {
-        this.getProfileDetailsData();
-        this.closeModel()
-        const toast = await this.toastCtrl.create({
-          message: "Profile Updated successfully!",
-          duration: 3000
-        });
-        await toast.present();
-        this.styleToast(toast);
-      
-      } else {
-        const toast = await this.toastCtrl.create({
-          message: data.message,
-          duration: 3000
-        });
-        await toast.present();
-        this.styleToast(toast);
-      }
-    },
-    async (err) => {
-      await loading.dismiss();
+    console.log(this.validateProfileData(),"!this.formValidation()!this.formValidation()");
+    var data=this.validateProfileData()
+     if (data==false) {
       const toast = await this.toastCtrl.create({
-        message: "Poor Internet connection/ Network Not Available, pls try again..",
+        message: "Please Fill the Required Field",
         duration: 3000
       });
       await toast.present();
       this.styleToast(toast);
+    
+      return; 
+    }else{
+      const monthIndex = this.months.indexOf(this.month);
+      const dobDate = new Date(this.year, monthIndex, this.day);
+      this.profiledataedit.DOB = dobDate.toISOString().split('T')[0]; // Format YYYY-MM-DD
+    
+      this.profiledataedit.TimeOfBirth = `${this.hour}:${this.minute} ${this.amPm}`;
+    
+      
+    
+      // Profile/SaveProfileDetails.
+    
+      const loading = await this.loadingCtrl.create({
+        message: 'Please wait...',
+      });
+      await loading.present();
+    
+      var userid = (localStorage.getItem("userid"));
+      const planapi = this.service.Baseurl + "/Profile/SaveProfileDetails";
+      const requestbody = {
+        UserID:  userid ? parseInt(userid) || 0 : 0,
+        FirstName: this.profiledataedit.FirstName || "",
+        LastName: this.profiledataedit.LastName || "",
+        DOB: this.profiledataedit.DOB || "",
+        Age: parseInt(this.profiledataedit.Age) || 0,
+        Height: parseInt(this.profiledataedit.Height) || 0,
+        Weight: parseInt(this.profiledataedit.Weight) || 0,
+        BloodGroup: this.profiledataedit.BloodGroup || "",
+        Gender: this.profiledataedit.Gender || "",
+        MotherTongue: this.profiledataedit.MotherTongue || "",
+        Religion: this.profiledataedit.Religion || "",
+        CasteOrCommunity: JSON.stringify(this.castvalue) || "",
+        SubCaste:JSON.stringify( this.subcast) || "",
+        Gotra: this.profiledataedit.Gotra || "",
+        ManglikStatus: this.profiledataedit.ManglikStatus != null ? this.profiledataedit.ManglikStatus.toString() : "0",
+        PlaceOfBirth: this.profiledataedit.PlaceOfBirth || "",
+        TimeOfBirth: this.profiledataedit.TimeOfBirth || "",
+        BirthStar: this.profiledataedit.BirthStar || "",
+        Rashi: this.profiledataedit.Rashi || "",
+        AboutMe: this.profiledataedit.AboutMe || "",
+        Profile_Image: this.profiledataedit.Profile_Image || "",
+        MaritalStatus: this.profiledataedit.MaritalStatus || "",
+        Occupation: this.profiledataedit.Occupation || "",
+        Company: this.profiledataedit.Company || "",
+        AnnualIncome: parseInt(this.profiledataedit.AnnualIncome) || 0,
+        JobLocation: this.profiledataedit.JobLocation || "",
+        WorkExperience: this.profiledataedit.WorkExperience || "",
+        FathersOccupation: this.profiledataedit.FathersOccupation || "",
+        MothersOccupation: this.profiledataedit.MothersOccupation || "",
+        Siblings: this.profiledataedit.Siblings || "",
+        FamilyType: this.profiledataedit.FamilyType || "",
+        FamilyValues: this.profiledataedit.FamilyValues || "",
+        DietPreference: this.profiledataedit.DietPreference || "",
+        Drinking: this.profiledataedit.Drinking || "",
+        Smoking: this.profiledataedit.Smoking || "",
+        HobbiesAndInterests: this.profiledataedit.HobbiesAndInterests || "",
+        SportsActivities: this.profiledataedit.SportsActivities || "",
+        PreferredMarriageLocation: this.profiledataedit.PreferredMarriageLocation || "",
+        HighestQualification: this.profiledataedit.HighestQualification || this.profiledataedit.EducationalQualifications || "",
+        InstituteOrUniversity: this.profiledataedit.InstituteOrUniversity || "",
+        YearOfGraduation: this.profiledataedit.YearOfGraduation || "",
+        AdditionalQualifications: this.profiledataedit.AdditionalQualifications || "",
+        LanguagesKnown: this.profiledataedit.LanguagesKnown || "",
+        MobileNo: this.profiledataedit.MobileNo || "",
+        EmailID: this.profiledataedit.EmailID || "",
+        Address: this.profiledataedit.Address || "",
+        City: parseInt(this.profiledataedit.CityID) || 0,
+        State: parseInt(this.profiledataedit.StateID) || 0,
+        Pincode: this.profiledataedit.Pincode || "",
+        PreferredAgeRange: this.profiledataedit.AgeRange || "",
+        PreferredHeight: this.profiledataedit.HeightRange || "",
+        PreferredCasteCommunity: parseInt(this.profiledataedit.PreferredCasteCommunityId) || 0,
+        PreferredSubCaste: parseInt(this.profiledataedit.PreferredSubCasteId) || 0,
+        PreferredEducation: this.profiledataedit.EducationalQualifications || "",
+        PreferredOccupationIncome: this.profiledataedit.OccupationIncomePreferences || "",
+        PreferredStateID: parseInt(this.profiledataedit.PreferredStateID) || 0,
+        PreferredCity: parseInt(this.profiledataedit.PreferredCity) || 0,
+        PreferredOthers: this.profiledataedit.OtherPreferences || "",
+        PreferredManglik: this.profiledataedit.Manglik || "",
+        Base64ProfileImages: [this.profiledataedit.Base64ProfileImages],
+        CreatedBy:userid ? parseInt(userid) || 0 : 0,
+      };
+      
+      console.log(requestbody,"request param")
+      this.service.getPosts(planapi, requestbody).subscribe(
+        async (data) => {
+          await loading.dismiss();
+          if (data.success === true) {
+            this.getProfileDetailsData();
+            this.closeModel()
+            const toast = await this.toastCtrl.create({
+              message: "Profile Updated successfully!",
+              duration: 3000
+            });
+            await toast.present();
+            this.styleToast(toast);
+          
+          } else {
+            const toast = await this.toastCtrl.create({
+              message: data.message,
+              duration: 3000
+            });
+            await toast.present();
+            this.styleToast(toast);
+          }
+        },
+        async (err) => {
+          await loading.dismiss();
+          const toast = await this.toastCtrl.create({
+            message: "Poor Internet connection/ Network Not Available, pls try again..",
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      );
     }
-  );
+  
+
+
+
+
+  
   }
 
  
