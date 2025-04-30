@@ -54,6 +54,9 @@ export class AppComponent {
     this.menuUpdated.next(true);
   }
 
+  openmydashboard(){
+    this.router.navigate(['mydashboard']);
+  }
   openProfilePage(){
     this.router.navigate(['tabs/profile']);
   }

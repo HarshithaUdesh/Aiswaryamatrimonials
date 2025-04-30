@@ -116,6 +116,7 @@ this.openPreferenceModal=false;
     this.getAllcast()
     this.getAllState()
     this.getProfilePercentageData();
+    
   }
 
   async getProfilePercentageData() {
@@ -291,7 +292,16 @@ this.openPreferenceModal=false;
     );
   }
 
+  onStateChange(selectedstateId: any) {
+    console.log('Selected City ID:', selectedstateId);
+  
+    // Call your function here
+    this.getAllDistrict(selectedstateId);
+  }
 
+  onstatepref(selectedstateId: any){
+    this.getAllpreDistrict(selectedstateId)
+  }
 
   async getAllDistrict(id:any){
     const loading = await this.loadingCtrl.create({
@@ -502,7 +512,6 @@ this.openPreferenceModal=false;
         if (data.success === true) {
           this.profiledata = data.data.profileData;
           this.profiledataedit=data.data.profileData[0];
-          console.log( typeof this.profiledataedit.Base64ProfileImages)
 
           if(this.profiledataedit.CasteOrCommunityId){
             this.castvalue =parseInt(this.profiledataedit.CasteOrCommunityId)
@@ -587,8 +596,15 @@ this.openPreferenceModal=false;
   }
   profileError: string = '';
 
-  validateProfileData(): boolean {
+  validateProfileData(value:any): boolean {
     const data = this.profiledataedit;
+    console.log(data,"dataaa");
+    
+  if(value==1){
+  console.log("11111");
+  const monthIndex = this.months.indexOf(this.month);
+      const dobDate = new Date(this.year, monthIndex, this.day);
+      this.profiledataedit.DOB = dobDate.toISOString().split('T')[0];
   
     if (!data.FirstName) {
       this.profileError = 'Please enter first name';
@@ -622,14 +638,14 @@ this.openPreferenceModal=false;
       this.profileError = 'Please select gender';
       return false;
     }
-    if (!data.MotherTongue) {
-      this.profileError = 'Please select mother tongue';
-      return false;
-    }
-    if (!data.Religion) {
-      this.profileError = 'Please select religion';
-      return false;
-    }
+    // if (!data.MotherTongue) {
+    //   this.profileError = 'Please select mother tongue';
+    //   return false;
+    // }
+    // if (!data.Religion) {
+    //   this.profileError = 'Please select religion';
+    //   return false;
+    // }
     if (!this.castvalue || this.castvalue.length === 0) {
       this.profileError = 'Please select caste/community';
       return false;
@@ -650,10 +666,15 @@ this.openPreferenceModal=false;
       this.profileError = 'Please select rashi';
       return false;
     }
-    if (!data.AboutMe) {
-      this.profileError = 'Please write something about yourself';
-      return false;
-    }
+     return true
+  }
+    // if (!data.AboutMe) {
+    //   this.profileError = 'Please write something about yourself';
+    //   return false;
+    // }
+    if(value==2){
+
+    
     if (!data.MobileNo || data.MobileNo.length < 10) {
       this.profileError = 'Please enter valid mobile number';
       return false;
@@ -674,7 +695,11 @@ this.openPreferenceModal=false;
       this.profileError = 'Please select state';
       return false;
     }
-  
+    return true
+    }
+
+    if(value==3){
+
     const qualification = data.HighestQualification || data.EducationalQualifications || '';
     if (!qualification) {
       this.profileError = 'Please select highest qualification';
@@ -685,12 +710,16 @@ this.openPreferenceModal=false;
       this.profileError = 'Please enter year of graduation';
       return false;
     }
+    return true
+  }
+  if(value==4){
     if (!data.Occupation) {
       this.profileError = 'Please enter occupation';
       return false;
     }
-  
-    // Partner preferences
+return true
+  }
+  if(value==7){
     if (!data.AgeRange) {
       this.profileError = 'Please select preferred age range';
       return false;
@@ -723,16 +752,18 @@ this.openPreferenceModal=false;
       this.profileError = 'Please select preferred city';
       return false;
     }
-  
-    // ✅ All good
     this.profileError = '';
     return true;
-
+  }
+  this.profileError = 'Invalid section';
+  return true;
   }
   
-  async updateProfiledata(){
-    console.log(this.validateProfileData(),"!this.formValidation()!this.formValidation()");
-    var data=this.validateProfileData()
+  async updateProfiledata(value:any){
+    console.log(this.validateProfileData(value),"!this.formValidation()!this.formValidation()");
+    var data=this.validateProfileData(value);
+    console.log(this.profileError );
+    
      if (data==false) {
       const toast = await this.toastCtrl.create({
         message: "Please Fill the Required Field",
@@ -745,7 +776,7 @@ this.openPreferenceModal=false;
     }else{
       const monthIndex = this.months.indexOf(this.month);
       const dobDate = new Date(this.year, monthIndex, this.day);
-      this.profiledataedit.DOB = dobDate.toISOString().split('T')[0]; // Format YYYY-MM-DD
+      this.profiledataedit.DOB = dobDate.toISOString().split('T')[0]; 
     
       this.profiledataedit.TimeOfBirth = `${this.hour}:${this.minute} ${this.amPm}`;
     
@@ -801,7 +832,7 @@ this.openPreferenceModal=false;
         PreferredMarriageLocation: this.profiledataedit.PreferredMarriageLocation || "",
         HighestQualification: this.profiledataedit.HighestQualification || this.profiledataedit.EducationalQualifications || "",
         InstituteOrUniversity: this.profiledataedit.InstituteOrUniversity || "",
-        YearOfGraduation: this.profiledataedit.YearOfGraduation || "",
+        YearOfGraduation: JSON.stringify(this.profiledataedit.YearOfGraduation) || "",
         AdditionalQualifications: this.profiledataedit.AdditionalQualifications || "",
         LanguagesKnown: this.profiledataedit.LanguagesKnown || "",
         MobileNo: this.profiledataedit.MobileNo || "",
@@ -809,7 +840,7 @@ this.openPreferenceModal=false;
         Address: this.profiledataedit.Address || "",
         City: parseInt(this.profiledataedit.CityID) || 0,
         State: parseInt(this.profiledataedit.StateID) || 0,
-        Pincode: this.profiledataedit.Pincode || "",
+        Pincode: JSON.stringify(this.profiledataedit.Pincode) || "",
         PreferredAgeRange: this.profiledataedit.AgeRange || "",
         PreferredHeight: this.profiledataedit.HeightRange || "",
         PreferredCasteCommunity: parseInt(this.profiledataedit.PreferredCasteCommunityId) || 0,
@@ -858,13 +889,12 @@ this.openPreferenceModal=false;
         }
       );
     }
-  
-
-
-
-
-  
+   }
+   unescapeGraduationYear(value: string): string {
+    try {
+      return JSON.parse(JSON.parse('"' + value + '"'));
+    } catch (e) {
+      return ''; // Return blank if unparseable
+    }
   }
-
- 
 }
