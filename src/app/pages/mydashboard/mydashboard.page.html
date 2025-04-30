@@ -1,0 +1,116 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-row>
+      <ion-col size="2" style="text-align: left;" (click)="backoption()">
+        <ion-icon name="arrow-back" style="font-size: 30px;padding-left: 10px;"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <ion-title style="padding-top: 6px;">My Dashboard</ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content class="ion-padding">
+  <ion-card class="profile-card" *ngIf="profiledata">
+
+    <!-- Header Section with Circular Progress -->
+    <div class="header-section">
+   <!-- Avatar with progress ring -->
+   <div class="avatar-wrapper">
+    <svg class="progress-ring" width="100" height="100">
+      <circle class="bg" r="45" cx="50" cy="50" />
+      <circle
+        class="progress"
+        r="45"
+        cx="50"
+        cy="50"
+        [attr.stroke-dasharray]="circumference"
+        [attr.stroke-dashoffset]="progressOffset"
+      />
+    </svg>
+    <img [src]="profiledata.Profile_Image" class="avatar" />
+  </div>
+  
+
+      <div class="user-info">
+        <h2 class="name">{{profiledata.FullName}}</h2>
+        <p class="user-id">{{profiledata.EmailID}}</p>
+      </div>
+    </div>
+
+
+    <!-- Profile Details -->
+    <div class="details">
+  <div class="row"><span class="label">Location</span><span class="value">{{profiledata.Address}}</span></div>
+      <div class="row"><span class="label">Age</span><span class="value">{{profiledata.Age}}</span></div>
+      <div class="row"><span class="label">Height</span><span class="value">{{profiledata.Height}}</span></div>
+      <div class="row"><span class="label">Education</span><span class="value">{{profiledata.EducationalQualifications}}</span></div>
+      <div class="row">
+        <span class="label">Occupation</span>
+        <span class="value">
+          {{profiledata.Occupation}}
+          <!-- <a href="#" class="edit-link">Edit</a> -->
+        </span>
+      </div>
+    </div>
+
+
+    <!-- <div class="account-section">
+      <span><strong>Account Type:</strong> <span class="standard"> {{profiledata.}}</span></span>
+    </div> -->
+
+    <ion-button expand="block" fill="outline" class="update-button" (click)="navToprofile()">
+      Update Profile
+    </ion-button>
+
+  </ion-card>
+  <div class="activity-summary-section" *ngIf="profiledataCount">
+    <h2 class="activity-title">Your Activity Summary</h2>
+    <div class="activity-grid">
+      <div class="activity-card" >
+        <div class="icon-wrapper">
+          <ion-icon name="eye-outline"></ion-icon>
+        </div>
+        <div class="count">{{ profiledataCount.Viewed }}</div>
+        <div class="label">Viewed You</div>
+      </div>
+
+      <div class="activity-card" >
+        <div class="icon-wrapper">
+          <ion-icon name="send-outline"></ion-icon>
+        </div>
+        <div class="count">{{ profiledataCount.RequestSent }}</div>
+        <div class="label">Request Sent</div>
+      </div>
+
+      <div class="activity-card" >
+        <div class="icon-wrapper">
+          <ion-icon name="mail-outline"></ion-icon>
+        </div>
+        <div class="count">{{ profiledataCount.RequestReceived }}</div>
+        <div class="label">Request Received</div>
+      </div>
+
+      <div class="activity-card" >
+        <div class="icon-wrapper">
+          <ion-icon name="checkmark-done-outline"></ion-icon>
+        </div>
+        <div class="count">{{ profiledataCount.AcceptedRequests }}</div>
+        <div class="label">Accepted Requests</div>
+      </div>
+
+
+      <div class="activity-card" >
+        <div class="icon-wrapper">
+          <ion-icon name="time-outline"></ion-icon>
+        </div>
+        <div class="count">{{ profiledataCount.PendingRequests }}</div>
+        <div class="label">Pending Requests</div>
+      </div>
+    </div>
+  </div>
+  
+</ion-content>

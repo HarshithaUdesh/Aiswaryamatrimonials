@@ -253,7 +253,7 @@
           <div class="personaldetailsvalue">:</div>
         </ion-col>
         <ion-col size="6">
-          <div class="personaldetailsvalue">{{item.TimeOfBirth}}</div>
+          <div class="personaldetailsvalue"> {{ item.TimeOfBirth && item.TimeOfBirth.trim() !== 'NaN:NaN undefined' ? item.TimeOfBirth : '' }}</div>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -352,7 +352,7 @@
           <div class="personaldetailsvalue">:</div>
         </ion-col>
         <ion-col size="6">
-          <div class="personaldetailsvalue">{{item.Pincode}}</div>
+          <div class="personaldetailsvalue">{{unescapeGraduationYear(item.Pincode)}}</div>
         </ion-col>
       </ion-row>
     </ion-card>
@@ -407,7 +407,7 @@
           <div class="personaldetailsvalue">:</div>
         </ion-col>
         <ion-col size="6">
-          <div class="personaldetailsvalue">{{item.YearOfGraduation}}</div>
+          <div class="personaldetailsvalue">{{unescapeGraduationYear(item.YearOfGraduation)}}</div>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -774,17 +774,17 @@
         <ion-list class="custom-list" lines="none">
           
           <ion-item class="custom-item">
-            <ion-label position="stacked">First Name</ion-label>
+            <ion-label position="stacked">First Name*</ion-label>
             <ion-input placeholder="Enter First Name" [(ngModel)]="profiledataedit.FirstName"></ion-input>
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Last Name</ion-label>
+            <ion-label position="stacked">Last Name*</ion-label>
             <ion-input placeholder="Enter Last Name" [(ngModel)]="profiledataedit.LastName"></ion-input>
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Date of Birth</ion-label>
+            <ion-label position="stacked">Date of Birth*</ion-label>
             <div class="dob-fields">
               <ion-input placeholder="Day" [(ngModel)]="day" type="number"></ion-input>
               <ion-select [(ngModel)]="month" placeholder="Month">
@@ -807,27 +807,27 @@
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Age</ion-label>
+            <ion-label position="stacked">Age*</ion-label>
             <ion-input placeholder="Enter Age" [(ngModel)]="profiledataedit.Age" type="number"></ion-input>
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Height</ion-label>
+            <ion-label position="stacked">Heigh*t</ion-label>
             <ion-input placeholder="Enter Height (in ft)" [(ngModel)]="profiledataedit.Height" type="number"></ion-input>
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Weight</ion-label>
+            <ion-label position="stacked">Weight*</ion-label>
             <ion-input placeholder="Enter Weight (kg)" [(ngModel)]="profiledataedit.Weight" type="number"></ion-input>
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Blood Group</ion-label>
+            <ion-label position="stacked">Blood Group*</ion-label>
             <ion-input placeholder="Enter Blood Group" [(ngModel)]="profiledataedit.BloodGroup"></ion-input>
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Gotra</ion-label>
+            <ion-label position="stacked">Gotra*</ion-label>
             <ion-input placeholder="Enter Gotra" [(ngModel)]="profiledataedit.Gotra"></ion-input>
           </ion-item>
   
@@ -853,7 +853,7 @@
 
           <ion-item lines="none" class="custom-item">
             <ion-label position="stacked">
-              Cast/Community
+              Cast/Community*
             </ion-label>
             <ion-select
               [(ngModel)]="this.castvalue"
@@ -871,7 +871,7 @@
 
         <ion-item lines="none" class="custom-item">
             <ion-label position="stacked">
-              Select SubCast
+              Select SubCast*
             </ion-label>
             <ion-select
               [(ngModel)]="this.subcast"
@@ -889,7 +889,7 @@
           
           <ion-item lines="none" class="custom-item">
             <ion-label position="stacked">
-             Gender
+             Gender*
             </ion-label>
             <ion-select
               [(ngModel)]="profiledataedit.Gender"
@@ -904,17 +904,17 @@
             </ion-select>
           </ion-item>
           <ion-item class="custom-item">
-            <ion-label position="stacked">Rashi</ion-label>
+            <ion-label position="stacked">Rashi*</ion-label>
             <ion-input placeholder="Enter Rashi" [(ngModel)]="profiledataedit.Rashi"></ion-input>
           </ion-item>
 
           <ion-item class="custom-item">
-            <ion-label position="stacked">Place of Birth</ion-label>
+            <ion-label position="stacked">Place of Birth*</ion-label>
             <ion-input placeholder="Enter Rashi" [(ngModel)]="profiledataedit.PlaceOfBirth"></ion-input>
           </ion-item>
 
           <ion-item class="custom-item">
-            <ion-label position="stacked">Birth Star(Nakshatra)</ion-label>
+            <ion-label position="stacked">Birth Star(Nakshatra)*</ion-label>
             <ion-input placeholder="Enter Rashi" [(ngModel)]="profiledataedit.BirthStar"></ion-input>
           </ion-item>
 
@@ -939,7 +939,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" color="primary" (click)="updateProfiledata()">Save</ion-button>
+        <ion-button expand="block" color="primary" (click)="updateProfiledata(1)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -960,25 +960,25 @@
         <ion-list class="custom-list" lines="none">
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Mobile Number</ion-label>
+            <ion-label position="stacked">Mobile Number*</ion-label>
             <ion-input type="tel" placeholder="Enter Mobile Number" [(ngModel)]="profiledataedit.MobileNo"></ion-input>
           </ion-item>
   
 
           <ion-item class="custom-item">
-            <ion-label position="stacked">Email</ion-label>
+            <ion-label position="stacked">Email*</ion-label>
             <ion-input type="email" placeholder="Enter Email" [(ngModel)]="profiledataedit.EmailID"></ion-input>
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Address</ion-label>
+            <ion-label position="stacked">Address*</ion-label>
             <ion-textarea placeholder="Enter Address" [(ngModel)]="profiledataedit.Address"></ion-textarea>
           </ion-item>
   
 
           <ion-item lines="none" class="custom-item">
             <ion-label position="stacked">
-              Select State
+              Select State*
             </ion-label>
             <ion-select
               [(ngModel)]="profiledataedit.StateID"
@@ -986,7 +986,7 @@
               placeholder="Select"
               class="custom"
               style="color: black"
-              
+              (ionChange)="onStateChange($event.detail.value)"
             >
               <ion-select-option *ngFor="let c of stateOptions" [value]="c.Id" style="--background: #ca2323;">
                 {{ c.Name }}
@@ -998,7 +998,7 @@
          
           <ion-item lines="none" class="custom-item">
             <ion-label position="stacked">
-              Select City
+              Select City*
             </ion-label>
             <ion-select
               [(ngModel)]="profiledataedit.CityID"
@@ -1006,7 +1006,7 @@
               placeholder="Select"
               class="custom"
               style="color: black"
-              
+           
             >
               <ion-select-option *ngFor="let c of districtOptions" [value]="c.Id" style="--background: #ca2323;">
                 {{ c.Name }}
@@ -1024,7 +1024,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" color="primary" (click)="updateProfiledata()">Save</ion-button>
+        <ion-button expand="block" color="primary" (click)="updateProfiledata(2)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -1046,7 +1046,7 @@
         <ion-list class="custom-list" lines="none">
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Highest Education Qualification</ion-label>
+            <ion-label position="stacked">Highest Education Qualification*</ion-label>
             <ion-input [(ngModel)]="profiledataedit.HighestQualification"></ion-input>
           </ion-item>
   
@@ -1057,16 +1057,14 @@
   
           <ion-item class="custom-item">
             <ion-label position="stacked">Languages</ion-label>
-            <ion-input type="number" [(ngModel)]="profiledataedit.LanguagesKnown"></ion-input>
+            <ion-input type="text" [(ngModel)]="profiledataedit.LanguagesKnown"></ion-input>
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Year of Graduation</ion-label>
+            <ion-label position="stacked">Year of Graduation*</ion-label>
             <ion-input [(ngModel)]="profiledataedit.YearOfGraduation"></ion-input>
           </ion-item>
-  
-          
-  
+
           <ion-item class="custom-item">
             <ion-label position="stacked">Additional Qualifications</ion-label>
             <ion-input [(ngModel)]="profiledataedit.AdditionalQualifications"></ion-input>
@@ -1076,7 +1074,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" (click)="updateProfiledata()">Save</ion-button>
+        <ion-button expand="block" (click)="updateProfiledata(3)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -1098,7 +1096,7 @@
         <ion-list class="custom-list" lines="none">
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Occupation</ion-label>
+            <ion-label position="stacked">Occupation*</ion-label>
             <ion-input [(ngModel)]="profiledataedit.Occupation"></ion-input>
           </ion-item>
   
@@ -1146,7 +1144,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" (click)="updateProfiledata()">Save</ion-button>
+        <ion-button expand="block" (click)="updateProfiledata(4)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -1225,7 +1223,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" (click)="updateProfiledata()">Save</ion-button>
+        <ion-button expand="block" (click)="updateProfiledata(5)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -1308,7 +1306,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" (click)="updateProfiledata()">Save</ion-button>
+        <ion-button expand="block" (click)="updateProfiledata(6)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -1330,18 +1328,18 @@
         <ion-list class="custom-list" lines="none">
   
           <ion-item class="custom-item">
-            <ion-label position="stacked">Age range</ion-label>
+            <ion-label position="stacked">Age range*</ion-label>
             <ion-input [(ngModel)]="profiledataedit.AgeRange"></ion-input>
            </ion-item>
   
 
            <ion-item class="custom-item">
-            <ion-label position="stacked">Preferred Height Range</ion-label>
+            <ion-label position="stacked">Preferred Height Range*</ion-label>
             <ion-input [(ngModel)]="profiledataedit.HeightRange"></ion-input>
            </ion-item>
          
           <ion-item class="custom-item">
-            <ion-select [(ngModel)]="profiledataedit.PreferredCasteCommunityId" placeholder="Preferred CasteCommunity" (ionChange)="castchange($event,'castpref')">
+            <ion-select [(ngModel)]="profiledataedit.PreferredCasteCommunityId" placeholder="Preferred CasteCommunity*" (ionChange)="castchange($event,'castpref')">
               <ion-select-option *ngFor="let c of casteOptions"[value]="c.casteId">{{c.casteName}}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -1352,8 +1350,13 @@
             </ion-select>
           </ion-item>
   
+
           <ion-item class="custom-item">
-            <ion-label position="stacked">Education Qualifications Occupation</ion-label>
+            <ion-label position="stacked"> Eductaion Qualifications*</ion-label>
+            <ion-input [(ngModel)]="profiledataedit.EducationalQualifications"></ion-input>
+          </ion-item>
+          <ion-item class="custom-item">
+            <ion-label position="stacked"> Income Occupation*</ion-label>
             <ion-input [(ngModel)]="profiledataedit.OccupationIncomePreferences"></ion-input>
           </ion-item>
   
@@ -1363,14 +1366,14 @@
           </ion-item>
 
           <ion-item class="custom-item">
-            <ion-select [(ngModel)]="profiledataedit.PreferredStateID" placeholder="Prefered State">
+            <ion-select [(ngModel)]="profiledataedit.PreferredStateID" placeholder="Prefered State*" (ionChange)="onstatepref($event.detail.value)" >
               <ion-select-option *ngFor="let c of stateOptions"[value]="c.Id">{{ c.Name }}</ion-select-option>
             </ion-select>
           </ion-item>
 
 
           <ion-item class="custom-item">
-            <ion-select [(ngModel)]="profiledataedit.PreferredCity" placeholder="Prefered City">
+            <ion-select [(ngModel)]="profiledataedit.PreferredCity" placeholder="Prefered City*">
               <ion-select-option *ngFor="let c of prefcityOptions" [value]="c.Id" >{{ c.Name }}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -1382,7 +1385,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" (click)="updateProfiledata()">Save</ion-button>
+        <ion-button expand="block" (click)="updateProfiledata(7)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>

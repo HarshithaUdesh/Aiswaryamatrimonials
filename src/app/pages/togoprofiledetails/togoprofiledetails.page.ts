@@ -14,11 +14,12 @@ userid : any;
 userDetails:any;
 selectedOption = 'about';
 imageCount:any=0;
+Action:any;
 parsedBase64Images: string[] = [];
   constructor( public router: Router, public service: ServicesService,public route: ActivatedRoute,public toastCtrl:ToastController,public loadingCtrl: LoadingController) {
     this.route.queryParams.subscribe((params: any) => {
       this.userid = params["UserID"];
-
+      this.Action = params["Action"];
     });
    }
 
@@ -100,4 +101,45 @@ this.getuserDetails()
   segmentChanged(event: any) {
     this.selectedOption = event.detail.value;
   }
+
+ async  sendrequest(status:any){
+      const loading = await this.loadingCtrl.create({
+        message: 'Please wait...',
+      });
+      await loading.present();
+    
+      const apiUrl = this.service.Baseurl + "/User/SendUserInterest";
+      const req = {
+        "UserID": localStorage.getItem('userid'),
+        "InterestedUserID":this.userid,
+        "IsActive": status,
+      };
+    
+      this.service.getPosts(apiUrl, req).subscribe(
+        async (data) => {
+          await loading.dismiss();
+           if (data.success === true) {
+             
+             }
+          else {
+             const toast = await this.toastCtrl.create({
+              message: data.message,
+              duration: 3000
+            });
+            await toast.present();
+            this.styleToast(toast);
+          }
+        },
+        async (err) => {
+          await loading.dismiss();
+          const toast = await this.toastCtrl.create({
+            message: "Poor Internet connection/ Network Not Available, pls try again..",
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      );
+    } 
+  
 }

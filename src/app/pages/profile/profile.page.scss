@@ -194,4 +194,28 @@ ion-segment-button.segment-button-checked {
   .dob-fields ion-select {
     flex: 1;
   }
+
+
+  ion-radio {
+    --color: #000;
+  }
+  ::ng-deep ion-select-option {
+    color: black !important;
+  
+  }
+  
+  ::ng-deep .alert-radio-label.sc-ion-alert-md {
+    color: rgb(2, 2, 2) !important;
+  
+  }
+  ion-checkbox {
+    --border-color: #000;
+  }
+  ::ng-deep .alert-radio-inner.sc-ion-alert-md {
+    border-color: black !important;
+  }
+  
+  ::ng-deep .alert-radio-icon.sc-ion-alert-md {
+    color: black !important;
+  }
   

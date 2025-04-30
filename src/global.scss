@@ -70,11 +70,29 @@ ion-radio {
   color: black !important;
 
 }
-
+ion-checkbox {
+  --border-color: #000;
+}
 ::ng-deep .alert-radio-inner.sc-ion-alert-md {
   border-color: black !important;
 }
 
 ::ng-deep .alert-radio-icon.sc-ion-alert-md {
   color: black !important;
+}
+ion-searchbar{
+  .searchbar-input-container{
+      .searchbar-input{
+          font-size: 20px;
+          height: 47px;
+          border-radius: 20px !important;
+          color: var(--ion-color-primary);
+          font-weight: 500;
+          border: 1px solid #ce4b33;
+          // background: #EEEDED;
+      }
+  }
+}
+.searchbar-search-icon.sc-ion-searchbar-md{
+  top: 15px !important;
 }

@@ -72,7 +72,16 @@ const routes: Routes = [
   {
     path: 'togoprofiledetails',
     loadChildren: () => import('./pages/togoprofiledetails/togoprofiledetails.module').then( m => m.TogoprofiledetailsPageModule),canActivate: [AuthGuard],
+  },
+  {
+    path: 'notifications',
+    loadChildren: () => import('./pages/notifications/notifications.module').then( m => m.NotificationsPageModule),canActivate: [AuthGuard]
+  },
+  {
+    path: 'mydashboard',
+    loadChildren: () => import('./pages/mydashboard/mydashboard.module').then( m => m.MydashboardPageModule),canActivate: [AuthGuard]
   }
+
 
 ];
 

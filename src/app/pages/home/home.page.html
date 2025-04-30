@@ -9,9 +9,15 @@
             </ion-menu-button>
           </ion-buttons>
         </ion-col>
-        <ion-col size="10" style="margin: auto;">
+        <ion-col size="8" style="margin: auto;">
           <div style="color: #E94057;font-size: 20px;">Aishwarya Matrimonial</div>
         </ion-col>
+        <ion-col size="2" style="margin: auto;">
+         
+            <ion-icon  (click)="togotnotifications()"   style="display: flex;font-size: 30px;color: #E94057;" name="notifications-outline"></ion-icon>
+      
+        </ion-col>
+      
       </ion-row>
     </ion-toolbar>
   </ion-header>
@@ -57,7 +63,6 @@
     </ion-row>
   
 
-
     <ion-card class="profile-cardssssss" *ngIf="Searcheddata == true">
       <div class="horizontal-scroll-wrapper">
         <div class="scroll-container">
@@ -79,113 +84,54 @@
     </ion-card>
     <div  *ngIf="this.nodatafound == true && Searcheddata == true">
       <div style="text-align: center;
-    margin-top: 50px;">No profiles found matching the search criteria</div>
+        margin-top: 50px;">No profiles found matching the search criteria</div>
     </div>
 
-    <!-- <ion-card class="profile-cardssssss" *ngIf="requesteddata == true">
-      
-      <div class="horizontal-scroll-wrapper" >
-        <div class="scroll-container">
-          <div class="interested-card" *ngFor="let interested of interestedProfile">
-           
-          <div  (click)="togodetailspage(interested)"> <img [src]="interested.Profile_Image" alt="Profile" class="background-image" />
-            
-            <div class="overlay-Viewbtn">
-              <ion-icon  *ngIf="interested.ViewedProfileStatus == 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-outline"></ion-icon>
-              <ion-icon  *ngIf="interested.ViewedProfileStatus != 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-off-outline"></ion-icon>
-            </div>
-            <div class="overlay-content">
-              <p class="nameoftheuser">
-                {{ interested.FirstName }}, {{ interested.LastName }} ,{{ interested.Age }} Years
-                <ion-icon name="checkmark-circle" class="verified-icon"></ion-icon>
-              </p>
-              <div class="meta">{{ interested.Religion }} • {{ interested.CasteOrCommunity }}</div>
-              <div class="profession">{{ interested.Occupation }}</div>
-              <div class="profession">Interest Received : {{ interested.CreatedDate | date : "dd.MM.y" }}</div>
-             
-                <div class="horizontal-actions"   *ngIf="interested.UserInterestStatus != ''">
-                  <ion-label class="statusview"  [style.color]="interested.InterestStatusbtncolor">{{interested.UserInterestStatus}}</ion-label>
-                </div>
-              </div>
-          
-
-
-
-
-         <div class="horizontal-actions" *ngIf="interested.UserInterestStatus == ''">
-            <div class="action-item">
-              <ion-button fill="clear" class="circle-button accepted" (click)="acceptAndReject(interested,'Accept')">
-                <ion-icon name="checkmark-outline"></ion-icon>
-              </ion-button>
-              <ion-label class="action-labelaccepted">Accept</ion-label>
-            </div>
-          
-            <div class="action-item">
-              <ion-button fill="clear" class="circle-button rejected" (click)="acceptAndReject(interested,'Reject')">
-                <ion-icon name="close-outline"></ion-icon>
-              </ion-button>
-              <ion-label class="action-labelrejected">Reject</ion-label>
-            </div>
-          </div>
-               
-           
-              
-   
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      
-    </ion-card> -->
-
-
-    <!-- <ion-card class="profile-cardssssss" *ngIf="requesteddata == true">
-    
+  
+    <ion-card class="profile-cardssssss" *ngIf="initalload == true">
       <div class="horizontal-scroll-wrapper">
         <div class="scroll-container">
-          <div class="interested-card" *ngFor="let interested of interestedProfile">
-            <img [src]="interested.Profile_Image" alt="Profile" class="background-image" (click)="togodetailspage(interested)" />
+          <div class="interested-card" *ngFor="let viwers of getloadprofiles">
+            <div  (click)="togodetailspagewithactions(viwers)">
+            <img [src]="viwers.Profile_Image" alt="Profile" class="background-image" />
             
-            <div class="overlay-Viewbtn" (click)="togodetailspage(interested)">
-              <ion-icon  *ngIf="interested.ViewedProfileStatus == 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-outline"></ion-icon>
-              <ion-icon  *ngIf="interested.ViewedProfileStatus != 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-off-outline"></ion-icon>
+            <div class="overlay-Viewbtn">
+              <ion-icon  *ngIf="viwers.ViewedProfileStatus == 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-outline"></ion-icon>
+              <ion-icon  *ngIf="viwers.ViewedProfileStatus != 1" style="font-size: 30px;font-weight: 600;color:  var(--ion-color-primary);" name="eye-off-outline"></ion-icon>
             </div>
+          </div>
+          <div>
             <div class="overlay-content">
-              <p class="nameoftheuser">
-                {{ interested.FirstName }}, {{ interested.LastName }} ,{{ interested.Age }} Years
+              <p class="nameoftheuser" (click)="togodetailspagewithactions(viwers)">
+                {{ viwers.FirstName }}, {{ viwers.LastName }} ,{{ viwers.Age }} Years
                 <ion-icon name="checkmark-circle" class="verified-icon"></ion-icon>
               </p>
-              <div class="meta">{{ interested.Religion }} • {{ interested.CasteOrCommunity }}</div>
-              <div class="profession">{{ interested.Occupation }}</div>
-              <div class="profession">Interest Received : {{ interested.CreatedDate | date : "dd.MM.y" }}</div>
-             
-                <div class="horizontal-actions"   *ngIf="interested.UserInterestStatus != ''">
-                  <ion-label class="statusview"  [style.color]="interested.InterestStatusbtncolor">{{interested.UserInterestStatus}}</ion-label>
-                </div>
-  
-              <div class="horizontal-actions" *ngIf="interested.UserInterestStatus == ''">
-                <div class="action-item">
-                  <ion-button fill="clear" class="circle-button accepted" (click)="acceptAndReject(interested,'1')">
-                    <ion-icon name="checkmark-outline"></ion-icon>
-                  </ion-button>
-                  <ion-label class="action-labelaccepted">Accept</ion-label>
-                </div>
-              
-                <div class="action-item">
-                  <ion-button fill="clear" class="circle-button rejected" (click)="acceptAndReject(interested,'0')">
-                    <ion-icon name="close-outline"></ion-icon>
-                  </ion-button>
-                  <ion-label class="action-labelrejected">Reject</ion-label>
-                </div>
+              <div (click)="togodetailspagewithactions(viwers)" class="meta">{{ viwers.Religion }} • {{ viwers.CasteOrCommunity }}</div>
+              <div (click)="togodetailspagewithactions(viwers)" class="profession">{{ viwers.Occupation }}</div>
+
+              <!-- <div (click)="togodetailspagewithactions(viwers)" class="profession">Interest Received : {{ viwers.CreatedDate | date : "dd.MM.y" }}</div> -->
+              <!-- <div class="horizontal-actions"  style=" border: 1px solid var(--ion-color-secondary);border-radius: 5px" *ngIf="viwers.IsInterestSent == 1" >
+                <ion-label class="action-labelrejected" style="font-size: 18px;margin-bottom: 2px;color:var(--ion-color-primary);">Interest Sent</ion-label>
+              </div> -->
+               <div class="horizontal-actions">
+                  <div   style="border-radius: 5px" *ngIf="viwers.IsActive == 0" (click)="SendcancelInterestedRequest(viwers,'1')">
+                        <ion-label  style="font-size: 18px;color:var(--ion-color-secondary) ;"> Send Interest</ion-label>
+                  </div>
+
+                  <div   style="border-radius: 5px" *ngIf="viwers.IsActive == 1" (click)="SendcancelInterestedRequest(viwers,'0')">
+                    <ion-label style="font-size: 18px;color:red ;">Cancel Interest</ion-label>
+              </div>
               </div>
               
             </div>
           </div>
+          </div>
         </div>
       </div>
       
-    </ion-card> -->
+    </ion-card>
+
+    
     <ion-card class="profile-cardssssss" *ngIf="requesteddata == true">
       <div class="horizontal-scroll-wrapper">
         <div class="scroll-container">
@@ -236,9 +182,10 @@
           </div>
         </div>
       </div>
-</ion-card>
+    </ion-card>
+
+
     <ion-card class="profile-cardssssss" *ngIf="recentdata == true">
-      
       <div class="horizontal-scroll-wrapper">
         <div class="scroll-container">
           <div class="interested-card" *ngFor="let viwers of viwersProfile">
@@ -278,31 +225,35 @@
       
     </ion-card>
   </ion-content>
-  <ion-modal [isOpen]="openModal"   class='bottom-sheet'  [backdropDismiss]="false">
+
+
+
+
+  <ion-modal [isOpen]="openModal"  [initialBreakpoint]="0.75"  class='bottom-sheet'  [backdropDismiss]="false">
     <ng-template >
-      <ion-content class="login-background">
+      <ion-content >
        
         <div class="login-card">
           <div style="align-items:end" (click)="closemodal()">
-            <ion-icon name="close-outline" style="    color: white;
+            <ion-icon name="close-outline" style="color: rgb(3, 3, 3);
             text-align: right;
             width: 100%;
             font-size: 28px;
-            padding-top: 5px;
-            margin-left: 36%;
+            margin-left: 44%;
+            margin-top: 10px;
         "></ion-icon>
           </div>
           
-        <h2><strong>I'm Looking For a</strong></h2>
+        <h2><strong style="color: black;">I'm Looking For a</strong></h2>
        
       
         <ion-item lines="none">
-          <ion-label position="stacked"> Partner </ion-label>
+          <ion-label position="stacked" style="color: black;font-size: 18px;margin-top: 10px;"> Partner </ion-label>
           <ion-select
             [(ngModel)]="filter.partner"
             aria-label="Partner"
             placeholder="Select"
-            class="custom"
+            class="custom custom-border"
             style="color: black"
           >
             <ion-select-option *ngFor="let p of partnerOptions" [value]="p.partnerName" style="--background: #ca2323;" class="custom" >
@@ -312,14 +263,14 @@
         </ion-item>
 
 <ion-item lines="none" style="">
-  <ion-label position="stacked">
+  <ion-label position="stacked" style="color: black;font-size: 18px;margin-top: 10px;">
     Select Location 
   </ion-label>
   <ion-select
     [(ngModel)]="filter.Location"
     aria-label="Location"
     placeholder="Select"
-    class="custom"
+    class="custom custom-border"
     style="color: black"
    
   >
@@ -331,14 +282,14 @@
 
 <!-- Caste -->
 <ion-item lines="none">
-  <ion-label position="stacked">
+  <ion-label position="stacked" style="color: black;font-size: 18px;margin-top: 10px;">
     Select Caste 
   </ion-label>
   <ion-select
     [(ngModel)]="filter.CasteOrCommunity"
     aria-label="Caste"
     placeholder="Select"
-    class="custom"
+    class="custom custom-border"
     style="color: black"
   >
     <ion-select-option *ngFor="let c of casteOptions" [value]="c.casteOrCommunity" style="--background: #ca2323;">
@@ -348,18 +299,18 @@
 </ion-item>
 
 <!-- Age -->
-<ion-item lines="none">
-  <ion-label position="stacked">Age Between</ion-label>
+<ion-item lines="none" >
+  <ion-label position="stacked" style="color: black;font-size: 18px;margin-top: 10px;">Age Between</ion-label>
   <ion-row style="width: 100%;">
     <ion-col size="6" style="width:50%">
-      <ion-select placeholder="Min Age"   style="color: black" class="custom" [(ngModel)]="filter.MinAge">
+      <ion-select placeholder="Min Age"   style="color: black" class="custom custom-border" [(ngModel)]="filter.MinAge">
         <ion-select-option *ngFor="let age of minAgeList" [value]="age">
           {{ age }}
         </ion-select-option>
       </ion-select>
     </ion-col>
     <ion-col size="6" style="width:50%">
-      <ion-select placeholder="Max Age"  style="color: black" class="custom" [(ngModel)]="filter.MaxAge">
+      <ion-select placeholder="Max Age" style="color: black;font-size: 18px;margin-top: 10px;"  style="color: black" class="custom custom-border" [(ngModel)]="filter.MaxAge">
         <ion-select-option *ngFor="let age of maxAgeList" [value]="age">
           {{ age }}
         </ion-select-option>
