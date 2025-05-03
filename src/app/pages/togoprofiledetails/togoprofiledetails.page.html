@@ -36,7 +36,18 @@
 
 </div>
 </ion-header>
-
+<ion-header  *ngIf="this.nodatafound== true">
+  <ion-toolbar color="primary">
+    <ion-row>
+      <ion-col size="2" style="text-align: left;" (click)="backoption()">
+        <ion-icon name="arrow-back" style="font-size: 30px;padding-left: 10px;"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <ion-title style="padding-top: 6px;">View Profile</ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
 <ion-content *ngIf="userDetails">
   <ion-segment [(ngModel)]="selectedOption" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="about">
@@ -724,8 +735,12 @@
       </ion-row>
     </ion-card>
   </div>
+ 
 </ion-content>
-
+<div  *ngIf="this.nodatafound== true">
+  <div style="text-align: center;
+    margin-top: 50%;">{{errorMessage}}</div>
+</div>
 
 <ion-footer style="padding: 0;" *ngIf="Action != undefined">
   <ion-button expand="block" style="--border-radius: 0; height: 60px;" *ngIf="Action == '0'"   (click)="sendrequest('0')">

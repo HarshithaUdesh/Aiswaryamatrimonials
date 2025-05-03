@@ -30,14 +30,6 @@
           <swiper-slide *ngFor="let slide of bannerlist">
             <img src="{{slide}}" alt="Wedding Banner" style="width: 100%;height: 270px !important;border-radius: 10px;" />
            </swiper-slide>
-          <!-- <swiper-slide >
-             <img src="assets/imgs/banner2.jpg" alt="Wedding Banner" />
-            
-          </swiper-slide>
-          <swiper-slide >
-            <img src="assets/imgs/banner3.jpg" alt="Wedding Banner" />
-            
-          </swiper-slide> -->
         </swiper-container>
       </ion-col>
     </ion-row>
@@ -130,7 +122,10 @@
       </div>
       
     </ion-card>
-
+    <div  *ngIf="this.nodatafound == true && initalload == true">
+      <div style="text-align: center;
+        margin-top: 50px;">No profiles found matching the search criteria</div>
+    </div>
     
     <ion-card class="profile-cardssssss" *ngIf="requesteddata == true">
       <div class="horizontal-scroll-wrapper">
@@ -183,7 +178,10 @@
         </div>
       </div>
     </ion-card>
-
+    <div  *ngIf="this.nodatafoundreq == true && requesteddata == true">
+      <div style="text-align: center;
+        margin-top: 50px;">No profiles found matching request criteria</div>
+    </div>
 
     <ion-card class="profile-cardssssss" *ngIf="recentdata == true">
       <div class="horizontal-scroll-wrapper">
@@ -224,6 +222,10 @@
       </div>
       
     </ion-card>
+    <div  *ngIf="this.nodatafoundrecent == true && recentdata == true">
+      <div style="text-align: center;
+        margin-top: 50px;">No profiles found matching recent criteria</div>
+    </div>
   </ion-content>
 
 

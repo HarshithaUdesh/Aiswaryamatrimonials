@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServicesService } from '../../services/services.service';
 import { NavController, Platform, AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-togoprofiledetails',
@@ -15,8 +16,10 @@ userDetails:any;
 selectedOption = 'about';
 imageCount:any=0;
 Action:any;
+nodatafound:boolean=true;
+errorMessage:any;
 parsedBase64Images: string[] = [];
-  constructor( public router: Router, public service: ServicesService,public route: ActivatedRoute,public toastCtrl:ToastController,public loadingCtrl: LoadingController) {
+  constructor(public location:Location, public router: Router, public service: ServicesService,public route: ActivatedRoute,public toastCtrl:ToastController,public loadingCtrl: LoadingController) {
     this.route.queryParams.subscribe((params: any) => {
       this.userid = params["UserID"];
       this.Action = params["Action"];
@@ -26,11 +29,14 @@ parsedBase64Images: string[] = [];
   ngOnInit() {
 
   }
-
+  backoption(){
+    this.location.back();
+  }
 ionViewDidEnter(){
 this.getuserDetails()
 }
   async getuserDetails(){
+    // alert("ok")
     this.userDetails=''
     const loading = await this.loadingCtrl.create({
       message: 'Please wait...',
@@ -45,16 +51,20 @@ this.getuserDetails()
     this.service.getPosts(apiUrl, req).subscribe(
       async (data) => {
         await loading.dismiss();
-         if (data.success === true) {
+         if (data.success === true) {       
           this.userDetails=data.data.profileData[0]
-          console.log(this.userDetails)
+          this.nodatafound=false;
+          // alert("ok")
+          console.log(this.userDetails.Base64ProfileImages,"KKKKKKKKKKKKKKKKKKKKKKKK")
           const base64Str = this.userDetails.Base64ProfileImages;
       const imageCount = (base64Str.match(/\/9j\//g) || []).length;
-      console.log(imageCount,"imageCountimageCount");
       this.imageCount = imageCount>0?imageCount:this.userDetails.Profile_Image?1:0
       this.parsedBase64Images = this.getBase64Images();
+      console.log(this.parsedBase64Images,"LLLLLLLLL")
            }
         else {
+          this.errorMessage=data.message;
+          this.nodatafound=true;
            const toast = await this.toastCtrl.create({
             message: data.message,
             duration: 3000
@@ -74,15 +84,16 @@ this.getuserDetails()
       }
     );
   }
-  getBase64Images(): string[] {
+  getBase64Images(){
+    console.log("dfghjklddddddddddddddddddddddd")
     if (this.userDetails.Base64ProfileImages) {
-      // Assuming multiple base64 images are separated by comma or some delimiter
       return this.userDetails.Base64ProfileImages
         .split(',')
         .map((base64:any) => `data:image/jpeg;base64,${base64.trim()}`);
     }
     return [];
   }
+  
 
   hasMultipleImages(): boolean {
     return this.parsedBase64Images.length > 0;
