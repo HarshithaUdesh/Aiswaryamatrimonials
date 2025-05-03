@@ -14,13 +14,21 @@
     </ion-avatar>
     <div class="file-input-wrapper">
       <img src="assets/imgs/camera.png" class="camera-icon">
-      <input type="file" class="file-input" (change)="onImageSelected($event)" accept="image/*">
+      <input type="file" class="file-input" (change)="onImageSelected($event)" accept="image/*" multiple>
     </div>
     <div class="profile-count-wrapper">
       <div>{{completionpercentage}}%</div>
     </div>
   </div>
-  <ion-list lines="none" style="margin-top: 15%;">
+  <div class="scroll-container">
+    <div class="thumbnail" *ngFor="let img of selectedImages; let i = index" >
+      <img [src]="img" alt="image thumbnail" (click)="openImagePreview(img)"/>
+      <!-- <ion-icon name="close-circle" class="delete-icon" (click)="removeImage(i)"></ion-icon> -->
+    </div>
+  </div>
+  
+
+  <!-- <ion-list lines="none" >
     <div class="updatepicture">Update picture</div>
 
     <ion-card *ngFor="let item of myplanlist" class="cardstyle">
@@ -55,7 +63,7 @@
         </ion-col>
       </ion-row>
     </ion-card>
-  </ion-list>
+  </ion-list> -->
 
   <ion-segment color="primary" [(ngModel)]="selectedOption" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="about">
@@ -1389,4 +1397,12 @@
       </ion-footer>
     </ng-template>
   </ion-modal>
+  <ion-modal [isOpen]="isPreviewOpen" (didDismiss)="isPreviewOpen = false">
+    <ng-template>
+      <div class="image-preview-container" (click)="closeImagePreview()">
+        <img [src]="selectedImage" class="zoomable-image" />
+      </div>
+    </ng-template>
+  </ion-modal>
+  
 </ion-content>

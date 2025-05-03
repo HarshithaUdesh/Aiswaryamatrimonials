@@ -218,4 +218,59 @@ ion-segment-button.segment-button-checked {
   ::ng-deep .alert-radio-icon.sc-ion-alert-md {
     color: black !important;
   }
+  .scroll-container {
+    display: flex;
+    overflow-x: auto;
+    padding: 10px 0;
+    gap: 10px;
+    margin-top: 20%;
+  }
+  
+  .thumbnail {
+    position: relative;
+    width: 95px;
+    height: 95px;
+    flex: 0 0 auto;
+  }
+  
+  .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    transition: border-color 0.3s;
+  }
+  
+  .thumbnail img:hover {
+    border-color: #007aff;
+  }
+  
+  .delete-icon {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    color: red;
+    background-color: white;
+    border-radius: 50%;
+    font-size: 20px;
+    z-index: 1;
+  }
+
+
+  .image-preview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+  
+  .zoomable-image {
+    max-width: 100%;
+    max-height: 100%;
+    transition: transform 0.3s;
+    cursor: zoom-in;
+  }
   

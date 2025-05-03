@@ -20,6 +20,8 @@ export class ProfilePage implements OnInit {
   selectedOption = 'about';
   openModalpersonal:boolean=false;
   openLifeModal:boolean=false;
+  // profileImages: string[] = [];
+  selectedImages: string[] = [];
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
  
 day: any;
@@ -98,8 +100,22 @@ prefcityOptions:any[] =[];
   }
 
   
+  isPreviewOpen = false;
+  selectedImage: string = '';
+  
 
-
+  
+  openImagePreview(img: string) {
+    this.selectedImage = img;
+    this.isPreviewOpen = true;
+  }
+  
+  closeImagePreview() {
+    this.isPreviewOpen = false;
+  }
+  removeImage(index: number) {
+    // this.imageList.splice(index, 1);
+  }
   closeModel(){
 this.openModalpersonal=false;
 this.openLifeModal=false;
@@ -141,7 +157,7 @@ this.openPreferenceModal=false;
             message: data.message,
             duration: 3000
           });
-          await toast.present();
+          // await toast.present();
           this.styleToast(toast);
         }
       },
@@ -427,18 +443,37 @@ this.openPreferenceModal=false;
     );
   }
 
+ async  onImageSelected(event: Event) {
+   var valid=  this.validateProfileData(1)
+    if(valid==true){
+      const input = event.target as HTMLInputElement;
+      if (input.files && input.files.length > 0) {
+        // this.selectedImages = []; 
+    
+        Array.from(input.files).forEach((file, index) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const image = e.target?.result as string;
+            this.selectedImages.push(image);
+    
+            if (index === 0) {
+              this.profiledataedit.Profile_Image = image;
+            }
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+      this.updateProfiledata(1)
 
-
-
-  onImageSelected(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const reader = new FileReader(); 
-      reader.onload = (e) => {
-        this.profiledataedit.Profile_Image = e.target?.result as string;
-      };
-      reader.readAsDataURL(file); 
-    }
+  }else{
+    const toast = await this.toastCtrl.create({
+      message: "Please Fill all  required field in personal information",
+      duration: 3000
+    });
+    await toast.present();
+    this.styleToast(toast);
+   }
+   
   }
 
   styleToast(toast: HTMLIonToastElement) {
@@ -470,7 +505,7 @@ this.openPreferenceModal=false;
             message: data.message,
             duration: 3000
           });
-          await toast.present();
+          // await toast.present();
           this.styleToast(toast);
         }
       },
@@ -511,8 +546,9 @@ this.openPreferenceModal=false;
         await loading.dismiss();
         if (data.success === true) {
           this.profiledata = data.data.profileData;
-          this.profiledataedit=data.data.profileData[0];
-
+          this.profiledataedit= data.data.profileData[0];
+         var parsedBase64Images = this.getBase64Images();
+          this.selectedImages = parsedBase64Images
           if(this.profiledataedit.CasteOrCommunityId){
             this.castvalue =parseInt(this.profiledataedit.CasteOrCommunityId)
             this.subcast=  parseInt(this.profiledataedit.SubCasteId)
@@ -567,26 +603,105 @@ this.openPreferenceModal=false;
       }
     );
   }
+
+
+  getBase64Images(): string[] {
+    const rawBase64String = this.profiledataedit.Base64ProfileImages; // or wherever your data is
+  
+    if (!rawBase64String) return [];
+  
+    const base64Array = rawBase64String.split(',');
+  
+    return base64Array.map((str:any) => {
+      let mimeType = 'image/jpeg';
+  
+      if (str.startsWith('iVBOR')) mimeType = 'image/png';
+      else if (str.startsWith('/9j/')) mimeType = 'image/jpeg';
+  
+      return `data:${mimeType};base64,${str}`;
+    });
+  }
   handlepersonalmodal(value:any){
     this.openModalpersonal=value;
   }
-  handleContactModal(value:any){
+  async handleContactModal(value:any){
+  var valid=  this.validateProfileData(1)
+   if(valid==true){
     this.openContactModal=value;
+   }else{
+    const toast = await this.toastCtrl.create({
+      message: "Please Fill all  required field in personal information",
+      duration: 3000
+    });
+    await toast.present();
+    this.styleToast(toast);
+   }
+    
   }
-  handleopenEducationModal(value:any){
+ async handleopenEducationModal(value:any){
+    var valid=  this.validateProfileData(1)
+    if(valid==true){
     this.openEducationModal=value
+  }else{
+    const toast = await this.toastCtrl.create({
+      message: "Please Fill all  required field in personal information",
+      duration: 3000
+    });
+    await toast.present();
+    this.styleToast(toast);
+   }
   }
-  handleopenProfessionalModal(value:any){
+  async handleopenProfessionalModal(value:any){
+    var valid=  this.validateProfileData(1)
+    if(valid==true){
     this.openProfessionalModal=value
+  }else{
+    const toast = await this.toastCtrl.create({
+      message: "Please Fill all  required field in personal information",
+      duration: 3000
+    });
+    await toast.present();
+    this.styleToast(toast);
+   }
   }
-  handleopenLifeModal(value:any){
+  async handleopenLifeModal(value:any){
+    var valid=  this.validateProfileData(1)
+    if(valid==true){
     this.openLifeModal=value
+  }else{
+    const toast = await this.toastCtrl.create({
+      message: "Please Fill all  required field in personal information",
+      duration: 3000
+    });
+    await toast.present();
+    this.styleToast(toast);
+   }
   }
-  handleopenFamilyModal(value:any){
+ async  handleopenFamilyModal(value:any){
+    var valid=  this.validateProfileData(1)
+    if(valid==true){
     this.openFamilyModal=value
+  }else{
+    const toast = await this.toastCtrl.create({
+      message: "Please Fill all  required field in personal information",
+      duration: 3000
+    });
+    await toast.present();
+    this.styleToast(toast);
+   }
   }
-  handleopenPreferenceModal(value:any){
+  async handleopenPreferenceModal(value:any){
+    var valid=  this.validateProfileData(1)
+    if(valid==true){
     this.openPreferenceModal=value
+  }else{
+    const toast = await this.toastCtrl.create({
+      message: "Please Fill all  required field in personal information",
+      duration: 3000
+    });
+    await toast.present();
+    this.styleToast(toast);
+   }
   }
 
 
@@ -601,11 +716,20 @@ this.openPreferenceModal=false;
     console.log(data,"dataaa");
     
   if(value==1){
-  console.log("11111");
   const monthIndex = this.months.indexOf(this.month);
-      const dobDate = new Date(this.year, monthIndex, this.day);
-      this.profiledataedit.DOB = dobDate.toISOString().split('T')[0];
+  let dobDate: Date | null = null;
   
+  if (
+    this.year &&
+    monthIndex !== -1 &&
+    this.day &&
+    !isNaN(new Date(this.year, monthIndex, this.day).getTime())
+  ) {
+    dobDate = new Date(this.year, monthIndex, this.day);
+    this.profiledataedit.DOB = dobDate.toISOString().split('T')[0];
+  } else {
+    this.profiledataedit.DOB = '';
+  }
     if (!data.FirstName) {
       this.profileError = 'Please enter first name';
       return false;
@@ -673,8 +797,6 @@ this.openPreferenceModal=false;
     //   return false;
     // }
     if(value==2){
-
-    
     if (!data.MobileNo || data.MobileNo.length < 10) {
       this.profileError = 'Please enter valid mobile number';
       return false;
@@ -774,15 +896,36 @@ return true
     
       return; 
     }else{
-      const monthIndex = this.months.indexOf(this.month);
-      const dobDate = new Date(this.year, monthIndex, this.day);
-      this.profiledataedit.DOB = dobDate.toISOString().split('T')[0]; 
-    
-      this.profiledataedit.TimeOfBirth = `${this.hour}:${this.minute} ${this.amPm}`;
-    
+      console.log("hittting elssssssssssss");
       
+      // const monthIndex = this.months.indexOf(this.month);
+      // const dobDate = new Date(this.year, monthIndex, this.day);
+      // this.profiledataedit.DOB = dobDate&& dobDate?dobDate.toISOString().split('T')[0]:''; 
     
-      // Profile/SaveProfileDetails.
+      // this.profiledataedit.TimeOfBirth = this.hour&&`${this.hour}:${this.minute} ${this.amPm}`;
+    
+      const monthIndex = this.months.indexOf(this.month);
+let dobDate: Date | null = null;
+
+// Check if year, monthIndex, and day are valid
+if (
+  this.year &&
+  monthIndex !== -1 &&
+  this.day &&
+  !isNaN(new Date(this.year, monthIndex, this.day).getTime())
+) {
+  dobDate = new Date(this.year, monthIndex, this.day);
+  this.profiledataedit.DOB = dobDate.toISOString().split('T')[0];
+} else {
+  this.profiledataedit.DOB = '';
+}
+
+// Set TimeOfBirth only if hour, minute, and amPm are valid
+if (this.hour && this.minute != null && this.amPm) {
+  this.profiledataedit.TimeOfBirth = `${this.hour}:${this.minute} ${this.amPm}`;
+} else {
+  this.profiledataedit.TimeOfBirth = '';
+}
     
       const loading = await this.loadingCtrl.create({
         message: 'Please wait...',
@@ -851,11 +994,11 @@ return true
         PreferredCity: parseInt(this.profiledataedit.PreferredCity) || 0,
         PreferredOthers: this.profiledataedit.OtherPreferences || "",
         PreferredManglik: this.profiledataedit.Manglik || "",
-        Base64ProfileImages: [this.profiledataedit.Base64ProfileImages],
+        Base64ProfileImages:this.selectedImages,
         CreatedBy:userid ? parseInt(userid) || 0 : 0,
       };
       
-      console.log(requestbody,"request param")
+      console.log(requestbody,"request param",this.selectedImages)
       this.service.getPosts(planapi, requestbody).subscribe(
         async (data) => {
           await loading.dismiss();

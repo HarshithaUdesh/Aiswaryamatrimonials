@@ -25,6 +25,8 @@ export class HomePage implements OnInit {
   recentdata:boolean = false;
   activeButton: string = '1';
   nodatafound :boolean = true;
+  nodatafoundreq:boolean=true;
+  nodatafoundrecent:boolean=true;
   filter = {
     partner:'',
     Gender: '',
@@ -110,13 +112,15 @@ async  getUserInterestProfies(){
           console.log(data.success,data)
           if (data.success === true) {
            this.interestedProfile = data.data.data
+           this.nodatafoundreq=this.interestedProfile.length>0?false:true
+
            }
           else {
             const toast = await this.toastCtrl.create({
               message: data.message,
               duration: 3000
             });
-            await toast.present();
+            // await toast.present();
             this.styleToast(toast);
           }
         },
@@ -152,13 +156,14 @@ async  getUserInterestProfies(){
             console.log(data.success,data)
             if (data.success === true) {
              this.viwersProfile = data.data.data
+             this.nodatafoundrecent=this.viwersProfile.length>0?false:true
              }
             else {
               const toast = await this.toastCtrl.create({
                 message: data.message,
                 duration: 3000
               });
-              await toast.present();
+              // await toast.present();
               this.styleToast(toast);
             }
           },
@@ -192,13 +197,15 @@ async  getUserInterestProfies(){
        console.log(data.success, data)
        if (data.success === true) {
          this.getloadprofiles = data.data.data
+         this.nodatafound= this.getloadprofiles.length>0?false:true;
        }
        else {
+
          const toast = await this.toastCtrl.create({
            message: data.message,
            duration: 3000
          });
-         await toast.present();
+        //  await toast.present();
          this.styleToast(toast);
        }
      },
@@ -240,7 +247,7 @@ async  getUserInterestProfies(){
             message: data.message,
             duration: 3000
           });
-          await toast.present();
+          // await toast.present();
           this.styleToast(toast);
         }
       },
@@ -278,7 +285,7 @@ async  getUserInterestProfies(){
             message: data.message,
             duration: 3000
           });
-          await toast.present();
+          // await toast.present();
           this.styleToast(toast);
         }
       },
@@ -310,15 +317,13 @@ async  getUserInterestProfies(){
         console.log(data.success,data.data.data)
         if (data.success === true) {
          this.casteOptions = data.data.data
-
-         
         }
         else {
           const toast = await this.toastCtrl.create({
             message: data.message,
             duration: 3000
           });
-          await toast.present();
+          // await toast.present();
           this.styleToast(toast);
         }
       },
@@ -402,7 +407,7 @@ async  getUserInterestProfies(){
             message: data.message,
             duration: 3000
           });
-          await toast.present();
+          // await toast.present();
           this.styleToast(toast);
         }
       },
@@ -445,7 +450,7 @@ async  getUserInterestProfies(){
             message: data.message,
             duration: 3000
           });
-          await toast.present();
+          // await toast.present();
           this.styleToast(toast);
         }
       },
