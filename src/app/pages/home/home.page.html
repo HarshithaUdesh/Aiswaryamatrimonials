@@ -27,17 +27,17 @@
       <ion-row>
       <ion-col size="12">
         <swiper-container [loop]="true" autoplay-delay="1000">
-          <swiper-slide >
-            <img src="assets/imgs/banner1.jpg" alt="Wedding Banner" />
+          <swiper-slide *ngFor="let slide of bannerlist">
+            <img src="{{slide}}" alt="Wedding Banner" style="width: 100%;height: 270px !important;border-radius: 10px;" />
            </swiper-slide>
-          <swiper-slide >
+          <!-- <swiper-slide >
              <img src="assets/imgs/banner2.jpg" alt="Wedding Banner" />
             
           </swiper-slide>
           <swiper-slide >
             <img src="assets/imgs/banner3.jpg" alt="Wedding Banner" />
             
-          </swiper-slide>
+          </swiper-slide> -->
         </swiper-container>
       </ion-col>
     </ion-row>

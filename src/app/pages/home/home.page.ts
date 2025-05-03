@@ -39,6 +39,7 @@ export class HomePage implements OnInit {
   minAge: number | undefined;
   maxAge: number | undefined;
   profiles: any[] = []
+  bannerlist:any;
 
   constructor(public platform: Platform,public router: Router, public service: ServicesService, public toastCtrl: ToastController,public loadingCtrl: LoadingController) {
     this.userid = localStorage.getItem('userid');
@@ -63,6 +64,7 @@ export class HomePage implements OnInit {
    
   }
   ionViewDidEnter(){
+    this.getBannerImages();
     this.loadFilterOptions();
     this.getAllLocation()
     this.getAllcast()
@@ -232,6 +234,44 @@ async  getUserInterestProfies(){
          this.locationOptions = data.data.data
 
          
+        }
+        else {
+          const toast = await this.toastCtrl.create({
+            message: data.message,
+            duration: 3000
+          });
+          await toast.present();
+          this.styleToast(toast);
+        }
+      },
+      async (err) => {
+        await loading.dismiss();
+        const toast = await this.toastCtrl.create({
+          message: "Poor Internet connection/ Network Not Available, pls try again..",
+          duration: 3000
+        });
+        await toast.present();
+        this.styleToast(toast);
+      }
+    );
+  }
+
+  async getBannerImages(){
+    const loading = await this.loadingCtrl.create({
+      message: 'Please wait...',
+    });
+    await loading.present();
+    const bannerUrl = this.service.Baseurl + "/Profile/GetImages";
+    const bannerreq = {
+     
+    };
+  
+    this.service.getPosts(bannerUrl, bannerreq).subscribe(
+      async (data) => {
+        await loading.dismiss();
+        console.log(data.success,data.data.data)
+        if (data.success === true) {
+         this.bannerlist = data.data;
         }
         else {
           const toast = await this.toastCtrl.create({
