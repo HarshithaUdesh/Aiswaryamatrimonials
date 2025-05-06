@@ -41,7 +41,7 @@ export class HomePage implements OnInit {
   minAge: number | undefined;
   maxAge: number | undefined;
   profiles: any[] = []
-  bannerlist:any;
+  bannerlist:any[] = [];
 
   constructor(public platform: Platform,public router: Router, public service: ServicesService, public toastCtrl: ToastController,public loadingCtrl: LoadingController) {
     this.userid = localStorage.getItem('userid');
@@ -62,7 +62,7 @@ export class HomePage implements OnInit {
   }
 
   ngOnInit() {
-   
+    this.getBannerImages();
    
   }
   ionViewDidEnter(){
@@ -83,8 +83,6 @@ export class HomePage implements OnInit {
     this.openModal=false;
   }
 
-
-
   styleToast(toast: HTMLIonToastElement) {
     const toastElement = toast.shadowRoot?.querySelector('.toast-container');
     if (toastElement) {
@@ -99,7 +97,7 @@ async  getUserInterestProfies(){
   const loading = await this.loadingCtrl.create({
         message: 'Please wait...',
       });
-      await loading.present();
+      // await loading.present();
     
       const apiUrl = this.service.Baseurl + "/User/GetUserInterestSummary";
       const req = {
@@ -143,7 +141,7 @@ async  getUserInterestProfies(){
     const loading = await this.loadingCtrl.create({
           message: 'Please wait...',
         });
-        await loading.present();
+        // await loading.present();
       
         const apiUrl = this.service.Baseurl + "/Profile/GetProfileViewers";
         const req = {
@@ -226,7 +224,7 @@ async  getUserInterestProfies(){
     const loading = await this.loadingCtrl.create({
       message: 'Please wait...',
     });
-    await loading.present();
+    // await loading.present();
     
     const apiUrl = this.service.Baseurl + "/Master/GetAllCities";
     const req = {
@@ -264,10 +262,10 @@ async  getUserInterestProfies(){
   }
 
   async getBannerImages(){
-    const loading = await this.loadingCtrl.create({
-      message: 'Please wait...',
-    });
-    await loading.present();
+    // const loading = await this.loadingCtrl.create({
+    //   message: 'Please wait...',
+    // });
+    // await loading.present();
     const bannerUrl = this.service.Baseurl + "/Profile/GetImages";
     const bannerreq = {
      
@@ -275,10 +273,11 @@ async  getUserInterestProfies(){
   
     this.service.getPosts(bannerUrl, bannerreq).subscribe(
       async (data) => {
-        await loading.dismiss();
+        // await loading.dismiss();
         console.log(data.success,data.data.data)
         if (data.success === true) {
          this.bannerlist = data.data;
+        //  console.log(this.bannerlist,"LLLLLLLLLLLLLLLL")
         }
         else {
           const toast = await this.toastCtrl.create({
@@ -290,7 +289,7 @@ async  getUserInterestProfies(){
         }
       },
       async (err) => {
-        await loading.dismiss();
+        // await loading.dismiss();
         const toast = await this.toastCtrl.create({
           message: "Poor Internet connection/ Network Not Available, pls try again..",
           duration: 3000
@@ -305,7 +304,7 @@ async  getUserInterestProfies(){
     const loading = await this.loadingCtrl.create({
       message: 'Please wait...',
     });
-    await loading.present();
+    // await loading.present();
     const apiUrl = this.service.Baseurl + "/Master/GetAllCasteOrCommunity";
     const req = {
      
