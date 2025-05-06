@@ -26,14 +26,17 @@
     <div class="header-banner">
       <ion-row>
       <ion-col size="12">
-        <swiper-container [loop]="true" autoplay-delay="1000">
+        <swiper-container *ngIf="bannerlist.length > 0" [loop]="true" autoplay-delay="1000">
           <swiper-slide *ngFor="let slide of bannerlist">
-            <img src="{{slide}}" alt="Wedding Banner" style="width: 100%;height: 270px !important;border-radius: 10px;" />
-           </swiper-slide>
+            <img [src]="slide" alt="Wedding Banner" style="width: 100%; height: 250px; border-radius: 10px;" />
+          </swiper-slide>
         </swiper-container>
       </ion-col>
     </ion-row>
     </div>
+
+    
+
   
     <div class="filter-container">
       <ion-button fill="outline" size="small" color="primary" (click)="handleModel()">
@@ -76,7 +79,7 @@
     </ion-card>
     <div  *ngIf="this.nodatafound == true && Searcheddata == true">
       <div style="text-align: center;
-        margin-top: 50px;">No profiles found matching the search criteria</div>
+        margin-top: 50px;">No searched profiles found</div>
     </div>
 
   
@@ -124,7 +127,7 @@
     </ion-card>
     <div  *ngIf="this.nodatafound == true && initalload == true">
       <div style="text-align: center;
-        margin-top: 50px;">No profiles found matching the search criteria</div>
+        margin-top: 50px;">No matching profiles found</div>
     </div>
     
     <ion-card class="profile-cardssssss" *ngIf="requesteddata == true">
@@ -180,7 +183,7 @@
     </ion-card>
     <div  *ngIf="this.nodatafoundreq == true && requesteddata == true">
       <div style="text-align: center;
-        margin-top: 50px;">No profiles found matching request criteria</div>
+        margin-top: 50px;">No request profiles found</div>
     </div>
 
     <ion-card class="profile-cardssssss" *ngIf="recentdata == true">
@@ -224,7 +227,7 @@
     </ion-card>
     <div  *ngIf="this.nodatafoundrecent == true && recentdata == true">
       <div style="text-align: center;
-        margin-top: 50px;">No profiles found matching recent criteria</div>
+        margin-top: 50px;">No Visitor profiles found </div>
     </div>
   </ion-content>
 

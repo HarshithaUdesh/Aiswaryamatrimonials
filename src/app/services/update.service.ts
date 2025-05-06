@@ -71,7 +71,7 @@ export class UpdateService {
 
   openAppstoreEntry() {
     if (this.platform.is('android')) {
-      this.market.open('com.vishwasworld.vishwaspe').then((res)=>{
+      this.market.open('com.aiswarya.matrimony').then((res)=>{
 
       }).catch((err)=>{
         alert(JSON.stringify(err))
