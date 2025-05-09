@@ -26,9 +26,19 @@
     <div class="header-banner">
       <ion-row>
       <ion-col size="12">
-        <swiper-container *ngIf="bannerlist.length > 0" [loop]="true" autoplay-delay="1000">
+        <swiper-container *ngIf="bannerlist.length > 0" [loop]="true" autoplay-delay="2000">
           <swiper-slide *ngFor="let slide of bannerlist">
-            <img [src]="slide" alt="Wedding Banner" style="width: 100%; height: 250px; border-radius: 10px;" />
+            <!-- <div>
+              <img [src]="slide" alt="Wedding Banner" style="width: 100%; height: 250px; border-radius: 10px;" />
+              <div>Trusted Matrimony & <br/> Matchmaking Service</div>
+            </div> -->
+            <div style="position: relative; width: 100%; height: 250px;">
+              <img [src]="slide" alt="Wedding Banner" style="width: 100%; height: 100%; border-radius: 10px; object-fit: cover;" />
+              <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                          color: white; font-size: 18px; text-align: center; font-weight: bold; text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">
+                Trusted Matrimony & <br/><span style="color: var(--ion-color-secondary);"> Matchmaking Service</span>
+              </div>
+            </div>
           </swiper-slide>
         </swiper-container>
       </ion-col>
@@ -62,7 +72,7 @@
       <div class="horizontal-scroll-wrapper">
         <div class="scroll-container">
           <div class="interested-card" *ngFor="let profile of profiles">
-            <img [src]="profile.Profile_Image" alt="Profile Image" class="background-image" (click)="togodetailspage(profile)" />
+            <img [src]="profile.Profile_Image" alt="Profile Image" class="background-image" (click)="togodetailspagewithactions(profile)" />
     
             <div class="overlay-content" (click)="togodetailspage(profile)">
               <p class="nameoftheuser">
@@ -71,6 +81,17 @@
               <div class="meta">{{ profile.Gender }} • {{ profile.City }}</div>
               <div class="profession">Register No: {{ profile.RegisterNo }}</div>
               <div class="profession">Caste/Community: {{ profile.CasteOrCommunity }}</div>
+
+
+              <div class="horizontal-actions">
+                <div   style="border-radius: 5px" *ngIf="profile.IsActive == 0" (click)="SendcancelInterestedRequest(profile,'1')">
+                      <ion-label  style="font-size: 18px;color:var(--ion-color-secondary) ;"> Send Interest</ion-label>
+                </div>
+  
+                <div   style="border-radius: 5px" *ngIf="profile.IsActive == 1" (click)="SendcancelInterestedRequest(profile,'0')">
+                  <ion-label style="font-size: 18px;color:red ;">Cancel Interest</ion-label>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -267,7 +288,7 @@
           </ion-select>
         </ion-item>
 
-<ion-item lines="none" style="">
+<ion-item lines="none">
   <ion-label position="stacked" style="color: black;font-size: 18px;margin-top: 10px;">
     Select Location 
   </ion-label>
