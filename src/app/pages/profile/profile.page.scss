@@ -273,4 +273,11 @@ ion-segment-button.segment-button-checked {
     transition: transform 0.3s;
     cursor: zoom-in;
   }
+  .upload-header {
+    display: flex;
+    justify-content: flex-start;
+    top: 82px;
+    position: relative;
+    left: 101px;
+  }
   

@@ -113,8 +113,19 @@ prefcityOptions:any[] =[];
   closeImagePreview() {
     this.isPreviewOpen = false;
   }
-  removeImage(index: number) {
-    // this.imageList.splice(index, 1);
+  async removeImage(index: number) {
+    this.selectedImages.splice(index, 1);
+    var valid = this.validateProfileData(1)
+    if (valid == true) {
+      this.updateProfiledata(1)
+    } else {
+      const toast = await this.toastCtrl.create({
+        message: "Please Fill all  required field in personal information",
+        duration: 3000
+      });
+      await toast.present();
+      this.styleToast(toast);
+    }
   }
   closeModel(){
 this.openModalpersonal=false;
@@ -442,7 +453,31 @@ this.openPreferenceModal=false;
       }
     );
   }
+async onImageSelectprofile(event: Event){
+  var valid=  this.validateProfileData(1)
+  if(valid==true){
+    const file = (event.target as HTMLInputElement).files?.[0];
 
+    if (file) {
+      const reader = new FileReader(); 
+      reader.onload = (e) => {
+        this.profiledataedit.Profile_Image = e.target?.result as string;
+        // this.profilechanged =true;
+      };
+
+      reader.readAsDataURL(file); 
+    }
+    this.updateProfiledata(1)
+
+}else{
+  const toast = await this.toastCtrl.create({
+    message: "Please Fill all  required field in personal information",
+    duration: 3000
+  });
+  await toast.present();
+  this.styleToast(toast);
+ }
+}
  async  onImageSelected(event: Event) {
    var valid=  this.validateProfileData(1)
     if(valid==true){
@@ -455,10 +490,6 @@ this.openPreferenceModal=false;
           reader.onload = (e) => {
             const image = e.target?.result as string;
             this.selectedImages.push(image);
-    
-            if (index === 0) {
-              this.profiledataedit.Profile_Image = image;
-            }
           };
           reader.readAsDataURL(file);
         });
@@ -549,6 +580,7 @@ this.openPreferenceModal=false;
           this.profiledataedit= data.data.profileData[0];
          var parsedBase64Images = this.getBase64Images();
           this.selectedImages = parsedBase64Images
+          
           if(this.profiledataedit.CasteOrCommunityId){
             this.castvalue =parseInt(this.profiledataedit.CasteOrCommunityId)
             this.subcast=  parseInt(this.profiledataedit.SubCasteId)
@@ -560,13 +592,13 @@ this.openPreferenceModal=false;
           }
            if(this.profiledataedit.StateID){
             var StateID  = this.profiledataedit.StateID
-            console.log(StateID)
+         
             this.getAllDistrict(StateID)
           }
 
           if(this.profiledataedit.PreferredStateID){
             var StateID  = this.profiledataedit.PreferredStateID
-            console.log(StateID)
+           
             this.getAllpreDistrict(StateID)
           }
         
