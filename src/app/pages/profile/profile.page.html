@@ -14,16 +14,24 @@
     </ion-avatar>
     <div class="file-input-wrapper">
       <img src="assets/imgs/camera.png" class="camera-icon">
-      <input type="file" class="file-input" (change)="onImageSelected($event)" accept="image/*" multiple>
+      <input type="file" class="file-input" (change)="onImageSelectprofile($event)" accept="image/*">
     </div>
     <div class="profile-count-wrapper">
       <div>{{completionpercentage}}%</div>
     </div>
   </div>
+  <div class="upload-header">
+    <ion-button  fill="outline" size="small">
+      <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+      Upload More Photos
+      <input type="file" class="file-input" (change)="onImageSelected($event)" accept="image/*" multiple>
+
+    </ion-button>
+  </div>
   <div class="scroll-container">
     <div class="thumbnail" *ngFor="let img of selectedImages; let i = index" >
       <img [src]="img" alt="image thumbnail" (click)="openImagePreview(img)"/>
-      <!-- <ion-icon name="close-circle" class="delete-icon" (click)="removeImage(i)"></ion-icon> -->
+      <ion-icon name="close-circle" class="delete-icon" (click)="removeImage(i)"></ion-icon>
     </div>
   </div>
   
@@ -838,6 +846,16 @@
             <ion-label position="stacked">Gotra*</ion-label>
             <ion-input placeholder="Enter Gotra" [(ngModel)]="profiledataedit.Gotra"></ion-input>
           </ion-item>
+
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Mother Tongue</ion-label>
+            <ion-input placeholder="Enter Gotra" [(ngModel)]="profiledataedit.MotherTongue"></ion-input>
+          </ion-item>
+
+          <ion-item class="custom-item">
+            <ion-label position="stacked">Religion</ion-label>
+            <ion-input placeholder="Enter Gotra" [(ngModel)]="profiledataedit.Religion"></ion-input>
+          </ion-item>
   
 
           <ion-item lines="none" class="custom-item">
@@ -918,12 +936,12 @@
 
           <ion-item class="custom-item">
             <ion-label position="stacked">Place of Birth*</ion-label>
-            <ion-input placeholder="Enter Rashi" [(ngModel)]="profiledataedit.PlaceOfBirth"></ion-input>
+            <ion-input placeholder="Enter Place Of Birth" [(ngModel)]="profiledataedit.PlaceOfBirth"></ion-input>
           </ion-item>
 
           <ion-item class="custom-item">
             <ion-label position="stacked">Birth Star(Nakshatra)*</ion-label>
-            <ion-input placeholder="Enter Rashi" [(ngModel)]="profiledataedit.BirthStar"></ion-input>
+            <ion-input placeholder="Enter Birth Star" [(ngModel)]="profiledataedit.BirthStar"></ion-input>
           </ion-item>
 
           <ion-item lines="none" class="custom-item">
