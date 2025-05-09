@@ -743,10 +743,10 @@
 </div>
 
 <ion-footer style="padding: 0;" *ngIf="Action != undefined">
-  <ion-button expand="block" style="--border-radius: 0; height: 60px;" *ngIf="Action == '0'"   (click)="sendrequest('0')">
+  <ion-button expand="block" style="--border-radius: 10px; height: 50px;" *ngIf="Action == '0'"   (click)="sendrequest('1')">
     Send Interest
   </ion-button>
-  <ion-button expand="block" style="--border-radius: 0; height: 60px;" *ngIf="Action == '1'"   (click)="sendrequest('1')">
+  <ion-button expand="block" style="--border-radius: 10px; height: 50px;" *ngIf="Action == '1'"   (click)="sendrequest('0')">
     Cancel Interest
   </ion-button>
 </ion-footer>

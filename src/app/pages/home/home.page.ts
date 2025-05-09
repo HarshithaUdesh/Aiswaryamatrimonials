@@ -366,18 +366,20 @@ async  getUserInterestProfies(){
 
 
  async applyFilters() {
+    var userid = localStorage.getItem("userid");
     const loading = await this.loadingCtrl.create({
       message: 'Please wait...',
     });
     await loading.present();
   
-    const apiUrl = this.service.Baseurl + "/Profile/UserSearchProfile";
+    const apiUrl = this.service.Baseurl + "/Profile/GetSearchProfileDetailsSummary";
     const req = {
       "Gender": this.filter.partner == "Bride" ?"Female": "Male",
       "Location": JSON.stringify(this.filter.Location),
       "CasteOrCommunity": (this.filter.CasteOrCommunity),
       "MinAge": JSON.stringify(this.filter.MinAge),
       "MaxAge": JSON.stringify(this.filter.MaxAge),
+      "UserID": userid
     };
   
     this.service.getPosts(apiUrl, req).subscribe(
