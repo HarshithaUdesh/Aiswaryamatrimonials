@@ -42,7 +42,7 @@ body {
     font-family: 'Poppins';
   }
 ion-title{
-    font-size: 22px !important;
+    font-size: 20px !important;
 }
 
 :root {
@@ -95,4 +95,13 @@ ion-searchbar{
 }
 .searchbar-search-icon.sc-ion-searchbar-md{
   top: 15px !important;
+}
+.select-custom-alert .alert-button{
+  color: var(--ion-color-secondary) !important;
+  font-weight: 500;
+}
+ion-modal.bottom-sheet::part(content) {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  overflow: hidden;
 }

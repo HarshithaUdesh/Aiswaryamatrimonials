@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { ServicesService } from '../../services/services.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-subscription',
@@ -16,9 +17,13 @@ export class SubscriptionPage implements OnInit {
   subshistorylist:any;
   selectedOption = 'subscription';
 
-  constructor(public router: Router, public service: ServicesService, public toastCtrl: ToastController, public loadingCtrl: LoadingController) { }
+  constructor(public location : Location,public router: Router, public service: ServicesService, public toastCtrl: ToastController, public loadingCtrl: LoadingController) { }
 
   ngOnInit() {
+  }
+
+  backoption(){
+    this.location.back();
   }
 
   ionViewDidEnter() {

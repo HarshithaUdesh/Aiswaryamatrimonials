@@ -1,6 +1,13 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>My Profile</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-row>
+      <ion-col size="2" style="text-align: left;" (click)="backoption()">
+        <ion-icon name="arrow-back" style="font-size: 30px;padding-left: 10px;"></ion-icon>
+      </ion-col>
+      <ion-col size="10">
+        <ion-title style="padding-top: 6px;">My Profile</ion-title>
+      </ion-col>
+    </ion-row>
   </ion-toolbar>
 </ion-header>
 
@@ -21,7 +28,7 @@
     </div>
   </div>
   <div class="upload-header">
-    <ion-button  fill="outline" size="small">
+    <ion-button  fill="outline" size="small" color="secondary">
       <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
       Upload More Photos
       <input type="file" class="file-input" (change)="onImageSelected($event)" accept="image/*" multiple>
@@ -34,44 +41,6 @@
       <ion-icon name="close-circle" class="delete-icon" (click)="removeImage(i)"></ion-icon>
     </div>
   </div>
-  
-
-  <!-- <ion-list lines="none" >
-    <div class="updatepicture">Update picture</div>
-
-    <ion-card *ngFor="let item of myplanlist" class="cardstyle">
-      <ion-card-content style="border-bottom: 1px solid;">
-        <ion-row>
-          <ion-col size="6">
-            <div class="contectheader">Schema Name</div>
-            <div class="contentvalue">{{item.SchemaName}}</div>
-          </ion-col>
-          <ion-col size="6">
-            <div class="contectheader">Profiles Available</div>
-            <div class="contentvalue">{{item.PlanBalance}}</div>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="6">
-            <div class="contectheader">Viewed</div>
-            <div class="contentvalue">{{item.TotalProfilesViewed}}</div>
-          </ion-col>
-          <ion-col size="6">
-            <div class="contectheader">Plan Balance</div>
-            <div class="contentvalue">{{item.PlanBalance}}</div>
-          </ion-col>
-        </ion-row>
-      </ion-card-content>
-      <ion-row style="margin-top: 10px;" (click)="subscriptionHistoryPage()">
-        <ion-col size="10">
-          <div class="contectheader" style="text-align: left;">View Subscription history</div>
-        </ion-col>
-        <ion-col size="2" style="text-align: right;">
-          <ion-icon name="chevron-forward" style="font-size: 25px;color: #595959;"></ion-icon>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-  </ion-list> -->
 
   <ion-segment color="primary" [(ngModel)]="selectedOption" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="about">
@@ -803,7 +772,12 @@
             <ion-label position="stacked">Date of Birth*</ion-label>
             <div class="dob-fields">
               <ion-input placeholder="Day" [(ngModel)]="day" type="number"></ion-input>
-              <ion-select [(ngModel)]="month" placeholder="Month">
+              <ion-select 
+                [(ngModel)]="month" 
+                placeholder="Month"
+                [interfaceOptions]="selectmonth"
+                interface="alert"
+                >
                 <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option>
               </ion-select>
               <ion-input [(ngModel)]="year" placeholder="Year" type="number"></ion-input>
@@ -815,7 +789,12 @@
             <div class="dob-fields">
               <ion-input [(ngModel)]="hour"  placeholder="HH" type="number"></ion-input>
               <ion-input [(ngModel)]="minute" placeholder="MM" type="number"></ion-input>
-              <ion-select placeholder="AM/PM" [(ngModel)]="amPm">
+              <ion-select 
+                placeholder="AM/PM" 
+                [(ngModel)]="amPm"
+                [interfaceOptions]="selectampm"
+                interface="alert"
+                >
                 <ion-select-option value="AM">AM</ion-select-option>
                 <ion-select-option value="PM">PM</ion-select-option>
               </ion-select>
@@ -868,6 +847,8 @@
               placeholder="Select"
               class="custom"
               style="color: black"
+              [interfaceOptions]="selectmartial"
+              interface="alert"
             >
               <ion-select-option *ngFor="let c of martialOptions" [value]="c.value" style="--background: #ca2323;">
                 {{ c.label }}
@@ -887,6 +868,8 @@
               placeholder="Select"
               class="custom"
               style="color: black"
+              [interfaceOptions]="selectcommunity"
+              interface="alert"
               (ionChange)="castchange($event,'castuser')"
             >
               <ion-select-option *ngFor="let c of casteOptions"  [value]="c.casteId" style="--background: #ca2323;">
@@ -905,7 +888,8 @@
               placeholder="Select"
               class="custom"
               style="color: black"
-              
+              [interfaceOptions]="selectsubcast"
+              interface="alert"
             >
               <ion-select-option *ngFor="let c of subcasteOptions" [value]="c.subCasteId" style="--background: #ca2323;">
                 {{ c.subCasteName }}
@@ -923,6 +907,8 @@
               placeholder="Select"
               class="custom"
               style="color: black"
+              [interfaceOptions]="selectgender"
+              interface="alert"
             >
               <ion-select-option *ngFor="let c of genderOptions" [value]="c.GenderType" style="--background: #ca2323;">
                 {{ c.GenderType}}
@@ -954,6 +940,8 @@
               placeholder="Select"
               class="custom"
               style="color: black"
+              [interfaceOptions]="selectmanglik"
+              interface="alert"
             >
               <ion-select-option *ngFor="let c of mangalikaoptions" [value]="c.StatusID" style="--background: #ca2323;">
                 {{ c.StatusType}}
@@ -965,7 +953,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" color="primary" (click)="updateProfiledata(1)">Save</ion-button>
+        <ion-button expand="block" color="secondary" (click)="updateProfiledata(1)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -1012,6 +1000,8 @@
               placeholder="Select"
               class="custom"
               style="color: black"
+              [interfaceOptions]="selectstate"
+              interface="alert"
               (ionChange)="onStateChange($event.detail.value)"
             >
               <ion-select-option *ngFor="let c of stateOptions" [value]="c.Id" style="--background: #ca2323;">
@@ -1032,7 +1022,8 @@
               placeholder="Select"
               class="custom"
               style="color: black"
-           
+              [interfaceOptions]="selectcity"
+              interface="alert"
             >
               <ion-select-option *ngFor="let c of districtOptions" [value]="c.Id" style="--background: #ca2323;">
                 {{ c.Name }}
@@ -1050,7 +1041,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" color="primary" (click)="updateProfiledata(2)">Save</ion-button>
+        <ion-button expand="block" color="secondary" (click)="updateProfiledata(2)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -1100,7 +1091,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" (click)="updateProfiledata(3)">Save</ion-button>
+        <ion-button expand="block" color="secondary" (click)="updateProfiledata(3)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -1170,7 +1161,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" (click)="updateProfiledata(4)">Save</ion-button>
+        <ion-button expand="block" color="secondary" (click)="updateProfiledata(4)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -1206,6 +1197,8 @@
               placeholder="Select"
               class="custom"
               style="color: black"
+              [interfaceOptions]="selectsmoke"
+              interface="alert"
             >
               <ion-select-option *ngFor="let c of smoking" [value]="c.StatusID" style="--background: #ca2323;">
                 {{ c.StatusType}}
@@ -1223,6 +1216,8 @@
               placeholder="Select"
               class="custom"
               style="color: black"
+              [interfaceOptions]="selectdrink"
+              interface="alert"
             >
               <ion-select-option *ngFor="let c of drinking" [value]="c.StatusID" style="--background: #ca2323;">
                 {{ c.StatusType}}
@@ -1249,7 +1244,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" (click)="updateProfiledata(5)">Save</ion-button>
+        <ion-button expand="block" color="secondary" (click)="updateProfiledata(5)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -1301,6 +1296,8 @@
               placeholder="Select"
               class="custom"
               style="color: black"
+              [interfaceOptions]="selectfamily"
+              interface="alert"
             >
               <ion-select-option *ngFor="let c of familyTypeOption" [value]="c.familyType" style="--background: #ca2323;">
                 {{ c.familyType}}
@@ -1308,10 +1305,6 @@
             </ion-select>
           </ion-item>
   
-          <!-- <ion-item class="custom-item">
-            <ion-label position="stacked">Famaly Values</ion-label>
-            <ion-input [(ngModel)]="profiledataedit.FamilyValues"></ion-input>
-          </ion-item> -->
           <ion-item lines="none" class="custom-item">
             <ion-label position="stacked">
               Family Values
@@ -1322,6 +1315,8 @@
               placeholder="Select"
               class="custom"
               style="color: black"
+              [interfaceOptions]="selectfamilyval"
+              interface="alert"
             >
               <ion-select-option *ngFor="let c of familyValuesOption" [value]="c.familyType" style="--background: #ca2323;">
                 {{ c.familyType}}
@@ -1332,7 +1327,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" (click)="updateProfiledata(6)">Save</ion-button>
+        <ion-button expand="block" color="secondary" (click)="updateProfiledata(6)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>
@@ -1365,13 +1360,24 @@
            </ion-item>
          
           <ion-item class="custom-item">
-            <ion-select [(ngModel)]="profiledataedit.PreferredCasteCommunityId" placeholder="Preferred CasteCommunity*" (ionChange)="castchange($event,'castpref')">
+            <ion-select 
+              [(ngModel)]="profiledataedit.PreferredCasteCommunityId" 
+              placeholder="Preferred Caste/Community*" 
+              (ionChange)="castchange($event,'castpref')"
+              [interfaceOptions]="selectprefercaste"
+              interface="alert"
+              >
               <ion-select-option *ngFor="let c of casteOptions"[value]="c.casteId">{{c.casteName}}</ion-select-option>
             </ion-select>
           </ion-item>
   
           <ion-item class="custom-item">
-            <ion-select [(ngModel)]="profiledataedit.PreferredSubCasteId" placeholder="Preferred SubCaste">
+            <ion-select 
+              [(ngModel)]="profiledataedit.PreferredSubCasteId" 
+              placeholder="Preferred SubCaste"
+              [interfaceOptions]="selectprefersubcaste"
+              interface="alert"
+              >
               <ion-select-option *ngFor="let c of subcasteprefOptions" [value]="c.subCasteId">  {{ c.subCasteName }}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -1392,14 +1398,25 @@
           </ion-item>
 
           <ion-item class="custom-item">
-            <ion-select [(ngModel)]="profiledataedit.PreferredStateID" placeholder="Prefered State*" (ionChange)="onstatepref($event.detail.value)" >
+            <ion-select 
+              [(ngModel)]="profiledataedit.PreferredStateID" 
+              placeholder="Prefered State*" 
+              (ionChange)="onstatepref($event.detail.value)" 
+              [interfaceOptions]="selectpreferstate"
+              interface="alert"
+              >
               <ion-select-option *ngFor="let c of stateOptions"[value]="c.Id">{{ c.Name }}</ion-select-option>
             </ion-select>
           </ion-item>
 
 
           <ion-item class="custom-item">
-            <ion-select [(ngModel)]="profiledataedit.PreferredCity" placeholder="Prefered City*">
+            <ion-select 
+              [(ngModel)]="profiledataedit.PreferredCity" 
+              placeholder="Prefered City*"
+              [interfaceOptions]="selectprefercity"
+              interface="alert"
+              >
               <ion-select-option *ngFor="let c of prefcityOptions" [value]="c.Id" >{{ c.Name }}</ion-select-option>
             </ion-select>
           </ion-item>
@@ -1411,7 +1428,7 @@
       </ion-content>
   
       <ion-footer class="modal-footer">
-        <ion-button expand="block" (click)="updateProfiledata(7)">Save</ion-button>
+        <ion-button expand="block" color="secondary" (click)="updateProfiledata(7)">Save</ion-button>
       </ion-footer>
     </ng-template>
   </ion-modal>

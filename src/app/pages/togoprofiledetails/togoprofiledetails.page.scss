@@ -6,7 +6,6 @@
   .top-icons {
     position: absolute;
     top: 20px;
-    left: 16px;
     right: 16px;
     display: flex;
     justify-content: space-between;
@@ -74,7 +73,7 @@
       }
 
       h2 {
-        font-size: 20px;
+        font-size: 16px;
         margin: 0;
         font-weight: bold;
       }
@@ -116,7 +115,7 @@
         }
   
         h2 {
-          font-size: 20px;
+          font-size: 16px;
           margin: 0;
           font-weight: bold;
         }
@@ -150,8 +149,8 @@ ion-segment-button::part(native) {
   text-transform: none;
 }
 .headerstyle{
-  color: #42B7B1;
-  font-size: 18px;
+  color: var(--ion-color-primary);
+  font-size: 16px;
   font-weight: 600;
   margin-left: 10px;
 }
@@ -162,7 +161,7 @@ ion-segment-button::part(native) {
 }
 .personaldetailsheader{
   color: #000;
-  font-size: 17px;
+  font-size: 14px;
 }
 .personaldetailsvalue{
   color: #595959;

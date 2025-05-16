@@ -3,6 +3,7 @@ import { LoadingController, ToastController } from '@ionic/angular';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { ServicesService } from '../../services/services.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -53,7 +54,77 @@ familyTypeOption:any[] =[];
 familyValuesOption:any[] =[];
 subcasteprefOptions:any[] =[];
 prefcityOptions:any[] =[];
-  constructor(private sanitizer: DomSanitizer,public router: Router, public service: ServicesService, public toastCtrl: ToastController, public loadingCtrl: LoadingController) { }
+
+selectmonth = {
+  header: 'Select Month',
+  cssClass: 'select-custom-alert'
+};
+selectampm = {
+  header: 'Select Month',
+  cssClass: 'select-custom-alert'
+};
+selectmartial = {
+  header: 'Select Martial Status',
+  cssClass: 'select-custom-alert'
+};
+selectcommunity = {
+  header: 'Select Cast/Community',
+  cssClass: 'select-custom-alert'
+};
+selectsubcast = {
+  header: 'Select Sub Cast',
+  cssClass: 'select-custom-alert'
+};
+selectgender = {
+  header: 'Select Gender',
+  cssClass: 'select-custom-alert'
+};
+selectmanglik = {
+  header: 'Select Manglik Status',
+  cssClass: 'select-custom-alert'
+};
+selectstate = {
+  header: 'Select State',
+  cssClass: 'select-custom-alert'
+};
+selectcity = {
+  header: 'Select City',
+  cssClass: 'select-custom-alert'
+};
+selectsmoke = {
+  header: 'Do You Smoke ?',
+  cssClass: 'select-custom-alert'
+};
+selectdrink = {
+  header: 'Do You Drink ?',
+  cssClass: 'select-custom-alert'
+};
+selectfamily = {
+  header: 'Select Family Type',
+  cssClass: 'select-custom-alert'
+};
+selectfamilyval = {
+  header: 'Select Family Value',
+  cssClass: 'select-custom-alert'
+};
+selectprefercaste = {
+  header: 'Preferred Caste/Community',
+  cssClass: 'select-custom-alert'
+};
+selectprefersubcaste = {
+  header: 'Preferred Sub Caste/Community',
+  cssClass: 'select-custom-alert'
+};
+selectpreferstate = {
+  header: 'Preferred State',
+  cssClass: 'select-custom-alert'
+};
+selectprefercity = {
+  header: 'Preferred City',
+  cssClass: 'select-custom-alert'
+};
+
+  constructor(public location : Location,private sanitizer: DomSanitizer,public router: Router, public service: ServicesService, public toastCtrl: ToastController, public loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     this.martialOptions = [
@@ -144,6 +215,10 @@ this.openPreferenceModal=false;
     this.getAllState()
     this.getProfilePercentageData();
     
+  }
+
+  backoption(){
+    this.location.back();
   }
 
   async getProfilePercentageData() {

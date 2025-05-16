@@ -43,6 +43,27 @@ export class HomePage implements OnInit {
   profiles: any[] = []
   bannerlist:any[] = [];
 
+  selectpartner = {
+    header: 'Select Partner',
+    cssClass: 'select-custom-alert'
+  };
+  selectLocation = {
+    header: 'Select Location',
+    cssClass: 'select-custom-alert'
+  };
+  selectCaste = {
+    header: 'Select Caste',
+    cssClass: 'select-custom-alert'
+  };
+  selectminage = {
+    header: 'Select Min Age',
+    cssClass: 'select-custom-alert'
+  };
+  selectmaxage = {
+    header: 'Select Max Age',
+    cssClass: 'select-custom-alert'
+  };
+
   constructor(public platform: Platform,public router: Router, public service: ServicesService, public toastCtrl: ToastController,public loadingCtrl: LoadingController) {
     this.userid = localStorage.getItem('userid');
 

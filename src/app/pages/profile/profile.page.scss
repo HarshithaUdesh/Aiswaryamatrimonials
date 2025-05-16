@@ -91,10 +91,10 @@ ion-segment-button.segment-button-checked {
 }
 
 .headerstyle{
-    color: #42B7B1;
-    font-size: 18px;
-    font-weight: 600;
-    margin-left: 10px;
+  color: var(--ion-color-primary);
+  font-size: 16px;
+  font-weight: 600;
+  margin-left: 10px;
 }
 .personaldetailscard{
     border-radius: 10px;
@@ -104,7 +104,7 @@ ion-segment-button.segment-button-checked {
 }
 .personaldetailsheader{
     color: #000;
-    font-size: 17px;
+    font-size: 14px;
 }
 .personaldetailsvalue{
     color: #595959;
@@ -148,7 +148,7 @@ ion-segment-button.segment-button-checked {
   .modal-header {
     --background: #f50a68;
     color: #fff;
-    text-align: center;
+    text-align: left;
   }
   
   .modal-content {
