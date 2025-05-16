@@ -2,7 +2,7 @@ ion-header{
     box-shadow:none !important;
 }
 .cardheader{
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     text-align: center;
     color: var(--ion-color-primary);
@@ -33,13 +33,13 @@ ion-header{
 }
 .mypancontectheader{
     color: #1e2023;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 600;
     padding-top: 5px;
 }
 .mypancontentvalue{
-    color: red;
-    font-size: 17px;
+    color: var(--ion-color-secondary);
+    font-size: 16px;
     font-weight: 500;
     padding: 8px 12px;
 }

@@ -1,42 +1,4 @@
-<ion-header class="profile-header" *ngIf="userDetails">
-  <div class="top-icons" >
-    <ion-icon name="arrow-back-outline" class="icon-btn back-btn" (click)="gotoback()"></ion-icon>
-    <div class="right-icons">
-      <div class="image-count">
-        <ion-icon name="image-outline"></ion-icon>
-        <span>{{imageCount}}</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="profile-banner-wrapper">
-    <img *ngIf="!hasMultipleImages()" [src]="userDetails.Profile_Image" class="banner-img" style="height: 330px;" />
-    <swiper-container *ngIf="hasMultipleImages()" [loop]="true" autoplay-delay="1000">
-      <swiper-slide *ngFor="let img of parsedBase64Images" >
-        <img [src]="img" alt="Wedding Banner"  class="thumb-img"/>
-       </swiper-slide>
-    </swiper-container>
-
-  <div *ngIf="!hasMultipleImages()" class="profile-info-containersingle">
-    <img [src]="userDetails.Profile_Image" class="profile-img" />
-    <div class="profile-text">
-      <h2>{{userDetails.FullName}}, {{userDetails.Age}} years</h2>
-      
-      <p class="managed-by">{{userDetails.Occupation}}</p>
-    </div>
-  </div>
-  <div *ngIf="hasMultipleImages()" class="profile-info-container">
-    <img [src]="userDetails.Profile_Image" class="profile-img" />
-    <div class="profile-text">
-      <h2>{{userDetails.FullName}}, {{userDetails.Age}} years</h2>
-      
-      <p class="managed-by">{{userDetails.Occupation}}</p>
-    </div>
-  </div>
-
-</div>
-</ion-header>
-<ion-header  *ngIf="this.nodatafound== true">
+<ion-header>
   <ion-toolbar color="primary">
     <ion-row>
       <ion-col size="2" style="text-align: left;" (click)="backoption()">
@@ -48,7 +10,44 @@
     </ion-row>
   </ion-toolbar>
 </ion-header>
+
 <ion-content *ngIf="userDetails">
+  <div class="profile-header" *ngIf="userDetails">
+    <div class="top-icons" >
+      <div class="right-icons">
+        <div class="image-count">
+          <ion-icon name="image-outline"></ion-icon>
+          <span>{{imageCount}}</span>
+        </div>
+      </div>
+    </div>
+  
+    <div class="profile-banner-wrapper">
+      <img *ngIf="!hasMultipleImages()" [src]="userDetails.Profile_Image" class="banner-img" style="height: 330px;" />
+      <swiper-container *ngIf="hasMultipleImages()" [loop]="true" autoplay-delay="1000">
+        <swiper-slide *ngFor="let img of parsedBase64Images" >
+          <img [src]="img" alt="Wedding Banner"  class="thumb-img"/>
+         </swiper-slide>
+      </swiper-container>
+  
+      <div *ngIf="!hasMultipleImages()" class="profile-info-containersingle">
+        <img [src]="userDetails.Profile_Image" class="profile-img" />
+        <div class="profile-text">
+          <h2>{{userDetails.FullName}}, {{userDetails.Age}} years</h2>
+          
+          <p class="managed-by">{{userDetails.Occupation}}</p>
+        </div>
+      </div>
+      <div *ngIf="hasMultipleImages()" class="profile-info-container">
+        <img [src]="userDetails.Profile_Image" class="profile-img" />
+        <div class="profile-text">
+          <h2>{{userDetails.FullName}}, {{userDetails.Age}} years</h2>
+          
+          <p class="managed-by">{{userDetails.Occupation}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
   <ion-segment [(ngModel)]="selectedOption" (ionChange)="segmentChanged($event)">
     <ion-segment-button value="about">
       <ion-label>About</ion-label>
@@ -743,10 +742,10 @@
 </div>
 
 <ion-footer style="padding: 0;" *ngIf="Action != undefined">
-  <ion-button expand="block" style="--border-radius: 10px; height: 50px;" *ngIf="Action == '0'"   (click)="sendrequest('1')">
+  <ion-button expand="block" style="height: 45px;" color="secondary" *ngIf="Action == '0'"   (click)="sendrequest('1')">
     Send Interest
   </ion-button>
-  <ion-button expand="block" style="--border-radius: 10px; height: 50px;" *ngIf="Action == '1'"   (click)="sendrequest('0')">
+  <ion-button expand="block" style="height: 45px;" color="secondary" *ngIf="Action == '1'"   (click)="sendrequest('0')">
     Cancel Interest
   </ion-button>
 </ion-footer>

@@ -10,11 +10,11 @@
           </ion-buttons>
         </ion-col>
         <ion-col size="8" style="margin: auto;">
-          <div style="color: #E94057;font-size: 20px;">Aishwarya Matrimonial</div>
+          <div style="color: #E94057;font-size: 18px;">Aishwarya Matrimonial</div>
         </ion-col>
         <ion-col size="2" style="margin: auto;">
          
-            <ion-icon  (click)="togotnotifications()"   style="display: flex;font-size: 30px;color: #E94057;" name="notifications-outline"></ion-icon>
+            <ion-icon  (click)="togotnotifications()"   style="display: flex;font-size: 30px;color: var(--ion-color-secondary);" name="notifications-outline"></ion-icon>
       
         </ion-col>
       
@@ -35,8 +35,8 @@
             <div style="position: relative; width: 100%; height: 250px;">
               <img [src]="slide" alt="Wedding Banner" style="width: 100%; height: 100%; border-radius: 10px; object-fit: cover;" />
               <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-                          color: white; font-size: 18px; text-align: center; font-weight: bold; text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">
-                Trusted Matrimony & <br/><span style="color: var(--ion-color-secondary);"> Matchmaking Service</span>
+                          color: white; font-size: 16px; text-align: center; font-weight: bold; text-shadow: 1px 1px 4px rgba(0,0,0,0.6);">
+                Trusted Matrimony <br/> & <br/><span style="color: var(--ion-color-secondary);"> Matchmaking Service</span>
               </div>
             </div>
           </swiper-slide>
@@ -49,7 +49,7 @@
 
   
     <div class="filter-container">
-      <ion-button fill="outline" size="small" color="primary" (click)="handleModel()">
+      <ion-button fill="outline" size="small" color="secondary" (click)="handleModel()">
         <ion-icon name="funnel-outline"></ion-icon>
         Filter
       </ion-button>
@@ -228,7 +228,7 @@
               <div (click)="togodetailspage(viwers)" class="meta">{{ viwers.Religion }} • {{ viwers.CasteOrCommunity }}</div>
               <div (click)="togodetailspage(viwers)" class="profession">{{ viwers.Occupation }}</div>
               <div (click)="togodetailspage(viwers)" class="profession">Interest Received : {{ viwers.CreatedDate | date : "dd.MM.y" }}</div>
-              <div class="horizontal-actions"  style=" border: 1px solid var(--ion-color-secondary);border-radius: 5px" *ngIf="viwers.IsInterestSent == 1" >
+              <div class="horizontal-actions"  style="border-radius: 5px" *ngIf="viwers.IsInterestSent == 1" >
                 <ion-label class="action-labelrejected" style="font-size: 18px;margin-bottom: 2px;color:var(--ion-color-primary);">Interest Sent</ion-label>
               </div>
                <div class="horizontal-actions"   *ngIf="viwers.UserInterestStatus != 'Connencted Now'">
@@ -270,7 +270,7 @@
         "></ion-icon>
           </div>
           
-        <h2><strong style="color: black;">I'm Looking For a</strong></h2>
+        <h2><strong style="color: var(--ion-color-primary);">I'm Looking For a</strong></h2>
        
       
         <ion-item lines="none">
@@ -281,6 +281,8 @@
             placeholder="Select"
             class="custom custom-border"
             style="color: black"
+            [interfaceOptions]="selectpartner"
+            interface="alert"
           >
             <ion-select-option *ngFor="let p of partnerOptions" [value]="p.partnerName" style="--background: #ca2323;" class="custom" >
               {{ p.partnerName }}
@@ -298,6 +300,8 @@
     placeholder="Select"
     class="custom custom-border"
     style="color: black"
+    [interfaceOptions]="selectLocation"
+    interface="alert"
    
   >
     <ion-select-option *ngFor="let l of locationOptions" [value]="l.Id" style="--background: #ca2323;">
@@ -317,6 +321,8 @@
     placeholder="Select"
     class="custom custom-border"
     style="color: black"
+    [interfaceOptions]="selectCaste"
+    interface="alert"
   >
     <ion-select-option *ngFor="let c of casteOptions" [value]="c.casteOrCommunity" style="--background: #ca2323;">
       {{ c.casteOrCommunity }}
@@ -329,14 +335,28 @@
   <ion-label position="stacked" style="color: black;font-size: 18px;margin-top: 10px;">Age Between</ion-label>
   <ion-row style="width: 100%;">
     <ion-col size="6" style="width:50%">
-      <ion-select placeholder="Min Age"   style="color: black" class="custom custom-border" [(ngModel)]="filter.MinAge">
+      <ion-select 
+        placeholder="Min Age"   
+        style="color: black" 
+        class="custom custom-border" 
+        [(ngModel)]="filter.MinAge"
+        [interfaceOptions]="selectminage"
+        interface="alert"
+        >
         <ion-select-option *ngFor="let age of minAgeList" [value]="age">
           {{ age }}
         </ion-select-option>
       </ion-select>
     </ion-col>
     <ion-col size="6" style="width:50%">
-      <ion-select placeholder="Max Age" style="color: black;font-size: 18px;margin-top: 10px;"  style="color: black" class="custom custom-border" [(ngModel)]="filter.MaxAge">
+      <ion-select 
+        placeholder="Max Age" 
+        style="color: black;font-size: 18px;margin-top: 10px;"
+        class="custom custom-border" 
+        [(ngModel)]="filter.MaxAge"
+        [interfaceOptions]="selectmaxage"
+        interface="alert"
+        >
         <ion-select-option *ngFor="let age of maxAgeList" [value]="age">
           {{ age }}
         </ion-select-option>
@@ -345,7 +365,7 @@
   </ion-row>
 </ion-item>
 
-<ion-button expand="block" class="login-button" (click)="applyFilters()">Apply Filters</ion-button>
+        <ion-button expand="block" class="login-button" (click)="applyFilters()">Apply Filters</ion-button>
         <ion-button expand="block" class="reset-button"   (click)="resetFilters()">Reset Filters</ion-button>
       </div>
       </ion-content>

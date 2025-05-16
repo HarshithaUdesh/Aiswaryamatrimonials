@@ -7,75 +7,42 @@
         <ion-menu-toggle>
           <ion-row class="menurowstyle" style="border-bottom: 1px solid #edececbf;">
             <ion-col size="12" style="text-align: center;margin: auto;">
-              <div style="font-size: 20px;font-weight: 500;padding: 15px;">Welcome to</div>
-              <div style="font-size: 22px;font-weight: 600;margin-bottom: 10px;">{{currentUsername}}</div>
+              <div style="font-size: 18px;font-weight: 500;padding: 15px;">Welcome to</div>
+              <div style="font-size: 20px;font-weight: 600;margin-bottom: 10px;">{{currentUsername}}</div>
             </ion-col>
           </ion-row>
 
           <ion-row class="menurowstyle" (click)="openmydashboard()">
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="people-circle" style="font-size: 30px;color: #fff;"></ion-icon>
+              <ion-icon name="people-circle-outline" style="font-size: 30px;color: #fff;"></ion-icon>
             </ion-col>
             <ion-col size="8" style="margin: auto;">
-              <div style="font-size: 18px;color: #fff;font-weight: 500;">My Dashboard</div>
+              <div style="font-size: 16px;color: #fff;font-weight: 500;">My Dashboard</div>
             </ion-col>
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="chevron-forward" style="font-size: 25px;color: #fff;"></ion-icon>
+              <ion-icon name="chevron-forward" style="font-size: 20px;color: #fff;"></ion-icon>
             </ion-col>
           </ion-row>
           <ion-row class="menurowstyle" (click)="openProfilePage()">
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="people-circle" style="font-size: 30px;color: #fff;"></ion-icon>
+              <ion-icon name="people-circle-outline" style="font-size: 30px;color: #fff;"></ion-icon>
             </ion-col>
             <ion-col size="8" style="margin: auto;">
-              <div style="font-size: 18px;color: #fff;font-weight: 500;">My Profile</div>
+              <div style="font-size: 16px;color: #fff;font-weight: 500;">My Profile</div>
             </ion-col>
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="chevron-forward" style="font-size: 25px;color: #fff;"></ion-icon>
+              <ion-icon name="chevron-forward" style="font-size: 20px;color: #fff;"></ion-icon>
             </ion-col>
           </ion-row>
-          <!-- <ion-row class="menurowstyle">
-            <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="people-circle" style="font-size: 30px;color: #fff;"></ion-icon>
-            </ion-col>
-            <ion-col size="8" style="margin: auto;">
-              <div style="font-size: 18px;color: #fff;font-weight: 500;">Sent Request</div>
-            </ion-col>
-            <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="chevron-forward" style="font-size: 25px;color: #fff;"></ion-icon>
-            </ion-col>
-          </ion-row>
-          <ion-row class="menurowstyle">
-            <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="people-circle" style="font-size: 30px;color: #fff;"></ion-icon>
-            </ion-col>
-            <ion-col size="8" style="margin: auto;">
-              <div style="font-size: 18px;color: #fff;font-weight: 500;">Shortlisted Profile</div>
-            </ion-col>
-            <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="chevron-forward" style="font-size: 25px;color: #fff;"></ion-icon>
-            </ion-col>
-          </ion-row>
-          <ion-row class="menurowstyle" style="border-bottom: 1px solid #edececbf;">
-            <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="people-circle" style="font-size: 30px;color: #fff;"></ion-icon>
-            </ion-col>
-            <ion-col size="8" style="margin: auto;">
-              <div style="font-size: 18px;color: #fff;font-weight: 500;">Blocked Profile</div>
-            </ion-col>
-            <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="chevron-forward" style="font-size: 25px;color: #fff;"></ion-icon>
-            </ion-col>
-          </ion-row> -->
           <ion-row class="menurowstyle" (click)="openPrivacyPage()">
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="shield-checkmark" style="font-size: 30px;color: #fff;"></ion-icon>
+              <ion-icon name="shield-checkmark-outline" style="font-size: 30px;color: #fff;"></ion-icon>
             </ion-col>
             <ion-col size="8" style="margin: auto;">
-              <div style="font-size: 18px;color: #fff;font-weight: 500;">Privacy Policy</div>
+              <div style="font-size: 16px;color: #fff;font-weight: 500;">Privacy Policy</div>
             </ion-col>
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="chevron-forward" style="font-size: 25px;color: #fff;"></ion-icon>
+              <ion-icon name="chevron-forward" style="font-size: 20px;color: #fff;"></ion-icon>
             </ion-col>
           </ion-row>
           <ion-row class="menurowstyle" (click)="openTermsPage()">
@@ -83,10 +50,10 @@
               <ion-icon name="newspaper-outline" style="font-size: 30px;color: #fff;"></ion-icon>
             </ion-col>
             <ion-col size="8" style="margin: auto;">
-              <div style="font-size: 18px;color: #fff;font-weight: 500;">Terms & Conditions</div>
+              <div style="font-size: 16px;color: #fff;font-weight: 500;">Terms & Conditions</div>
             </ion-col>
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="chevron-forward" style="font-size: 25px;color: #fff;"></ion-icon>
+              <ion-icon name="chevron-forward" style="font-size: 20px;color: #fff;"></ion-icon>
             </ion-col>
           </ion-row>
           <ion-row class="menurowstyle" (click)="openAboutPage()">
@@ -94,10 +61,10 @@
               <ion-icon name="people-outline" style="font-size: 30px;color: #fff;"></ion-icon>
             </ion-col>
             <ion-col size="8" style="margin: auto;">
-              <div style="font-size: 18px;color: #fff;font-weight: 500;">About Us</div>
+              <div style="font-size: 16px;color: #fff;font-weight: 500;">About Us</div>
             </ion-col>
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="chevron-forward" style="font-size: 25px;color: #fff;"></ion-icon>
+              <ion-icon name="chevron-forward" style="font-size: 20px;color: #fff;"></ion-icon>
             </ion-col>
           </ion-row>
           <ion-row class="menurowstyle" style="border-bottom: 1px solid #edececbf;" (click)="openContactPage()">
@@ -105,32 +72,32 @@
               <ion-icon name="call-outline" style="font-size: 30px;color: #fff;"></ion-icon>
             </ion-col>
             <ion-col size="8" style="margin: auto;">
-              <div style="font-size: 18px;color: #fff;font-weight: 500;">Contact Us</div>
+              <div style="font-size: 16px;color: #fff;font-weight: 500;">Contact Us</div>
             </ion-col>
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="chevron-forward" style="font-size: 25px;color: #fff;"></ion-icon>
+              <ion-icon name="chevron-forward" style="font-size: 20px;color: #fff;"></ion-icon>
             </ion-col>
           </ion-row>
           <ion-row class="menurowstyle" (click)="deleteAccount()">
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <img src="assets/imgs/log_out.png" style="margin-top: 8px;"/>
+              <img src="assets/imgs/log_out.png" style="margin-top: 8px;height: 35px;"/>
             </ion-col>
             <ion-col size="8" style="margin: auto;">
-              <div style="font-size: 18px;color: #fff;font-weight: 500;">Delete Account</div>
+              <div style="font-size: 16px;color: #fff;font-weight: 500;">Delete Account</div>
             </ion-col>
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="chevron-forward" style="font-size: 25px;color: #fff;"></ion-icon>
+              <ion-icon name="chevron-forward" style="font-size: 20px;color: #fff;"></ion-icon>
             </ion-col>
           </ion-row>
           <ion-row class="menurowstyle" (click)="logout()">
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <img src="assets/imgs/log_out.png" style="margin-top: 8px;"/>
+              <img src="assets/imgs/log_out.png" style="margin-top: 8px;height: 35px;"/>
             </ion-col>
             <ion-col size="8" style="margin: auto;">
-              <div style="font-size: 18px;color: #fff;font-weight: 500;">Sign Out</div>
+              <div style="font-size: 16px;color: #fff;font-weight: 500;">Sign Out</div>
             </ion-col>
             <ion-col size="2" style="text-align: center;margin: auto;">
-              <ion-icon name="chevron-forward" style="font-size: 25px;color: #fff;"></ion-icon>
+              <ion-icon name="chevron-forward" style="font-size: 20px;color: #fff;"></ion-icon>
             </ion-col>
           </ion-row>
       </ion-menu-toggle>

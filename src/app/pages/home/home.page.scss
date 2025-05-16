@@ -85,8 +85,7 @@ h2{
   }
 
   .login-button {
-    --background: var(--ion-color-primary);
-    --border-radius: 10px;
+    --background: var(--ion-color-secondary);
     margin-top: 26px;
     margin-left: 12px;
     padding-right: 12px;
@@ -94,8 +93,7 @@ h2{
   
   }
   .reset-button{
-    --background: var(--ion-color-secondary);
-    --border-radius: 10px;
+    //--background: var(--ion-color-secondary);
     margin-top: 26px;
     margin-left: 12px;
     padding-right: 12px;
@@ -176,7 +174,7 @@ ion-select.custom {
       background: linear-gradient(to top, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2), transparent);
   
       .nameoftheuser {
-        font-size: 19px;
+        font-size: 16px;
         margin: 0 0 4px;
         color: white;
         font-weight: 600;
